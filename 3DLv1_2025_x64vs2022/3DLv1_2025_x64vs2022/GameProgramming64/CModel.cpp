@@ -26,7 +26,7 @@ void CModel::Load(const char* obj, const char* mtl)
 {
 	//頂点データの保存（CVector型）
 	std::vector<CVector> vertex;
-	
+	std::vector<CVector> normal;
 
 	//ファイルポインタ変数の生成
 	FILE* fp;
@@ -79,13 +79,15 @@ void CModel::Load(const char* obj, const char* mtl)
 		//strcmp(文字列1, 文字列2)
 		//文字列1と文字列2が同じ時0、異なる時0以外を返す
 		//先頭がvの時、頂点をvertexに追加する
-		if (strcmp(str[0], "v") == 0) {
+		if (strcmp(str[0], "v") == 0) 
+		{
 			//可変長配列vertexに追加
 			//atof(文字列)　文字列からfloat型の値を返す
 			vertex.push_back(CVector(atof(str[1]), atof(str[2]), atof(str[3])));
 		}
 		//先頭がfの時、三角形を作成して追加する
-		else if (strcmp(str[0], "f") == 0) {
+		else if (strcmp(str[0], "f") == 0) 
+		{
 			//頂点と法線の番号作成
 			int v[3], n[3];
 			//頂点と法線の番号取得
@@ -95,10 +97,23 @@ void CModel::Load(const char* obj, const char* mtl)
 			//三角形作成
 			CTriangle t;
 			t.Vertex(vertex[v[0] - 1], vertex[v[1] - 1], vertex[v[2] - 1]);
+			//
+			t.Normal(normal[n[0] - 1], normal[n[1] - 1], normal[n[2] - 1]);
+			
 			//可変長配列mTrianglesに三角形を追加
 			mTriangles.push_back(t);
 		}
 
+
+		//先頭がvnの時、頂点をnormalに追加する
+		if (strcmp(str[0], "vn") == 0)
+		{
+			//可変長配列normalに追加
+			//atof(文字列)　文字列からfloat型の値を返す
+			normal.push_back(CVector(atof(str[1]), atof(str[2]), atof(str[3])));
+		}
+
+		
 	}
 	
 	
