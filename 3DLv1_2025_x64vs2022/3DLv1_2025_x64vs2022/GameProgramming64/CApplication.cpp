@@ -10,7 +10,8 @@
 #define SOUND_OVER "res\\mdai.wav" //ゲームオーバー音声ファイル
 //モデルファイルの指定
 #define MODEL_OBJ "res\\obj.obj","res\\obj.mtl"
-
+//背景モデルの指定
+#define MODEL_BACKGROUND "res\\sky.obj","res\\sky.mtl"
 CCharacterManager CApplication::mCharacterManager;
 CTexture CApplication::mTexture;
 
@@ -30,6 +31,8 @@ void CApplication::Start()
 
 	//モデルファイルの入力
 	mModel.Load(MODEL_OBJ);
+
+	mBackGround.Load(MODEL_BACKGROUND);
 }
 
 void CApplication::Update()
@@ -76,7 +79,7 @@ void CApplication::Update()
 
 
 	mModel.Render();
-
+	mBackGround.Render();
 	//描画完了
 	//glEnd();
 }

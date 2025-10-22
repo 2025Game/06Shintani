@@ -20,6 +20,8 @@ public:
 	int MaterialIdx();
 	//マテリアル番号の設定
 	void MaterialIdx(int idx);
+	//UV設定
+	void UV(const CVector& v0, const CVector& v1, const CVector& v2);
 
 	//描画
 	void Render();
@@ -27,5 +29,7 @@ private:
 	CVector mV[3];//頂点座標
 	CVector mN[3];//法線
 	int mMaterialIdx;//マテリアル番号
+	CVector mUv[3];//テクスチャマッピング
+
 };
 #endif
