@@ -9,7 +9,7 @@
 #define SOUND_BGM "res\\mario.wav" //BGM音声ファイル
 #define SOUND_OVER "res\\mdai.wav" //ゲームオーバー音声ファイル
 //モデルファイルの指定
-#define MODEL_OBJ "res\\obj.obj","res\\obj.mtl"
+#define MODEL_OBJ "res\\f14.obj","res\\f14.mtl"
 //背景モデルの指定
 #define MODEL_BACKGROUND "res\\sky.obj","res\\sky.mtl"
 CCharacterManager CApplication::mCharacterManager;
@@ -33,6 +33,10 @@ void CApplication::Start()
 	mModel.Load(MODEL_OBJ);
 
 	mBackGround.Load(MODEL_BACKGROUND);
+
+	CMatrix matrix;
+	matrix.Print();
+
 }
 
 void CApplication::Update()
