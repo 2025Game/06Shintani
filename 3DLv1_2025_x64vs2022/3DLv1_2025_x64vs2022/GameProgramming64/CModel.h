@@ -29,6 +29,9 @@ public:
 	~CModel();
 
 	void Render();
+	//•`‰æ
+	//Render
+	void Render(const CMatrix &m);
 };
 
 #endif 

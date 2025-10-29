@@ -22,6 +22,9 @@ public:
 	void MaterialIdx(int idx);
 	//UVİ’è
 	void UV(const CVector& v0, const CVector& v1, const CVector& v2);
+	//•`‰æ
+	//Render(s—ñ)
+	void Render(const CMatrix& m);
 
 	//•`‰æ
 	void Render();
