@@ -11,6 +11,8 @@
 #include "CVector.h"
 #include"CModel.h"
 #include"CMatrix.h"
+#include"CTransform.h"
+#include"CCharacter3.h"
 
 class CApplication
 {
@@ -47,4 +49,6 @@ private:
 	//モデルクラスのインスタンス作成
 	CModel mModel;
 	CModel mBackGround;//背景モデル
+	CCharacter3 mCharacter;
+	CCharacter3 mPlayer;
 };
