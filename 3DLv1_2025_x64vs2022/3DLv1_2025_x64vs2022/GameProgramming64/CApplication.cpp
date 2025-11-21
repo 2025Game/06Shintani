@@ -105,8 +105,10 @@ void CApplication::Update()
 
 	mPlayer.Render();
 
-
+	mPlayer.bullet.Update();
+	mPlayer.bullet.Render();
 	mBackGround.Render();
+	
 	//•`‰æŠ®—¹
 	//glEnd();
 }
