@@ -25,6 +25,11 @@ CCharacterManager* CApplication::CharacterManager()
 	return &mCharacterManager;
 }
 
+CTaskManager CApplication::mTaskManager;
+CTaskManager* CApplication::TaskManager()
+{
+	return&mTaskManager;
+}
 void CApplication::Start()
 {
 	mEye = CVector(1.0f, 2.0f, 3.0f);
@@ -105,8 +110,12 @@ void CApplication::Update()
 
 	mPlayer.Render();
 
-	mPlayer.bullet.Update();
-	mPlayer.bullet.Render();
+	//mPlayer.bullet.Update();
+	//mPlayer.bullet.Render();
+	//タスクマネージャーの更新
+	mTaskManager.Update();
+	//タスクマネージャーの描画
+	mTaskManager.Render();
 	mBackGround.Render();
 	
 	//描画完了

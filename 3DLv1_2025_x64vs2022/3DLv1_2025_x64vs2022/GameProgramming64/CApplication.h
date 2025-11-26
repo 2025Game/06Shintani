@@ -13,12 +13,14 @@
 #include"CMatrix.h"
 #include"CTransform.h"
 #include"CCharacter3.h"
+#include"CTaskManager.h"
 
 class CApplication
 {
 public:
 	static CTexture* Texture();
 	static CCharacterManager* CharacterManager();
+	static CTaskManager* TaskManager();
 	enum class EState
 	{
 		ESTART,	//ƒQ[ƒ€ŠJn
@@ -51,5 +53,6 @@ private:
 	CModel mBackGround;//”wŒiƒ‚ƒfƒ‹
 	//CCharacter3 mCharacter;
 	CPlayer mPlayer;
+	static CTaskManager mTaskManager;
 	
 };
