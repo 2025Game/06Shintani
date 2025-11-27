@@ -17,7 +17,7 @@ public:
 	CPlayer(){}
 	//CPlayer(位置、回転、スケール)
 	CPlayer(const CVector& pos, const CVector& rot, const CVector& scale);
-	CBullet bullet;
+	//CBullet bullet;
 	//更新処理
 	void Update();
 private:
