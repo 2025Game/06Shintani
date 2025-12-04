@@ -74,4 +74,19 @@ void CTaskManager::Render()
 		//次へ
 		task = task->mpNext;
 	}
+	
+}
+//タスクマネージャーのインスタンス
+CTaskManager* CTaskManager::mpInstance = nullptr;
+
+//インスタンスの取得
+CTaskManager* CTaskManager::Instance()
+{
+	//インスタンスがなければ
+	if (mpInstance == nullptr)
+	{
+		//インスタンスを生成する
+		mpInstance = new CTaskManager();
+	}
+	return mpInstance;
 }

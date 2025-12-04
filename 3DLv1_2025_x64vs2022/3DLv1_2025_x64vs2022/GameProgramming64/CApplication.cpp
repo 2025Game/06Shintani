@@ -28,11 +28,7 @@ CCharacterManager* CApplication::CharacterManager()
 	return &mCharacterManager;
 }
 
-CTaskManager CApplication::mTaskManager;
-CTaskManager* CApplication::TaskManager()
-{
-	return&mTaskManager;
-}
+
 void CApplication::Start()
 {
 	mEye = CVector(1.0f, 2.0f, 3.0f);
@@ -62,7 +58,7 @@ void CApplication::Start()
 void CApplication::Update()
 {
 	//タスクマネージャーの更新
-	mTaskManager.Update();
+	CTaskManager::Instance()->Update();
 
 	if (mInput.Key('J'))
 	{
@@ -125,11 +121,11 @@ void CApplication::Update()
 	//mPlayer.bullet.Render();
 	
 	//タスクリストの削除
-	mTaskManager.Delete();
+		CTaskManager::Instance()->Delete();
 	//タスクマネージャーの描画
-	mTaskManager.Render();
+		CTaskManager::Instance()->Render();
 	mBackGround.Render();
-	
+	CCollisionManager::Instance()->Render();
 	//描画完了
 	//glEnd();
 }
