@@ -197,7 +197,7 @@
     <ClInclude Include="CTaskManager.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="CColliderh.h">
+    <ClInclude Include="CCollider.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="CCollisionManager.h">

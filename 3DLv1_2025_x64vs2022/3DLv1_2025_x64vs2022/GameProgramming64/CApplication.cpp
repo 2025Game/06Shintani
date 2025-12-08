@@ -124,6 +124,8 @@ void CApplication::Update()
 		CTaskManager::Instance()->Delete();
 	//タスクマネージャーの描画
 		CTaskManager::Instance()->Render();
+		//コリジョンマネージャーの衝突処理
+		CCollisionManager::Instance()->Collision();
 	mBackGround.Render();
 	CCollisionManager::Instance()->Render();
 	//描画完了

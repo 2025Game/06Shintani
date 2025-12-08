@@ -57,7 +57,7 @@
     <ClInclude Include="CCharacter.h" />
     <ClInclude Include="CCharacter3.h" />
     <ClInclude Include="CCharacterManager.h" />
-    <ClInclude Include="CColliderh.h" />
+    <ClInclude Include="CCollider.h" />
     <ClInclude Include="CCollisionManager.h" />
     <ClInclude Include="CEnemy.h" />
     <ClInclude Include="CEnemy2.h" />

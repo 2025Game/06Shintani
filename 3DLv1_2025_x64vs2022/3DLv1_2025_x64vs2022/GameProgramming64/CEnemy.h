@@ -3,7 +3,7 @@
 #define CENEMY_H
 //キャラクタクラスのインクルード
 #include "CCharacter3.h"
-#include"CColliderh.h"
+#include"CCollider.h"
 /*
 エネミークラス
 キャラクタクラスを継承
@@ -18,7 +18,9 @@ public:
 	CEnemy(CModel* model, const CVector& position, const CVector& rotation, const CVector& scale);
 	//更新処理
 	void Update();
-	//確認用メソッド 削除予定
+	//衝突処理
+	//Collision(コライダ１,コライダ２)
+	void Collision(CCollider* m, CCollider* o);
 	
 private:
 	//コライダ
