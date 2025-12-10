@@ -15,7 +15,7 @@
 #include"CCharacter3.h"
 #include"CTaskManager.h"
 #include"CCollisionManager.h"
-
+#include"CBillBoard.h"
 class CApplication
 {
 public:
@@ -34,6 +34,9 @@ public:
 	void Start();
 	//繰り返し実行するプログラム
 	void Update();
+	
+	//モデルビュー行列の所得
+	static const CMatrix& ModelViewInverse();
 private:
 	CSound mSoundBgm;
 	CSound mSoundOver;
@@ -57,4 +60,7 @@ private:
 	
 	//C5モデル
 	CModel mModelC5;
+	//モデルビューの逆行列
+	static CMatrix mModelViewInverse;
+
 };
