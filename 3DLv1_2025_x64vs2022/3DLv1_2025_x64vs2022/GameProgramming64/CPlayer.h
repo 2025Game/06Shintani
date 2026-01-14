@@ -24,6 +24,9 @@ public:
 	CColliderLine mLine;//線分コライダ
 	CColliderLine mLine2;//線分コライダ2
 	CColliderLine mLine3;//線分コライダ3
+	//衝突処理
+	void Collision(CCollider* m, CCollider* o);
+		
 private:
 	CInput mInput;
 

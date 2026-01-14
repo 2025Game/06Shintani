@@ -137,11 +137,12 @@ void CApplication::Update()
 	
 	//タスクリストの削除
 		CTaskManager::Instance()->Delete();
+		mBackGround.Render();
 	//タスクマネージャーの描画
 		CTaskManager::Instance()->Render();
 		//コリジョンマネージャーの衝突処理
 		CCollisionManager::Instance()->Collision();
-	mBackGround.Render();
+	
 	CCollisionManager::Instance()->Render();
 	//描画完了
 	//glEnd();
