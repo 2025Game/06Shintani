@@ -263,6 +263,8 @@ void CModel::Render(const CMatrix& m)
 
 }
 
+
+
 CModel::~CModel()
 {
 	for (int i = 0;i < mpMaterials.size();i++)
@@ -297,4 +299,9 @@ void CModel::CreateVertexBuffer()
 			}
 		}
 	}
+}
+
+const std::vector<CTriangle>& CModel::Triangles() const
+{
+	return mTriangles;
 }

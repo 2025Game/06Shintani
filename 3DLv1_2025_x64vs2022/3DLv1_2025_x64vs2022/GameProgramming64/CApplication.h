@@ -17,6 +17,7 @@
 #include"CCollisionManager.h"
 #include"CBillBoard.h"
 #include"CColliderTriangle.h"
+#include"CColliderMesh.h"
 class CApplication
 {
 public:
@@ -63,6 +64,6 @@ private:
 	CModel mModelC5;
 	//モデルビューの逆行列
 	static CMatrix mModelViewInverse;
-	CColliderTriangle mColliderTriangle;
-	CColliderTriangle mColliderTriangle2;
+	//モデルからコライダを生成
+	CColliderMesh mColliderMesh;
 };

@@ -53,8 +53,11 @@ void CApplication::Start()
 	mPlayer.Position(CVector(0.0f, 0.0f, -3.0f));
 	mPlayer.Rotation(CVector(0.0f, 180.0f, 0.0f));
 	new CBillBoard(CVector(-6.0f, 3.0f, -10.0f), 1.0f, 1.0f);
+	//背景モデルから三角コライダを作成
+	//親インスタンスと親行列は無し
+	mColliderMesh.Set(nullptr, nullptr, &mBackGround);
 	//三角コライダの確認
-	mColliderTriangle.Set(nullptr, nullptr
+	/*mColliderTriangle.Set(nullptr, nullptr
 		, CVector(-50.0f, 0.0f, -50.0f)
 		, CVector(-50.0f, 0.0f, 50.0f)
 		, CVector(50.0f, 0.0f, -50.0f));
@@ -62,6 +65,7 @@ void CApplication::Start()
 		, CVector(50.0f, 0.0f, -50.0f)
 		, CVector(-50.0f, 0.0f, 50.0f)
 		, CVector(50.0f, 0.0f, 50.0f));
+	*/
 }
 
 void CApplication::Update()

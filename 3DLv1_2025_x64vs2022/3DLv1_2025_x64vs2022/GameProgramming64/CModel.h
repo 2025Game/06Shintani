@@ -33,6 +33,7 @@ public:
 	//•`‰æ
 	//Render
 	void Render(const CMatrix &m);
+	const std::vector<CTriangle>& Triangles() const;
 };
 
 #endif 
