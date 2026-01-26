@@ -172,11 +172,7 @@ bool CCollider::CollisionTriangleSphere(CCollider* triangle, CCollider* sphere, 
 	normal = (v1 - v0).Cross(v2 - v0).Normalize();
 		
 	//各コライダの中心座標を求める
-	//原点ｘコライダの変換行列ｘ親の変換行列
-	CVector mpos = sphere->mPosition * *sphere->mpMatrix;
-	CVector opos = sphere->mPosition * *sphere->mpMatrix;
-	//中心から中心へのベクトルを求める
-	mpos = mpos - opos;
+	
 	sv = sphere->Position() * *sphere->mpMatrix + normal * sphere->mRadius;
 	ev = sphere->Position() * *sphere->mpMatrix - normal * sphere->mRadius;
 
