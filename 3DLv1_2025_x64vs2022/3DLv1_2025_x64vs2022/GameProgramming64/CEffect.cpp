@@ -1,5 +1,6 @@
 #include "CEffect.h"
 CMaterial CEffect::sMaterial;//マテリアル、テクスチャ
+#define PRIORITY 100//優先度
 
 CEffect::CEffect(const CVector& pos, float w, float h, const char* texture, int row, int col, int fps)
 	:CBillBoard(pos, w, h), mRows(row), mCols(col),mFps(fps),mFrame(0)

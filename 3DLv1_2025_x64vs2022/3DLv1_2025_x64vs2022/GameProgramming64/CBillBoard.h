@@ -23,6 +23,8 @@ public:
 	//描画
 	void Render();
 	void Render(CMaterial* mpMaterial);
+	//CBillBoard(位置、幅、高さ、優先度)
+	CBillBoard(CVector pos, float w, float h, int priority);
 protected:
 	//三角形２つ
 	CTriangle mT[2];

@@ -26,6 +26,8 @@ public:
 	CCharacter3();
 	//衝突処理
 	virtual void Collision(CCollider *m,CCollider *o){}
+	//コンストラクタ
+	CCharacter3(int priority);
 protected:
 	CModel* mpModel;//モデルのポインタ
 };
