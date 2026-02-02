@@ -28,6 +28,8 @@ public:
 	void Delete();
 	//インスタンスの取得
 	static CTaskManager* Instance();
+	//衝突処理
+	void Collision();
 protected:
 	CTask mHead;//先頭タスク
 	CTask mTail;//最終タスク

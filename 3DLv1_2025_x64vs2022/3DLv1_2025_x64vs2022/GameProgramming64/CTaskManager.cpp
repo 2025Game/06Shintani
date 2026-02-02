@@ -78,13 +78,13 @@ void CTaskManager::Update()
 //•`‰æ
 void CTaskManager::Render()
 {
-	//æ“ª‚©‚çÅŒã‚Ü‚ÅŒJ‚è•Ô‚µ
+	//ÅŒã‚©‚çæ“ª‚Ü‚ÅŒJ‚è•Ô‚µ
 	CTask* task = mTail.mpPrev;
 	while (task->mpPrev)
 	{
 		//•`‰æˆ—‚ðŒÄ‚Ô
 		task->Render();
-		//ŽŸ‚Ö
+		//‘O‚Ö
 		task = task->mpPrev;
 	}
 	
@@ -102,4 +102,17 @@ CTaskManager* CTaskManager::Instance()
 		mpInstance = new CTaskManager();
 	}
 	return mpInstance;
+}
+//Õ“Ëˆ—
+void CTaskManager::Collision()
+{
+	//æ“ª‚©‚çÅŒã‚Ü‚ÅŒJ‚è•Ô‚µ
+	CTask* task = mHead.mpNext;
+	while (task->mpNext)
+	{
+		//Õ“Ëˆ—‚ðŒÄ‚Ô
+		task->Collision();
+		//ŽŸ‚Ö
+		task = task->mpNext;
+	}
 }

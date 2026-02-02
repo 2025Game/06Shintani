@@ -6,6 +6,7 @@
 //三角形クラスのインクルード
 #include "CTriangle.h"
 #include"CCollider.h"
+#include"CCollisionManager.h"
 /*
 弾クラス
 三角形を飛ばす
@@ -25,7 +26,7 @@ public:
 	//衝突処理
 	//Collision(コライダ１,コライダ２)
 	void Collision(CCollider* m, CCollider* o);
-
+	void Collision();
 	private:
 		//三角形
 		CTriangle mT;

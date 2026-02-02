@@ -180,3 +180,19 @@ bool CCollider::CollisionTriangleSphere(CCollider* triangle, CCollider* sphere, 
 	//三角形と線分の衝突判定を行う
 	return FuncCollisionTriangleLine(v0, v1, v2, normal, sv, ev, adjust);
 }
+
+void CCollider::ChangePriority(int priority)
+{
+	mPriority = priority;
+	CCollisionManager::Instance()->Remove(this);//いったん削除
+	CCollisionManager::Instance()->Add(this);//追加
+}
+
+void CCollider::ChangePriority()
+{
+	//自分の座標×親の変換行列を掛けてワールド座標を決める
+	CVector pos = mPosition * *mpMatrix;
+	//ベクトルの長さが優先度
+	CCollider::ChangePriority(pos.Length());
+}
+

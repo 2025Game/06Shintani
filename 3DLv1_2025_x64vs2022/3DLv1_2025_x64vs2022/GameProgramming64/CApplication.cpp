@@ -144,9 +144,8 @@ void CApplication::Update()
 		mBackGround.Render();
 	//タスクマネージャーの描画
 		CTaskManager::Instance()->Render();
-		//コリジョンマネージャーの衝突処理
-		CCollisionManager::Instance()->Collision();
-	
+		//タスクマネージャーの衝突処理
+		CTaskManager::Instance()->Collision();
 	CCollisionManager::Instance()->Render();
 	//描画完了
 	//glEnd();

@@ -26,7 +26,7 @@ public:
 	CColliderLine mLine3;//ü•ªƒRƒ‰ƒCƒ_3
 	//Õ“Ëˆ—
 	void Collision(CCollider* m, CCollider* o);
-		
+	void Collision();
 private:
 	CInput mInput;
 
