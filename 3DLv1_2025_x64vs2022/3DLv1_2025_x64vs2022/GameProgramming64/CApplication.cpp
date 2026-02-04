@@ -31,6 +31,7 @@ CCharacterManager* CApplication::CharacterManager()
 
 void CApplication::Start()
 {
+	spUi = new CUi();//インスタンスのポインタを返す
 	mEye = CVector(1.0f, 2.0f, 3.0f);
 
 	//モデルファイルの入力
@@ -149,6 +150,7 @@ void CApplication::Update()
 	CCollisionManager::Instance()->Render();
 	//描画完了
 	//glEnd();
+	spUi->Render();//Uiの描画
 }
 
 CMatrix CApplication::mModelViewInverse;
@@ -159,3 +161,14 @@ const CMatrix& CApplication::ModelViewInverse()
 	return mModelViewInverse;
 }
 
+CUi* CApplication::spUi = nullptr;
+
+CUi* CApplication::Ui()
+{
+	return spUi;//インスタンスのポインタを返す
+}
+
+CApplication::~CApplication()
+{
+	delete spUi;//インスタンスUiを削除
+}
