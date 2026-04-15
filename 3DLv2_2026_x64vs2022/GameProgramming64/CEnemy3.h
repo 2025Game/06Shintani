@@ -28,6 +28,7 @@ private:
 	static CModel sModel;
 	//コライダ
 	CCollider mCollider;
+	int mHp;//ヒットポイント
 
 };
 #endif // ! CENEMY3_H
