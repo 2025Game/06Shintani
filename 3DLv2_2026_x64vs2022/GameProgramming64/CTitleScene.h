@@ -21,4 +21,4 @@ public:
 private:
 	CFont mFont;//フォントクラスのインスタンス
 };
-#endif // !CTITLESCENE_H
+#endif // CTITLESCENE_H
