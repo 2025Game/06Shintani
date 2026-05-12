@@ -13,6 +13,7 @@ void CApplication3::Start()
 	//タイトルシーンのインスタンスを作成
 	mpScene = std::make_unique < CGameScene > ();
 	mpScene->Load();//タイトルシーンのロード
+	
 }
 void CApplication3::Update()
 {

@@ -31,16 +31,19 @@
     <Filter Include="ソース ファイル\BaseSystem\Task">
       <UniqueIdentifier>{a86735ad-8346-4163-822b-97be461b8b0f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Game">
-      <UniqueIdentifier>{19faa363-9eb2-492d-a242-c3ffbe51c1cd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Game\Scene">
-      <UniqueIdentifier>{1d886b2d-8927-4d31-8fdd-00724761cc82}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\BaseSystem\Object\Character\Model">
       <UniqueIdentifier>{70324034-88d4-4386-a5b2-5f95caa63a90}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Game\Character">
+    <Filter Include="ソース ファイル\BaseSystem\Collider">
+      <UniqueIdentifier>{3e94bd75-b6a7-4b08-a7a0-eea29a2e9fae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\BaseSystem\Game">
+      <UniqueIdentifier>{19faa363-9eb2-492d-a242-c3ffbe51c1cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\BaseSystem\Game\Scene">
+      <UniqueIdentifier>{1d886b2d-8927-4d31-8fdd-00724761cc82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\BaseSystem\Game\Character">
       <UniqueIdentifier>{2b77d28c-084f-4fa7-a566-b2ad1dc1ead9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -117,21 +120,6 @@
     <ClCompile Include="CPlayer2.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="CCollider.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="CColliderLine.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="CColliderMesh.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="CColliderTriangle.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="CCollisionManager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="CEnemy3.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -139,10 +127,10 @@
       <Filter>ソース ファイル\BaseSystem\Scene</Filter>
     </ClCompile>
     <ClCompile Include="CTitleScene.cpp">
-      <Filter>ソース ファイル\Game\Scene</Filter>
+      <Filter>ソース ファイル\BaseSystem\Game\Scene</Filter>
     </ClCompile>
     <ClCompile Include="CApplication3.cpp">
-      <Filter>ソース ファイル\Game\Scene</Filter>
+      <Filter>ソース ファイル\BaseSystem\Game\Scene</Filter>
     </ClCompile>
     <ClCompile Include="CMaterial.cpp">
       <Filter>ソース ファイル\BaseSystem\Object\Character\Model</Filter>
@@ -157,7 +145,7 @@
       <Filter>ソース ファイル\BaseSystem\Object\Character</Filter>
     </ClCompile>
     <ClCompile Include="CGameScene.cpp">
-      <Filter>ソース ファイル\Game\Scene</Filter>
+      <Filter>ソース ファイル\BaseSystem\Game\Scene</Filter>
     </ClCompile>
     <ClCompile Include="CTaskManager.cpp">
       <Filter>ソース ファイル\BaseSystem\Task</Filter>
@@ -181,7 +169,22 @@
       <Filter>ソース ファイル\BaseSystem\Object\Character</Filter>
     </ClCompile>
     <ClCompile Include="CXPlayer.cpp">
-      <Filter>ソース ファイル\Game\Character</Filter>
+      <Filter>ソース ファイル\BaseSystem\Game\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="CCollider.cpp">
+      <Filter>ソース ファイル\BaseSystem\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="CColliderLine.cpp">
+      <Filter>ソース ファイル\BaseSystem\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="CColliderMesh.cpp">
+      <Filter>ソース ファイル\BaseSystem\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="CColliderTriangle.cpp">
+      <Filter>ソース ファイル\BaseSystem\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="CCollisionManager.cpp">
+      <Filter>ソース ファイル\BaseSystem\Collider</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -248,9 +251,6 @@
     <ClInclude Include="CTransform.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="CCollisionManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="CBillBoard.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
@@ -263,18 +263,6 @@
     <ClInclude Include="CPlayer2.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="CCollider.h">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="CColliderLine.h">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="CColliderMesh.h">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="CColliderTriangle.h">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="CEnemy3.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
@@ -285,10 +273,10 @@
       <Filter>ソース ファイル\BaseSystem\Scene</Filter>
     </ClInclude>
     <ClInclude Include="CTitleScene.h">
-      <Filter>ソース ファイル\Game\Scene</Filter>
+      <Filter>ソース ファイル\BaseSystem\Game\Scene</Filter>
     </ClInclude>
     <ClInclude Include="CApplication3.h">
-      <Filter>ソース ファイル\Game\Scene</Filter>
+      <Filter>ソース ファイル\BaseSystem\Game\Scene</Filter>
     </ClInclude>
     <ClInclude Include="CMaterial.h">
       <Filter>ソース ファイル\BaseSystem\Object\Character\Model</Filter>
@@ -306,7 +294,7 @@
       <Filter>ソース ファイル\BaseSystem\Object\Character</Filter>
     </ClInclude>
     <ClInclude Include="CGameScene.h">
-      <Filter>ソース ファイル\Game\Scene</Filter>
+      <Filter>ソース ファイル\BaseSystem\Game\Scene</Filter>
     </ClInclude>
     <ClInclude Include="CTask.h">
       <Filter>ソース ファイル\BaseSystem\Task</Filter>
@@ -333,7 +321,22 @@
       <Filter>ソース ファイル\BaseSystem\Object\Character</Filter>
     </ClInclude>
     <ClInclude Include="CXPlayer.h">
-      <Filter>ソース ファイル\Game\Character</Filter>
+      <Filter>ソース ファイル\BaseSystem\Game\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="CCollider.h">
+      <Filter>ソース ファイル\BaseSystem\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="CColliderLine.h">
+      <Filter>ソース ファイル\BaseSystem\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="CColliderMesh.h">
+      <Filter>ソース ファイル\BaseSystem\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="CColliderTriangle.h">
+      <Filter>ソース ファイル\BaseSystem\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="CCollisionManager.h">
+      <Filter>ソース ファイル\BaseSystem\Collider</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
