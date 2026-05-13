@@ -5,6 +5,8 @@
 #include "CXCharacter.h"
 #include"CColliderLine.h"
 #include"CCollisionManager.h"
+#include"CPlayerIdle.h"
+#include"CState.h"
 
 class CXPlayer :public CXCharacter
 {
@@ -18,5 +20,9 @@ public:
 	void Collision();
 private:
 	CColliderLine mColliderLine;
+	EState mState;//ó‘Ô‚Ì•Û
+	CState* mpState;//ó‘Ô‘Ò‹@
+	std::unique_ptr<CPlayerIdle> mpIdle;//‘Ò‹@ó‘Ô
+
 };
 #endif // !CXPLAYER_E

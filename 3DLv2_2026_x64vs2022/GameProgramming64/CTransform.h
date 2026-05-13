@@ -9,6 +9,8 @@ class CTransform {
 public:
 	//位置の取得
 	const CVector& Position() const;
+	//回転の取得
+	const CVector& Rotation() const;
 	//位置の設定
 	//Position(位置)
 	void Position(const CVector& v);
@@ -22,6 +24,7 @@ public:
 	const CMatrix& Matrix() const;
 	//回転行列の取得
 	const CMatrix& MatrixRotate() const;
+	
 	//行列更新処理
 	void Update();
 	//Update(位置, 回転, スケール)

@@ -5,10 +5,20 @@ CXPlayer::CXPlayer()
 	:mColliderLine(this, &mMatrix, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 3.5f, 0.0f))
 {
 	mPosition = mPosition + CVector(1.0f, 0.0f, 0.0f);
+	//待機状態の作成
+	mpIdle = std::make_unique<CPlayerIdle>();
+	//最初は待機状態
+	//get()は、unique_ptrが保持しているポインタを取得する関数
+	mpState = mpIdle.get();
+	mpState->Start(this);
+	mState = mpState->State();
 }
 
 void CXPlayer::Update()
 {
+	//状態の更新
+	mpState->Update();
+
 	//GRAVITYの大きさだけ、下方向へ移動させる
 	mPosition = mPosition - CVector(0.0f, GRAVITY, 0.0f);
 	//親クラスの更新

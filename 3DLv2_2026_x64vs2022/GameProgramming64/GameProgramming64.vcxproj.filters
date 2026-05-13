@@ -46,6 +46,9 @@
     <Filter Include="ソース ファイル\BaseSystem\Game\Character">
       <UniqueIdentifier>{2b77d28c-084f-4fa7-a566-b2ad1dc1ead9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\BaseSystem\Game\Character\Player">
+      <UniqueIdentifier>{39418b29-a967-4862-b725-dc38315430f8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp">
@@ -168,9 +171,6 @@
     <ClCompile Include="CXCharacter.cpp">
       <Filter>ソース ファイル\BaseSystem\Object\Character</Filter>
     </ClCompile>
-    <ClCompile Include="CXPlayer.cpp">
-      <Filter>ソース ファイル\BaseSystem\Game\Character</Filter>
-    </ClCompile>
     <ClCompile Include="CCollider.cpp">
       <Filter>ソース ファイル\BaseSystem\Collider</Filter>
     </ClCompile>
@@ -185,6 +185,12 @@
     </ClCompile>
     <ClCompile Include="CCollisionManager.cpp">
       <Filter>ソース ファイル\BaseSystem\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="CXPlayer.cpp">
+      <Filter>ソース ファイル\BaseSystem\Game\Character\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerIdle.cpp">
+      <Filter>ソース ファイル\BaseSystem\Game\Character\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -320,9 +326,6 @@
     <ClInclude Include="CXCharacter.h">
       <Filter>ソース ファイル\BaseSystem\Object\Character</Filter>
     </ClInclude>
-    <ClInclude Include="CXPlayer.h">
-      <Filter>ソース ファイル\BaseSystem\Game\Character</Filter>
-    </ClInclude>
     <ClInclude Include="CCollider.h">
       <Filter>ソース ファイル\BaseSystem\Collider</Filter>
     </ClInclude>
@@ -337,6 +340,15 @@
     </ClInclude>
     <ClInclude Include="CCollisionManager.h">
       <Filter>ソース ファイル\BaseSystem\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="CXPlayer.h">
+      <Filter>ソース ファイル\BaseSystem\Game\Character\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerIdle.h">
+      <Filter>ソース ファイル\BaseSystem\Game\Character\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CState.h">
+      <Filter>ソース ファイル\BaseSystem\Game\Character</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
