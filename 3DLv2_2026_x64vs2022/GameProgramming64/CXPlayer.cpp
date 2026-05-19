@@ -63,7 +63,7 @@ void CXPlayer::Collision(CCollider* m, CCollider* o)
 				//位置の更新(mPosition + adjust)
 				mPosition = mPosition + adjust;
 				//行列の更新
-				CTransform;; Update();
+				CTransform:: Update();
 			}
 		}
 		break;
