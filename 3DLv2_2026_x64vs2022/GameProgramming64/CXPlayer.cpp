@@ -14,6 +14,8 @@ CXPlayer::CXPlayer()
 	mState = mpState->State();
 	//•à‚­ó‘Ô‚Ìì¬
 	mpWalk = std::make_unique<CPlayerWalk>();
+	//UŒ‚ó‘Ô‚Ìì¬
+	mpAttack = std::make_unique<CPlayerAttack>();
 }
 
 void CXPlayer::Update()
@@ -30,10 +32,14 @@ void CXPlayer::Update()
 		case EState::EIDLE:
 		    mpState = mpIdle.get();
 		    break;
-		case
+		    case
 		EState::EWALK:
 		    mpState = mpWalk.get();
 		    break;
+			case
+			EState::EATTACK:
+			mpState = mpAttack.get();
+			break;
 		default:
 			break;
 

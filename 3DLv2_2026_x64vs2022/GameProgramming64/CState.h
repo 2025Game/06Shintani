@@ -10,6 +10,7 @@ enum class EState
 	ENONE,//ó‘Ô–³‚µ
 	EIDLE,//‘Ò‹@
 	EWALK,//•à‚«
+	EATTACK,//UŒ‚
 };
 
 class CState

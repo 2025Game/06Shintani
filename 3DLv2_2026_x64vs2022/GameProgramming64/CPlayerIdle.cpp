@@ -31,5 +31,9 @@ void CPlayerIdle::Update()
 		//Wキーが押されているときは歩く状態にする
 		mState = EState::EWALK;
 	}
-	
+	if (mInput.Key('I'))
+	{
+		//Iキーが押されているときは攻撃状態にする
+		mState = EState::EATTACK;
+	}
 }
