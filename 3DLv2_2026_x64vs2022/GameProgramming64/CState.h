@@ -11,6 +11,7 @@ enum class EState
 	EIDLE,//‘Ò‹@
 	EWALK,//•à‚«
 	EATTACK,//UŒ‚
+	EJUMP//ƒWƒƒƒ“ƒv
 };
 
 class CState
