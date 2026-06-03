@@ -24,7 +24,10 @@ public:
 	const CMatrix& Matrix() const;
 	//回転行列の取得
 	const CMatrix& MatrixRotate() const;
-	
+	CTransform();
+	const CMatrix& CombinedMatrix() const;
+
+
 	//行列更新処理
 	void Update();
 	//Update(位置, 回転, スケール)
@@ -37,6 +40,8 @@ protected: //子クラスはアクセス可能
 	CMatrix mMatrixRotate; //回転行列
 	CMatrix mMatrixScale; //拡大縮小行列
 	CMatrix mMatrix; //合成行列
+	CTransform* mpParent;//親へのポインタ
+	CMatrix mCombinedMatrix;//子への合成行列
 };
 
 #endif
