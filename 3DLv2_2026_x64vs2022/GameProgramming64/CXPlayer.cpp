@@ -1,5 +1,9 @@
 #include"CXPlayer.h"
 #define GRAVITY 0.0625f//重力
+#define _USE_MATH_DEFINES
+#include<math.h>
+//ラジアンを度数に変換するための定数
+const float RAD_TO_DEG = 180.0f / (float)M_PI;
 
 CXPlayer::CXPlayer()
 	:mColliderLine(this, &mMatrix, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 3.5f, 0.0f))
@@ -74,10 +78,21 @@ void CXPlayer::Collision(CCollider* m, CCollider* o)
 				//位置の更新
 				//現在のワールドでの位置
 				mPosition = (CVector() * mMatrix + adjust);
+				
 				if (o->Parent())
 				{
 					//親のローカル座標へ変換
 					mPosition = mPosition * o->Parent()->CombinedMatrix().Inverse();
+					//前方の位置を求める
+					CVector forward = (CVector(0.0f, 0.0f, 1.0f) * mMatrix + adjust);
+					//親のローカル座標へ変換
+					forward = forward * o->CombinedMatrix().Inverse();
+					//ローカルの座標の向きを求める
+					forward = forward - mPosition;
+					//Y軸の回転角度の度数
+					//atan2f(forward.X(), forward.Z())* RAD_TO_DEG;
+					mRotation =CVector(0.0f, atan2f(forward.X(), forward.Z()) * RAD_TO_DEG, 0.0f);
+
 				}
 				//親の設定
 				mpParent = o->Parent();
@@ -95,4 +110,5 @@ void CXPlayer::Collision()
 	mColliderLine.ChangePriority();
 	//衝突所折を実行
 	CCollisionManager::Instance()->Collision(&mColliderLine, COLLISIONRANGE);
+	
 }
