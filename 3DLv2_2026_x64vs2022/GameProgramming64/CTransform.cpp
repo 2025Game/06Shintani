@@ -41,6 +41,11 @@ const CMatrix& CTransform::CombinedMatrix() const
 	return mCombinedMatrix;
 }
 
+const CVector& CTransform::Scale() const
+{
+	return mScale;
+}
+
 const CVector& CTransform::Rotation()const
 {
 	return mRotation;

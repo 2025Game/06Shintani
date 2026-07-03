@@ -2,6 +2,7 @@
 #define GRAVITY 0.0625f//重力
 #define _USE_MATH_DEFINES
 #include<math.h>
+#include"CCamera.h"
 //ラジアンを度数に変換するための定数
 const float RAD_TO_DEG = 180.0f / (float)M_PI;
 
@@ -22,6 +23,8 @@ CXPlayer::CXPlayer()
 	mpAttack = std::make_unique<CPlayerAttack>();
 	//ジャンプ状態の作成
 	mpJump = std::make_unique<CPlayerJump>();
+	//カメラの親をプレイヤーにする
+	CCamera::Instance()->Parent(this);
 }
 
 void CXPlayer::Update()
@@ -58,6 +61,9 @@ void CXPlayer::Update()
 	mPosition = mPosition - CVector(0.0f, GRAVITY, 0.0f);
 	//親クラスの更新
 	CXCharacter::Update();
+	//カメラの位置をプレイヤーの少し上にする
+	CCamera::Instance()->Position(CVector(0.0f, 4.0f, 0.0f));
+	
 }
 
 void CXPlayer::Collision(CCollider* m, CCollider* o)

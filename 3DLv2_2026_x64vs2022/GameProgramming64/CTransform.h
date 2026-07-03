@@ -26,7 +26,8 @@ public:
 	const CMatrix& MatrixRotate() const;
 	CTransform();
 	const CMatrix& CombinedMatrix() const;
-
+	//Šgk‚Ìæ“¾
+	const CVector& Scale() const;
 
 	//s—ñXVˆ—
 	void Update();
