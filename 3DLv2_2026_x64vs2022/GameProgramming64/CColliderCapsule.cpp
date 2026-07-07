@@ -12,10 +12,10 @@ void CColliderCapsule::Set(CCharacter3* parent, const CMatrix* matrix, const CVe
 	mpMatrix = matrix;
 	mRadius = radius;
 	//内側の始点と終点を求める
-	CVector v10 = v1 - v0;
+	CVector v10 = v0 - v1;
 	CVector v10n = v10.Normalize();
 	CVector v10r = v10n * radius;
-	mSp = v0 + v10r;
+	mSp = v0 - v10r;
 	mEp = v1 + v10r;
 }
 
@@ -52,6 +52,13 @@ void CColliderCapsule::Render()
 	glPushMatrix();
 	CVector center;
 	center = mV[0];///-(v1-v0).Normalize()*mRadius;
+	glTranslatef(center.X(), center.Y(), center.Z());
+	//球描画
+	glutWireSphere(mRadius, 16, 16);
+	glPopMatrix();
+	//行列退避
+	glPushMatrix();
+	center = mV[1];// +(v1 - v0).Normalize() * mRadius;
 	glTranslatef(center.X(), center.Y(), center.Z());
 	//球描画
 	glutWireSphere(mRadius, 16, 16);
