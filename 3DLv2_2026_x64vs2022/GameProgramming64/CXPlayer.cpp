@@ -8,6 +8,7 @@ const float RAD_TO_DEG = 180.0f / (float)M_PI;
 
 CXPlayer::CXPlayer()
 	:mColliderLine(this, &mMatrix, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 3.5f, 0.0f))
+	,mColliderCapsule(this, &mMatrix, CVector(0.0f,3.5f,0.0f),CVector(0.0f,0.0f,0.0f),0.5f)
 {
 	mPosition = mPosition + CVector(1.0f, 0.0f, 0.0f);
 	//待機状態の作成
@@ -63,6 +64,8 @@ void CXPlayer::Update()
 	CXCharacter::Update();
 	//カメラの位置をプレイヤーの少し上にする
 	CCamera::Instance()->Position(CVector(0.0f, 4.0f, 0.0f));
+	//カプセルコライダの更新
+	mColliderCapsule.Update();
 	
 }
 
