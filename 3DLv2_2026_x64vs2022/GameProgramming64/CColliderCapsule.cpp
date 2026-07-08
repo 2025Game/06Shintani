@@ -47,7 +47,8 @@ void CColliderCapsule::Render()
 	float c[] = { 1.0f,0.0f,0.0f,0.4f };
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, c);
 	glColor4fv(c);
-
+	//s—ñ‘Ş”ğ
+	glPushMatrix();
 	//s—ñ‘Ş”ğ
 	glPushMatrix();
 	CVector center;
