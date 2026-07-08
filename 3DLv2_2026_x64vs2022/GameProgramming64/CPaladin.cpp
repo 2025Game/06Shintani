@@ -4,6 +4,7 @@
 
 CModelX CPaladin::msModel;
 
+
 CPaladin::CPaladin(const CVector& pos, const CVector& rot, const CVector& scale)
 	:mCollider(this,&mCombinedMatrix,CVector(0.0f,4.0f,0.0f),CVector(0.0f,0.0f,0.0f),0.5f)
 {
