@@ -54,6 +54,12 @@ public:
 	CCharacter3* Parent();
 	//描画
 	void Render();
+	//カプセルコライダとカプセルコライダの衝突処理
+	//static bool CollisionCapsuleCapsule(カプセル１、カプセル２、調整値)
+	//調整値:カプセル１が衝突しない位置まで移動する移動量
+	//戻り値:true衝突している false:衝突していない
+	static bool CollisionCapsuleCapsule(CCollider* m, CCollider* o, CVector* adjust);
+	
 protected:
 	EType mType;//コライダタイプ
 	//頂点

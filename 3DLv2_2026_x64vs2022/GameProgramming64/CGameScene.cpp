@@ -32,7 +32,7 @@ void CGameScene::Load()
 	character->Model(&mBackGround);
 	mColliderMesh.Set(nullptr, nullptr, &mBackGround);
 	//パラディンのインスタンスを生成
-	CXCharacter* paladin = new CPaladin(CVector(0.0f,1.0f,-4.0f));
+	CXCharacter* paladin = new CPaladin(CVector(0.0f,1.0f,-9.0f));
 	//立方体インスタンスの生成
 	CCharacter3* cube = new CCube;
 	cube->Position(CVector(0.0f, 0.0f, -9.0f));
