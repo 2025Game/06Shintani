@@ -59,7 +59,10 @@ public:
 	//調整値:カプセル１が衝突しない位置まで移動する移動量
 	//戻り値:true衝突している false:衝突していない
 	static bool CollisionCapsuleCapsule(CCollider* m, CCollider* o, CVector* adjust);
-	
+	static bool CollisionTriangleCapsule(
+		const CVector& t0, const CVector& t1, const CVector& t2,
+		const CVector& cs, const CVector& ce, float cr, CVector* adjust);
+	static bool CollisionTriangleCapsule(CCollider* triangle, CCollider* c, CVector* adjust);
 protected:
 	EType mType;//コライダタイプ
 	//頂点

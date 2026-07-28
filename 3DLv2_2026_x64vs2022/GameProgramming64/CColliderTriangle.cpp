@@ -28,6 +28,8 @@ void CColliderTriangle::Set(CCharacter3* parent, CMatrix* matrix
 	mV[2] = v2;
 }
 
+
+
 void CColliderTriangle::Render()
 {
 	//s—ñ‘Ş”ğ
