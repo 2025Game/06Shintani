@@ -8,7 +8,7 @@ const float RAD_TO_DEG = 180.0f / (float)M_PI;
 
 CXPlayer::CXPlayer()
 	:mColliderCapsule(this, &mMatrix, CVector(0.0f, 3.5f, 0.0f), CVector(0.0f, 0.0f, 0.0f), 0.5f)
-	//mColliderLine(this, &mMatrix, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 3.5f, 0.0f))
+	,mColliderSword(this,nullptr,CVector(),CVector(),0.1f)
 	
 {
 	mPosition = mPosition + CVector(1.0f, 0.0f, 0.0f);
@@ -67,6 +67,7 @@ void CXPlayer::Update()
 	CCamera::Instance()->Position(CVector(0.0f, 4.0f, 0.0f));
 	//カプセルコライダの更新
 	mColliderCapsule.Update();
+	mColliderSword.Update();
 	
 }
 
@@ -113,6 +114,12 @@ void CXPlayer::Collision(CCollider* m, CCollider* o)
 		}
 		break;*/
 	case CCollider::EType::ECAPSULE://カプセルコライダ
+
+		if (o == &mColliderCapsule || o == &mColliderSword)
+		{
+			//相手がプレイヤーのコライダの時は衝突処理を行わない
+			return;
+		}
 		//相手のコライダがカプセルコライダの時
 		if (o->Type() == CCollider::EType::ECAPSULE)
 		{
@@ -167,16 +174,38 @@ void CXPlayer::Collision(CCollider* m, CCollider* o)
 			}
 		}
 		//break;
+		
 	}
 }
 
 void CXPlayer::Collision()
 {
 	//コライダの優先度変更
-	//mColliderLine.ChangePriority();
 	mColliderCapsule.ChangePriority();
-	//衝突所折を実行
-	//CCollisionManager::Instance()->Collision(&mColliderLine, COLLISIONRANGE);
+	mColliderSword.ChangePriority();
+	//衝突処理を実行
 	CCollisionManager::Instance()->Collision(&mColliderCapsule, COLLISIONRANGE);
+	CCollisionManager::Instance()->Collision(&mColliderSword, COLLISIONRANGE);
 	
+}
+
+void CXPlayer::Init(CModelX* model)
+{
+	CXCharacter::Init(model);
+	//剣コライダの設定
+	mColliderSword.Set(this, &FrameCombinedMatrix("RightHand"), CVector(-15.0f, 0.0f, 20.0f), CVector(-15.0f, 0.0f, 70.0f), 0.1f);
+}
+
+const CMatrix& CXPlayer::FrameCombinedMatrix(const char* name)
+{
+	//フレーム名から行列を取得する
+	for (size_t i = 0; i < mpModel->Frames().size(); i++)
+	{
+		if (strcmp(mpModel->Frames()[i]->name(), name) == 0)
+		{
+			return mpModel->Frames()[i]->CombinedMatrix();
+		}
+	}
+	static CMatrix dummy;//ダミーの行列
+	return dummy;
 }

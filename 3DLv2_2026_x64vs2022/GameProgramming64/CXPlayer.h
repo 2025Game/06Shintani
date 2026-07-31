@@ -22,6 +22,10 @@ public:
 	void Collision(CCollider* m, CCollider* o);
 	//衝突処理
 	void Collision();
+	
+	const CMatrix& FrameCombinedMatrix(const char* name);
+
+	void Init(CModelX* model);
 private:
 	CColliderLine mColliderLine;
 	EState mState;//状態の保持
@@ -30,7 +34,8 @@ private:
 	std::unique_ptr<CPlayerWalk> mpWalk;//歩く状態
 	std::unique_ptr<CPlayerAttack> mpAttack;//攻撃状態
 	std::unique_ptr<CPlayerJump> mpJump;//ジャンプ状態
-	CColliderCapsule mColliderCapsule;
+	CColliderCapsule mColliderCapsule;//カプセルコライダ
+	CColliderCapsule mColliderSword;//カプセルコライダ
 
 };
 #endif // !CXPLAYER_E
