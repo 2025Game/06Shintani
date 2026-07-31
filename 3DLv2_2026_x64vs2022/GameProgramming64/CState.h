@@ -20,6 +20,7 @@ public:
 	virtual ~CState() {};
 	//状態の開始
 	virtual void Start(CXCharacter* parent) {};
+	virtual void Start() {};
 	//状態の更新
 	virtual void Update() {};
 	//衝突処理
