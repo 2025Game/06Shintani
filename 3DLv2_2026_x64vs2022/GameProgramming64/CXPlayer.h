@@ -28,7 +28,7 @@ public:
 	void Init(CModelX* model);
 private:
 	CColliderLine mColliderLine;
-	EState mState;//ó‘Ô‚Ì•Û
+	//EState mState;//ó‘Ô‚Ì•Û
 	CState* mpState;//ó‘Ô‘Ò‹@
 	std::unique_ptr<CPlayerIdle> mpIdle;//‘Ò‹@ó‘Ô
 	std::unique_ptr<CPlayerWalk> mpWalk;//•à‚­ó‘Ô

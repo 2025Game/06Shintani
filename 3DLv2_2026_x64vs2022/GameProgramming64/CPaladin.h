@@ -6,6 +6,7 @@
 #include"CCollisionManager.h"
 #include"CState.h"
 #include"CPaladinIdle.h"
+#include"CPaladinDamage.h"
 
 class CPaladin :public CXCharacter
 {
@@ -19,11 +20,12 @@ public:
 	//衝突処理
 	void Collision();
 private:
-	EState mState;//状態の保持
+	//EState mState;//状態の保持
 	CState* mpState;//状態待機
 	static CModelX msModel;
 	CColliderCapsule mCollider;//カプセルコライダ
 	std::unique_ptr<CPaladinIdle> mpIdle;//待機状態
+	std::unique_ptr<CPaladinDamage> mpDamage;//ダメージ状態
 	
 };
 #endif // ! CPALADIN_H

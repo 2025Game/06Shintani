@@ -27,6 +27,9 @@ CPaladin::CPaladin(const CVector& pos, const CVector& rot, const CVector& scale)
 
 	//待機状態の作成
 	mpIdle = std::make_unique<CPaladinIdle>(this);
+	//ダメージ状態の作成
+	mpDamage = std::make_unique<CPaladinDamage>(this);
+
 	mpState = mpIdle.get();
 	mpState->Start();
 	mState = mpState->State();
@@ -38,6 +41,25 @@ void CPaladin::Update()
 	
 	//状態の更新
 	mpState->Update();
+
+	//状態の切り替え
+	if (mState != mpState->State())
+	{
+		mState = mpState->State();
+		switch (mState)
+		{
+		case EState::EIDLE:
+			mpState = mpIdle.get();
+			break;
+		case EState::EDAMAGE:
+			mpState = mpDamage.get();
+			break;
+		default:
+			break;
+
+		}
+		mpState->Start();
+	}
 	CXCharacter::Update();
 	mCollider.Update();
 
@@ -86,8 +108,21 @@ void CPaladin::Collision(CCollider* m, CCollider* o)
 				//行列の更新
 				CTransform::Update();
 			}
+
+			
+			
 		}
-		//break;
+		
+		//相手のコライダがカプセルコライダの時
+		/*if (o->Type() == CCollider::EType::ECAPSULE)
+		{
+			if (o->Parent()->Tag() == ETag::EPLAYER && o->Parent()->State() == EState::EATTACK && o->Tag() == ETag::ESWORD)
+			{
+				//相手の親のタグがプレイヤーかつ、相手の親の状態が攻撃かつ、相手のタグが剣だったらダメージ状態に切り替える
+				mState = EState::EDAMAGE;//状態の種類をダメージにする
+				
+			}
+		}*/
 	}
 }
 

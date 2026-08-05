@@ -11,7 +11,8 @@ enum class EState
 	EIDLE,//待機
 	EWALK,//歩き
 	EATTACK,//攻撃
-	EJUMP//ジャンプ
+	EJUMP,//ジャンプ
+	EDAMAGE//ダメージ
 };
 
 class CState
@@ -19,7 +20,7 @@ class CState
 public:
 	virtual ~CState() {};
 	//状態の開始
-	virtual void Start(CXCharacter* parent) {};
+	virtual void Start(CXCharacter* parent){};
 	virtual void Start() {};
 	//状態の更新
 	virtual void Update() {};
@@ -27,7 +28,10 @@ public:
 	//Collision(コライダ１、コライダ２)
 	virtual void Collision(CCollider* m, CCollider* o) {};
 	//状態の所得
-	EState State() { return mState; }
+	EState State() 
+	{
+		return mState;
+	}
 protected:
 	EState mState;//状態の種類
 	CXCharacter* mpParent;//親のポインタ
