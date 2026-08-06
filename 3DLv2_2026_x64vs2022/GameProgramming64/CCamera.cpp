@@ -1,6 +1,8 @@
 #include "CCamera.h"
 #include "glut.h"
 
+#define ROTATION_RATE 0.5f
+
 void CCamera::Start(double left, double right
 	, double bottom, double top)
 {
@@ -44,6 +46,16 @@ void CCamera::Update()
 	gluLookAt(mEye.X(), mEye.Y(), mEye.Z()
 		, mCenter.X(), mCenter.Y(), mCenter.Z()
 		, mUp.X(), mUp.Y(), mUp.Z());
+
+	double x, y;
+	//マウスの位置を取得する
+	mInput.MouseGetPosition(&x, &y);
+	//前回のマウスの位置と今回のマウスの位置の差分を計算して
+	//カメラの回転に反映する
+	Rotation(Rotation() + CVector(0.0f, (mX - x) * ROTATION_RATE, 0.0f));
+	//マウスの位置を保存する
+	mX = x;
+	mY = y;
 }
 
 void CCamera::End()

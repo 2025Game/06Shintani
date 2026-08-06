@@ -41,4 +41,26 @@ void CPlayerIdle::Update()
 		//SPACEキーが押されているときはジャンプ状態にする
 		mState = EState::EJUMP;
 	}
+	//左マウスのカーソルが押されたら
+	if (mInput.Key(VK_LBUTTON))
+	{
+		//double x, y;
+		//mInput.MouseGetPosition(&x, &y);
+		//printf("Mouse Position:x=%f,y=%f\n", x, y);
+		mState = EState::EATTACK;
+	}
+	//Nキーが押されたら
+	if (mInput.Key('N'))
+	{
+		//マウスカーソルを非表示にする
+		mInput.MouseShowCursor(false);
+	}
+	//Mキーが押されたら
+	if (mInput.Key('M'))
+	{
+		//マウスカーソルを表示する
+		mInput.MouseShowCursor(true);
+	}
+
+	
 }

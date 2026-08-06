@@ -21,10 +21,15 @@ public:
 	void Parent(CXPlayer* parent);
 	
 private:
-	CCamera(){}
+	
 	static CCamera* spInstance;
 	CInput mInput;
-
 	
-
+	//マウスの座標
+	double mX, mY;
+	CCamera()
+	{
+		//マウスの位置を取得する
+		mInput.MouseGetPosition(&mX, &mY);
+	}
 };
