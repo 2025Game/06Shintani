@@ -101,3 +101,7 @@ CCamera* CCamera::Instance()
 	}
 	return spInstance;
 }
+CMatrix CCamera::ModelViewInverse()
+{
+	return mModelViewInverse;
+}
