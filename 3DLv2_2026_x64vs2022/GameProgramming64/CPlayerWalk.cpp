@@ -51,4 +51,13 @@ void CPlayerWalk::Update()
 		mState = EState::EIDLE;
 	}
 	
+	//カメラの右方向ベクトルを取得する
+	CVector cx;
+	cx = CCamera::Instance()->ModelViewInverse().VectorX();
+	//プレイヤーの前方向ベクトルを取得する
+	CVector fwd = mpParent->CombinedMatrix().VectorZ();
+	//内積を計算して、回転量（１０度以内）を求める
+	CVector rot(0.0f, cx.Dot(fwd) * 10.0f, 0.0f);
+	//プレイヤーをカメラ方向へ回転させる
+	mpParent->Rotation(mpParent->Rotation() + rot);
 }

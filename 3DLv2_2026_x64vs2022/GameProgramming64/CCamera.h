@@ -19,12 +19,15 @@ public:
 	static void End();
 	//親のポインタ取得
 	void Parent(CXPlayer* parent);
-	
+
+    CMatrix ModelViewInverse();
 private:
 	
 	static CCamera* spInstance;
 	CInput mInput;
-	
+	CMatrix mModelViewMatrix;//モデルビュー行列
+	CMatrix mModelViewInverse;//モデルビュー逆行列
+
 	//マウスの座標
 	double mX, mY;
 	CCamera()
