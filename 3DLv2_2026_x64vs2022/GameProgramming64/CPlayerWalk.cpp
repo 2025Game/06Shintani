@@ -20,32 +20,63 @@ void CPlayerWalk::Update()
 {
 	//カメラの右方向ベクトルを取得する
 	CVector cx;
-	cx = CCamera::Instance()->ModelViewInverse().VectorX();
+	//進行すべき前方向のベクトルを取得する
+	CVector cz;
+
+	//Wキーで前移動
+	if (mInput.Key('W'))
+	{
+		cx = CCamera::Instance()->ModelViewInverse().VectorX();
+		cz = CCamera::Instance()->ModelViewInverse().VectorZ() * -1;
+	}
+	//Aキーで左移動、
+	if (mInput.Key('A'))
+	{
+		cx = CCamera::Instance()->ModelViewInverse().VectorZ() * -1;
+		cz = CCamera::Instance()->ModelViewInverse().VectorX();
+	}
+	//Sキーで後ろ移動
+	if (mInput.Key('S'))
+	{
+		cx = CCamera::Instance()->ModelViewInverse().VectorX() * -1;
+		cz = CCamera::Instance()->ModelViewInverse().VectorZ();
+	}
+	//Dキーで右移動
+	if (mInput.Key('D'))
+	{
+		cx = CCamera::Instance()->ModelViewInverse().VectorZ();
+		cz = CCamera::Instance()->ModelViewInverse().VectorX();
+	}
 	//プレイヤーの前方向ベクトルを取得する
 	CVector fwd = mpParent->CombinedMatrix().VectorZ();
 	//内積を計算して、回転量（１０度以内）を求める
-	CVector rot(0.0f, cx.Dot(fwd) * 10.0f, 0.0f);
+	float dx = cx.Dot(fwd);
+	float dz = cz.Dot(fwd);
+	if (abs(dx) < 0.01f)
+	{
+		if (dz < 0.0f)
+		{
+			dx = 1.0f;
+		}
+	}
+	CVector rot(0.0f,dx*10.0f,0.0f);
 	//プレイヤーをカメラ方向へ回転させる
 	mpParent->Rotation(mpParent->Rotation() + rot);
+
+	
 	//カメラを逆回転させる
 	CCamera::Instance()->Rotation(CCamera::Instance()->Rotation() - rot);
-	if (mInput.Key('W'))
+
+	if (mInput.Key('W')
+		|| mInput.Key('A')
+		|| mInput.Key('S')
+		|| mInput.Key('D'))
 	{
 		CVector p = mpParent->Position();
 		mpParent->Position(p + mpParent->MatrixRotate().VectorZ() * VELOCITY);
-		//Wキーが押されているときは歩く状態にする
+		//W,A,S,Dキーが押されているときは歩く状態にする
 		mState = EState::EWALK;
-		//Aキーで左回転、Dキーで右回転
-		if (mInput.Key('D'))
-		{
-			CVector r = mpParent->Rotation() + CVector(0.0f, -ROTATIONSPEED, 0.0f);
-			mpParent->Rotation(r);
-		}
-		if (mInput.Key('A'))
-		{
-			CVector r = mpParent->Rotation() + CVector(0.0f, ROTATIONSPEED, 0.0f);
-			mpParent->Rotation(r);
-		}
+		
 		if (mInput.Key('I'))
 		{
 			//Iキーが押されているときは攻撃状態にする
@@ -56,10 +87,11 @@ void CPlayerWalk::Update()
 			//SPACEキーが押されているときはジャンプ状態にする
 			mState = EState::EJUMP;
 		}
+		
 	}
 	else
 	{
-		//Wキーが押されていないときは待機状態にする
+		//W,A,S,Dキーが押されていないときは待機状態にする
 		mState = EState::EIDLE;
 	}
 	
