@@ -25,9 +25,9 @@ void CPlayerWalk::Update()
 
 	//Wキーで前移動
 	if (mInput.Key('W'))
-	{
+	{	
 		cx = CCamera::Instance()->ModelViewInverse().VectorX();
-		cz = CCamera::Instance()->ModelViewInverse().VectorZ() * -1;
+		cz = CCamera::Instance()->ModelViewInverse().VectorZ() * -1;	
 	}
 	//Aキーで左移動、
 	if (mInput.Key('A'))
@@ -73,7 +73,15 @@ void CPlayerWalk::Update()
 		|| mInput.Key('D'))
 	{
 		CVector p = mpParent->Position();
-		mpParent->Position(p + mpParent->MatrixRotate().VectorZ() * VELOCITY);
+		if (mInput.Key(MK_RBUTTON))
+		{
+			mpParent->Position(p + mpParent->MatrixRotate().VectorZ() * VELOCITY*0.5);
+		}
+		else
+		{
+			mpParent->Position(p + mpParent->MatrixRotate().VectorZ() * VELOCITY);
+		}
+		
 		//W,A,S,Dキーが押されているときは歩く状態にする
 		mState = EState::EWALK;
 		
