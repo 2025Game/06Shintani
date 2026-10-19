@@ -17,7 +17,7 @@ class CAnimation; //アニメーションクラス
 class CAnimationKey;  //アニメーションキークラス
 class CShadowShader;
 
-#define MODEL_FILE "res\\ラグナ.x"	//入力ファイル名 \は￥
+#define MODEL_FILE "res\\Spaceship\\Spaceship.x"	//入力ファイル名 \は￥
 
 //領域解放をマクロ化
 #define SAFE_DELETE_ARRAY(a) { if(a) delete[] a; a = nullptr;}
