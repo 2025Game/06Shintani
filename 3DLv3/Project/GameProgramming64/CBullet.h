@@ -25,7 +25,7 @@ public:
 	//更新
 	void Update();
 	//描画
-	void Render();
+	//void Render();
 private:
 	//コライダ
 	CCollider mCollider;
@@ -35,6 +35,9 @@ private:
 
 	//三角形
 	CTriangle mT;
+
+	//モデルのインスタンス
+	static CModel msModel;
 };
 
 #endif
