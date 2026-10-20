@@ -28,6 +28,7 @@ void CGameScene::Load()
 	//mPlayerのインスタンス作成
 	CXCharacter* xchar = new CXPlayer();
 	xchar->Init(&mPlayer);
+	xchar->Position(CVector(10.0f, -1.0f, 10.0f));
 	//キャラクタのモデルの設定
 	character->Model(&mBackGround);
 	mColliderMesh.Set(nullptr, nullptr, &mBackGround);

@@ -20,6 +20,8 @@ void CPlayerWalk::Update()
 {
 	//カメラの右方向ベクトルを取得する
 	CVector cx;
+	//カメラの右方向ベクトルを取得する
+	CVector cy;
 	//進行すべき前方向のベクトルを取得する
 	CVector cz;
 
@@ -27,30 +29,35 @@ void CPlayerWalk::Update()
 	if (mInput.Key('W'))
 	{	
 		cx = CCamera::Instance()->ModelViewInverse().VectorX();
+		cy = CCamera::Instance()->ModelViewInverse().VectorY();
 		cz = CCamera::Instance()->ModelViewInverse().VectorZ() * -1;	
 	}
 	//Aキーで左移動、
 	if (mInput.Key('A'))
 	{
 		cx = CCamera::Instance()->ModelViewInverse().VectorZ() * -1;
+		cy = CCamera::Instance()->ModelViewInverse().VectorY();
 		cz = CCamera::Instance()->ModelViewInverse().VectorX();
 	}
 	//Sキーで後ろ移動
 	if (mInput.Key('S'))
 	{
 		cx = CCamera::Instance()->ModelViewInverse().VectorX() * -1;
+		cy = CCamera::Instance()->ModelViewInverse().VectorY()*-1;
 		cz = CCamera::Instance()->ModelViewInverse().VectorZ();
 	}
 	//Dキーで右移動
 	if (mInput.Key('D'))
 	{
 		cx = CCamera::Instance()->ModelViewInverse().VectorZ();
+		cy = CCamera::Instance()->ModelViewInverse().VectorY();
 		cz = CCamera::Instance()->ModelViewInverse().VectorX();
 	}
 	//プレイヤーの前方向ベクトルを取得する
 	CVector fwd = mpParent->CombinedMatrix().VectorZ();
 	//内積を計算して、回転量（１０度以内）を求める
 	float dx = cx.Dot(fwd);
+	float dy = cy.Dot(fwd);
 	float dz = cz.Dot(fwd);
 	if (abs(dx) < 0.01f)
 	{
@@ -59,7 +66,7 @@ void CPlayerWalk::Update()
 			dx = 1.0f;
 		}
 	}
-	CVector rot(0.0f,dx*10.0f,0.0f);
+	CVector rot(dy * 10.0f,dx*10.0f,0.0f);
 	//プレイヤーをカメラ方向へ回転させる
 	mpParent->Rotation(mpParent->Rotation() + rot);
 

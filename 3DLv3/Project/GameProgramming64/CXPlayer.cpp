@@ -1,5 +1,5 @@
 #include"CXPlayer.h"
-#define GRAVITY 0.0625f//重力
+//#define GRAVITY 0.0625f//重力
 #define _USE_MATH_DEFINES
 #include<math.h>
 #include"CCamera.h"
@@ -24,7 +24,7 @@ CXPlayer::CXPlayer()
 	//攻撃状態の作成
 	mpAttack = std::make_unique<CPlayerAttack>();
 	//ジャンプ状態の作成
-	mpJump = std::make_unique<CPlayerJump>();
+	//mpJump = std::make_unique<CPlayerJump>();
 	//カメラの親をプレイヤーにする
 	CCamera::Instance()->Parent(this);
 	//タグの設定
@@ -53,9 +53,9 @@ void CXPlayer::Update()
 		case EState::EATTACK:
 			mpState = mpAttack.get();
 			break;
-		case EState::EJUMP:
-			mpState = mpJump.get();
-			break;
+		//case EState::EJUMP:
+			//mpState = mpJump.get();
+			//break;
 		default:
 			break;
 
@@ -64,7 +64,7 @@ void CXPlayer::Update()
 	}
 
 	//GRAVITYの大きさだけ、下方向へ移動させる
-	mPosition = mPosition - CVector(0.0f, GRAVITY, 0.0f);
+	//mPosition = mPosition - CVector(0.0f, GRAVITY, 0.0f);
 	//親クラスの更新
 	CXCharacter::Update();
 	//カメラの位置をプレイヤーの少し上にする
