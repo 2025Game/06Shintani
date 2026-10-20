@@ -1,9 +1,7 @@
 #pragma once
 
-
 class CCollider;
 class CXCharacter;
-
 //ó‘Ô‚Ìí—Ş
 enum class EState
 {

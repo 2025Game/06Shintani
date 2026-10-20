@@ -11,4 +11,5 @@ public:
 private:
 	CInput mInput;
 	float mAtkCoolTime;
+
 };

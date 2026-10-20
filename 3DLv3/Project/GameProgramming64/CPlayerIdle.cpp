@@ -15,7 +15,7 @@ void CPlayerIdle::Start(CXCharacter* parent)
 
 void CPlayerIdle::Update()
 {
-	//Aキーで左回転、Dキーで右回転
+	//Aキーで左移動、Dキーで右移動
 	if (mInput.Key('D'))
 	{
 		mState = EState::EWALK;
@@ -33,11 +33,13 @@ void CPlayerIdle::Update()
 	{
 		mState = EState::EWALK;
 	}
+	/*
 	if (mInput.Key('I'))
 	{
 		//Iキーが押されているときは攻撃状態にする
 		mState = EState::EATTACK;
 	}
+	*/
 	if (mInput.Key(' '))
 	{
 		//SPACEキーが押されているときはジャンプ状態にする

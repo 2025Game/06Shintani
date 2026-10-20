@@ -11,6 +11,8 @@
 #include"CPlayerJump.h"
 #include"CState.h"
 #include"CColliderCapsule.h"
+#include"CInput.h"
+#include"CBullet.h"
 
 class CXPlayer :public CXCharacter
 {
@@ -36,6 +38,7 @@ private:
 	std::unique_ptr<CPlayerJump> mpJump;//ジャンプ状態
 	CColliderCapsule mColliderCapsule;//カプセルコライダ
 	CColliderCapsule mColliderSword;//カプセルコライダ
-
+	CInput mInput;
+	CBullet mBullet;
 };
 #endif // !CXPLAYER_E

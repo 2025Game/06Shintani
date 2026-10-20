@@ -101,6 +101,7 @@ void CPlayerWalk::Update()
 		{
 			//SPACEキーが押されているときはジャンプ状態にする
 			mState = EState::EJUMP;
+
 		}
 		
 	}

@@ -72,7 +72,16 @@ void CXPlayer::Update()
 	//カプセルコライダの更新
 	mColliderCapsule.Update();
 	mColliderSword.Update();
-	
+
+	//スペースキー入力で弾発射
+	if (mInput.Key(VK_LBUTTON)) {
+		CBullet* bullet = new CBullet();
+		bullet->Set(0.1f, 1.5f);
+		bullet->Position(CVector(0.0f, 0.0f, 10.0f) * mMatrix);
+		bullet->Rotation(mRotation);
+		bullet->Update();
+		//CApplication::TaskManager()->Add(bullet);
+	}
 }
 
 void CXPlayer::Collision(CCollider* m, CCollider* o)
