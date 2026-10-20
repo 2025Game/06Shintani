@@ -1,7 +1,7 @@
 #include "CCamera.h"
 #include "glut.h"
 
-#define ROTATION_RATE 0.5f
+#define ROTATION_RATE 0.3f
 
 void CCamera::Start(double left, double right
 	, double bottom, double top)
@@ -53,6 +53,7 @@ void CCamera::Update()
 	//前回のマウスの位置と今回のマウスの位置の差分を計算して
 	//カメラの回転に反映する
 	Rotation(Rotation() + CVector(0.0f, (mX - x) * ROTATION_RATE, 0.0f));
+	Rotation(Rotation() - CVector((mY - y) * ROTATION_RATE,0.0f , 0.0f));
 	//マウスの位置を保存する
 	mX = x;
 	mY = y;
