@@ -17,7 +17,7 @@ void CBullet::Collision(CCollider* m, CCollider* o)
 
 CBullet::CBullet()
 	: mLife(50)
-	, mCollider(this, &mMatrix, CVector(0.0f, 0.0f, 0.0f), 0.1f)
+	, mCollider(this, &mMatrix, CVector(0.0f, 1.0f, 0.0f), 0.3f)
 {
 	//モデルデータがなければ読み込み
 	if (msModel.Triangles().empty())
