@@ -74,14 +74,27 @@ void CXPlayer::Update()
 	mColliderSword.Update();
 
 	//スペースキー入力で弾発射
-	if (mInput.Key(VK_LBUTTON)) {
-		CBullet* bullet = new CBullet();
-		bullet->Set(0.1f, 1.5f);
-		bullet->Position(CVector(0.0f, 0.0f, 10.0f) * mMatrix);
-		bullet->Rotation(mRotation);
-		bullet->Update();
-		//CApplication::TaskManager()->Add(bullet);
+	if (mInput.Key(VK_LBUTTON)) 
+	{
+		if (BulletCoolTime <= 0)
+		{
+			CBullet* bullet = new CBullet();
+			bullet->Set(0.1f, 1.5f);
+			bullet->Position(CVector(0.0f, 0.0f, 10.0f) * mMatrix);
+			bullet->Rotation(mRotation);
+			bullet->Update();
+			BulletCoolTime = 20;
+			//CApplication::TaskManager()->Add(bullet);
+		}
+		
 	}
+	else
+	{
+		//撃ってなかったらクールタイムをなくす
+		BulletCoolTime = 0;
+	}
+	//弾のクールタイム
+	BulletCoolTime--;
 }
 
 void CXPlayer::Collision(CCollider* m, CCollider* o)

@@ -40,5 +40,6 @@ private:
 	CColliderCapsule mColliderSword;//カプセルコライダ
 	CInput mInput;
 	CBullet mBullet;
+	int BulletCoolTime=0;
 };
 #endif // !CXPLAYER_E

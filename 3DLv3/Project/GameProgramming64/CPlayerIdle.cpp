@@ -46,6 +46,7 @@ void CPlayerIdle::Update()
 		mState = EState::EJUMP;
 	}
 	//左マウスのカーソルが押されたら
+	/*
 	if (mInput.Key(VK_LBUTTON))
 	{
 		//double x, y;
@@ -53,6 +54,7 @@ void CPlayerIdle::Update()
 		//printf("Mouse Position:x=%f,y=%f\n", x, y);
 		mState = EState::EATTACK;
 	}
+	*/
 	//Nキーが押されたら
 	if (mInput.Key('N'))
 	{
