@@ -8,8 +8,8 @@
 #include"CPaladin.h"
 
 //背景モデルデータの指定
+//#define MODEL_BACKGROUND "res\\Stage\\SpaceStage1.obj", "res\\Stage\\SpaceStage1.mtl"
 #define MODEL_BACKGROUND "res\\sky.obj", "res\\sky.mtl"
-
 CGameScene::CGameScene()
 	:CSceneBase(EScene::eGame)
 {
