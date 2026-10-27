@@ -44,6 +44,7 @@ void CXCharacter::Init(CModelX* model) {
  framesize：最後まで再生するのに使用されるフレーム数
 */
 void CXCharacter::ChangeAnimation(int index, bool loop, float framesize) {
+	if (mpModel == nullptr) return;
 	//同じ場合は切り替えない
 	if (mAnimationIndex == index) return;
 	//今のアニメーションの重みを0.0（0%)にする
@@ -64,6 +65,7 @@ void CXCharacter::ChangeAnimation(int index, bool loop, float framesize) {
  matrix：移動、回転、拡大縮小の行列
 */
 void CXCharacter::Update(CMatrix& matrix) {
+	if (mpModel == nullptr) return;
 	for (size_t i = 0; i < mpModel->AnimationSet().size(); i++)
 	{
 		mpModel->AnimationSet()[i]->Weight(0.0);

@@ -28,6 +28,8 @@ public:
 	const CMatrix& FrameCombinedMatrix(const char* name);
 
 	void Init(CModelX* model);
+
+	void Render() override;
 private:
 	CColliderLine mColliderLine;
 	//EState mState;//状態の保持
@@ -37,9 +39,12 @@ private:
 	std::unique_ptr<CPlayerAttack> mpAttack;//攻撃状態
 	std::unique_ptr<CPlayerJump> mpJump;//ジャンプ状態
 	CColliderCapsule mColliderCapsule;//カプセルコライダ
-	CColliderCapsule mColliderSword;//カプセルコライダ
+
 	CInput mInput;
 	CBullet mBullet;
 	int BulletCoolTime=0;
+	//モデルのインスタンス
+	static CModel msModel;
+
 };
 #endif // !CXPLAYER_E

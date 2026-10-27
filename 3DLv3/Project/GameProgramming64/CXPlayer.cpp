@@ -6,11 +6,24 @@
 //ラジアンを度数に変換するための定数
 const float RAD_TO_DEG = 180.0f / (float)M_PI;
 
+//モデルデータの指定
+#define MODEL_PATH "res\\Spaceship\\SpaceShip.obj","res\\Spaceship\\SpaceShip.mtl"
+//静的メンバ変数の定着
+CModel CXPlayer::msModel;
+
 CXPlayer::CXPlayer()
 	:mColliderCapsule(this, &mMatrix, CVector(0.0f, 3.5f, 0.0f), CVector(0.0f, 0.0f, 0.0f), 0.5f)
-	,mColliderSword(this,nullptr,CVector(),CVector(),0.1f)
 	
 {
+	//モデルデータがなければ読み込み
+	if (msModel.Triangles().empty())
+	{
+		msModel.Load(MODEL_PATH);
+	}
+	//モデルポインタの設定
+	CCharacter3::mpModel = &msModel;
+	mScale = CVector(0.25f, 0.25f, 0.25f);
+
 	mPosition = mPosition + CVector(1.0f, 0.0f, 0.0f);
 	//待機状態の作成
 	mpIdle = std::make_unique<CPlayerIdle>();
@@ -30,7 +43,6 @@ CXPlayer::CXPlayer()
 	//タグの設定
 	Tag(ETag::EPLAYER);
 	mColliderCapsule.Tag(ETag::EPLAYER);
-	mColliderSword.Tag(ETag::ESWORD);
 }
 
 void CXPlayer::Update()
@@ -71,7 +83,6 @@ void CXPlayer::Update()
 	CCamera::Instance()->Position(CVector(0.0f, 4.0f, 0.0f));
 	//カプセルコライダの更新
 	mColliderCapsule.Update();
-	mColliderSword.Update();
 
 	//スペースキー入力で弾発射
 	if (mInput.Key(VK_LBUTTON)) 
@@ -141,7 +152,7 @@ void CXPlayer::Collision(CCollider* m, CCollider* o)
 		break;*/
 	case CCollider::EType::ECAPSULE://カプセルコライダ
 
-		if (o == &mColliderCapsule || o == &mColliderSword)
+		if (o == &mColliderCapsule)
 		{
 			//相手がプレイヤーのコライダの時は衝突処理を行わない
 			return;
@@ -208,18 +219,19 @@ void CXPlayer::Collision()
 {
 	//コライダの優先度変更
 	mColliderCapsule.ChangePriority();
-	mColliderSword.ChangePriority();
 	//衝突処理を実行
 	CCollisionManager::Instance()->Collision(&mColliderCapsule, COLLISIONRANGE);
-	CCollisionManager::Instance()->Collision(&mColliderSword, COLLISIONRANGE);
 	
 }
 
 void CXPlayer::Init(CModelX* model)
 {
-	CXCharacter::Init(model);
-	//剣コライダの設定
-	mColliderSword.Set(this, &FrameCombinedMatrix("RightHand"), CVector(-15.0f, 0.0f, 20.0f), CVector(-15.0f, 0.0f, 70.0f), 0.1f);
+	//CXCharacter::Init(model);
+}
+
+void CXPlayer::Render()
+{
+	CCharacter3::Render();
 }
 
 const CMatrix& CXPlayer::FrameCombinedMatrix(const char* name)
