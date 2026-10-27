@@ -42,6 +42,7 @@ private:
 
 	CInput mInput;
 
+	bool BulletFlag=false;//弾を出したときにフラグを操作する
 	int BulletCoolTime=0;
 	//モデルのインスタンス
 	static CModel msModel;

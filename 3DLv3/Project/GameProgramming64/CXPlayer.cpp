@@ -89,12 +89,27 @@ void CXPlayer::Update()
 	{
 		if (BulletCoolTime <= 0)
 		{
-			CBullet* bullet = new CBullet();
-			bullet->Set(0.1f, 1.5f);
-			bullet->Position(CVector(0.0f, 0.0f, 10.0f) * mMatrix);
-			bullet->Rotation(mRotation);
-			bullet->Update();
-			BulletCoolTime = 20;
+			if (BulletFlag == false)
+			{
+				CBullet* bullet = new CBullet();
+				bullet->Set(0.1f, 1.5f);
+				bullet->Position(CVector(1.5f, -3.0f, 35.0f) * mMatrix);
+				bullet->Rotation(mRotation);
+				bullet->Update();
+				BulletFlag = true;
+				BulletCoolTime = 20;
+			}
+			else if(BulletFlag==true)
+			{
+				CBullet* bullet = new CBullet();
+				bullet->Set(0.1f, 1.5f);
+				bullet->Position(CVector(-1.5f, -3.0f, 35.0f) * mMatrix);
+				bullet->Rotation(mRotation);
+				bullet->Update();
+				BulletFlag = false;
+				BulletCoolTime = 20;
+			}
+			
 			//CApplication::TaskManager()->Add(bullet);
 		}
 		
