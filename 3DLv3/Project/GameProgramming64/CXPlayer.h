@@ -38,7 +38,9 @@ private:
 	std::unique_ptr<CPlayerWalk> mpWalk;//歩く状態
 	std::unique_ptr<CPlayerAttack> mpAttack;//攻撃状態
 	std::unique_ptr<CPlayerJump> mpJump;//ジャンプ状態
-	CColliderCapsule mColliderCapsule;//カプセルコライダ
+	CColliderCapsule mColliderCapsule1;//カプセルコライダ
+	CColliderCapsule mColliderCapsule2;//カプセルコライダ
+	CColliderCapsule mColliderCapsule3;//カプセルコライダ
 
 	CInput mInput;
 

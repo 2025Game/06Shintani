@@ -12,8 +12,9 @@ const float RAD_TO_DEG = 180.0f / (float)M_PI;
 CModel CXPlayer::msModel;
 
 CXPlayer::CXPlayer()
-	:mColliderCapsule(this, &mMatrix, CVector(0.0f, 3.5f, 0.0f), CVector(0.0f, 0.0f, 0.0f), 0.5f)
-	
+	:mColliderCapsule1(this, &mMatrix, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, -20.0f), 1.1f)
+	,mColliderCapsule2(this, &mMatrix, CVector(2.0f, -1.0f, 20.0f), CVector(4.5f, -2.0f, 0.0f), 0.4f)
+	,mColliderCapsule3(this, &mMatrix, CVector(-2.0f, -1.0f, 20.0f), CVector(-4.5f, -2.0f, 0.0f), 0.4f)
 {
 	//モデルデータがなければ読み込み
 	if (msModel.Triangles().empty())
@@ -42,7 +43,9 @@ CXPlayer::CXPlayer()
 	CCamera::Instance()->Parent(this);
 	//タグの設定
 	Tag(ETag::EPLAYER);
-	mColliderCapsule.Tag(ETag::EPLAYER);
+	mColliderCapsule1.Tag(ETag::EPLAYER);
+	mColliderCapsule2.Tag(ETag::EPLAYER);
+	mColliderCapsule3.Tag(ETag::EPLAYER);
 }
 
 void CXPlayer::Update()
@@ -82,7 +85,9 @@ void CXPlayer::Update()
 	//カメラの位置をプレイヤーの少し上にする
 	CCamera::Instance()->Position(CVector(0.0f, 4.0f, 0.0f));
 	//カプセルコライダの更新
-	mColliderCapsule.Update();
+	mColliderCapsule1.Update();
+	mColliderCapsule2.Update();
+	mColliderCapsule3.Update();
 
 	//スペースキー入力で弾発射
 	if (mInput.Key(VK_LBUTTON)) 
@@ -167,7 +172,7 @@ void CXPlayer::Collision(CCollider* m, CCollider* o)
 		break;*/
 	case CCollider::EType::ECAPSULE://カプセルコライダ
 
-		if (o == &mColliderCapsule)
+		if (o == &mColliderCapsule1||o==&mColliderCapsule2|| o == &mColliderCapsule3)
 		{
 			//相手がプレイヤーのコライダの時は衝突処理を行わない
 			return;
@@ -233,10 +238,17 @@ void CXPlayer::Collision(CCollider* m, CCollider* o)
 void CXPlayer::Collision()
 {
 	//コライダの優先度変更
-	mColliderCapsule.ChangePriority();
+	mColliderCapsule1.ChangePriority();
 	//衝突処理を実行
-	CCollisionManager::Instance()->Collision(&mColliderCapsule, COLLISIONRANGE);
-	
+	CCollisionManager::Instance()->Collision(&mColliderCapsule1, COLLISIONRANGE);
+	//コライダの優先度変更
+	mColliderCapsule2.ChangePriority();
+	//衝突処理を実行
+	CCollisionManager::Instance()->Collision(&mColliderCapsule2, COLLISIONRANGE);
+	//コライダの優先度変更
+	mColliderCapsule3.ChangePriority();
+	//衝突処理を実行
+	CCollisionManager::Instance()->Collision(&mColliderCapsule3, COLLISIONRANGE);
 }
 
 void CXPlayer::Init(CModelX* model)
