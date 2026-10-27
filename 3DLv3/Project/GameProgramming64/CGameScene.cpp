@@ -39,7 +39,7 @@ void CGameScene::Load()
 	cube->Position(CVector(0.0f, 0.0f, -9.0f));
 	cube->Scale(CVector(10.0f, 0.5f, 10.0f));
 	//ƒJƒƒ‰ˆÊ’u‚ÌÝ’è
-	CCamera::Instance()->Scale(CVector(0.0f, 1.0f, -7.0f));
+	CCamera::Instance()->Scale(CVector(0.0f, 1.0f, -12.0f));
 }
 
 void CGameScene::Update()

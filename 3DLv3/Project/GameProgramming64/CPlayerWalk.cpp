@@ -25,34 +25,11 @@ void CPlayerWalk::Update()
 	//進行すべき前方向のベクトルを取得する
 	CVector cz;
 
-	//Wキーで前移動
-	if (mInput.Key('W'))
-	{	
-		cx = CCamera::Instance()->ModelViewInverse().VectorX();
-		cy = CCamera::Instance()->ModelViewInverse().VectorY();
-		cz = CCamera::Instance()->ModelViewInverse().VectorZ() * -1;	
-	}
-	//Aキーで左移動、
-	if (mInput.Key('A'))
-	{
-		cx = CCamera::Instance()->ModelViewInverse().VectorZ() * -1;
-		cy = CCamera::Instance()->ModelViewInverse().VectorY();
-		cz = CCamera::Instance()->ModelViewInverse().VectorX();
-	}
-	//Sキーで後ろ移動
-	if (mInput.Key('S'))
-	{
-		cx = CCamera::Instance()->ModelViewInverse().VectorX() * -1;
-		cy = CCamera::Instance()->ModelViewInverse().VectorY()*-1;
-		cz = CCamera::Instance()->ModelViewInverse().VectorZ();
-	}
-	//Dキーで右移動
-	if (mInput.Key('D'))
-	{
-		cx = CCamera::Instance()->ModelViewInverse().VectorZ();
-		cy = CCamera::Instance()->ModelViewInverse().VectorY();
-		cz = CCamera::Instance()->ModelViewInverse().VectorX();
-	}
+	cx = CCamera::Instance()->ModelViewInverse().VectorX();
+	cy = CCamera::Instance()->ModelViewInverse().VectorY();
+	cz = CCamera::Instance()->ModelViewInverse().VectorZ() * -1;
+
+	
 	//プレイヤーの前方向ベクトルを取得する
 	CVector fwd = mpParent->CombinedMatrix().VectorZ();
 	//内積を計算して、回転量（１０度以内）を求める
@@ -74,10 +51,7 @@ void CPlayerWalk::Update()
 	//カメラを逆回転させる
 	CCamera::Instance()->Rotation(CCamera::Instance()->Rotation() - rot);
 
-	if (mInput.Key('W')
-		|| mInput.Key('A')
-		|| mInput.Key('S')
-		|| mInput.Key('D'))
+	if (mInput.Key('W'))
 	{
 		CVector p = mpParent->Position();
 		if (mInput.Key(MK_RBUTTON))
@@ -89,27 +63,79 @@ void CPlayerWalk::Update()
 			mpParent->Position(p + mpParent->MatrixRotate().VectorZ() * VELOCITY);
 		}
 		
-		//W,A,S,Dキーが押されているときは歩く状態にする
+		//Wキーが押されているときは歩く状態にする
 		mState = EState::EWALK;
-		
-		if (mInput.Key('I'))
-		{
-			//Iキーが押されているときは攻撃状態にする
-			mState = EState::EATTACK;
-		}
-		if (mInput.Key(' '))
-		{
-			//SPACEキーが押されているときはジャンプ状態にする
-			mState = EState::EJUMP;
-
-		}
 		
 	}
 	else
 	{
-		//W,A,S,Dキーが押されていないときは待機状態にする
+		//Wキーが押されていないときは待機状態にする
 		mState = EState::EIDLE;
 	}
 	
-	
+	if (mInput.Key('A'))
+	{
+		CVector p = mpParent->Position();
+		if (mInput.Key(MK_RBUTTON))
+		{
+			mpParent->Position(p + mpParent->MatrixRotate().VectorX() * VELOCITY* 0.5);
+		}
+		else
+		{
+			mpParent->Position(p + mpParent->MatrixRotate().VectorX() * VELOCITY);
+		}
+
+		//Aキーが押されているときは歩く状態にする
+		mState = EState::EWALK;
+
+	}
+	else
+	{
+		//Aキーが押されていないときは待機状態にする
+		mState = EState::EIDLE;
+	}
+	if (mInput.Key('S'))
+	{
+		CVector p = mpParent->Position();
+		if (mInput.Key(MK_RBUTTON))
+		{
+			mpParent->Position(p + mpParent->MatrixRotate().VectorZ() * -1 * VELOCITY* 0.5);
+		}
+		else
+		{
+			mpParent->Position(p + mpParent->MatrixRotate().VectorZ() * -1 * VELOCITY);
+		}
+
+		//Sキーが押されているときは歩く状態にする
+		mState = EState::EWALK;
+
+		
+	}
+	else
+	{
+		//Sキーが押されていないときは待機状態にする
+		mState = EState::EIDLE;
+	}
+	if (mInput.Key('D'))
+	{
+		CVector p = mpParent->Position();
+		if (mInput.Key(MK_RBUTTON))
+		{
+			mpParent->Position(p + mpParent->MatrixRotate().VectorX() * -1 * VELOCITY * 0.5);
+		}
+		else
+		{
+			mpParent->Position(p + mpParent->MatrixRotate().VectorX() * -1 * VELOCITY);
+		}
+
+		//Dキーが押されているときは歩く状態にする
+		mState = EState::EWALK;
+
+		
+	}
+	else
+	{
+		//Dキーが押されていないときは待機状態にする
+		mState = EState::EIDLE;
+	}
 }

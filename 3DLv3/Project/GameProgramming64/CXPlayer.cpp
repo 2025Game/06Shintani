@@ -22,7 +22,7 @@ CXPlayer::CXPlayer()
 	}
 	//モデルポインタの設定
 	CCharacter3::mpModel = &msModel;
-	mScale = CVector(0.25f, 0.25f, 0.25f);
+	mScale = CVector(0.20f, 0.20f, 0.20f);
 
 	mPosition = mPosition + CVector(1.0f, 0.0f, 0.0f);
 	//待機状態の作成
