@@ -41,7 +41,7 @@ private:
 	CColliderCapsule mColliderCapsule;//カプセルコライダ
 
 	CInput mInput;
-	CBullet mBullet;
+
 	int BulletCoolTime=0;
 	//モデルのインスタンス
 	static CModel msModel;

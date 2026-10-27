@@ -8,8 +8,8 @@
 #include"CPaladin.h"
 
 //背景モデルデータの指定
-//#define MODEL_BACKGROUND "res\\Stage\\SpaceStage1.obj", "res\\Stage\\SpaceStage1.mtl"
-#define MODEL_BACKGROUND "res\\sky.obj", "res\\sky.mtl"
+#define MODEL_BACKGROUND "res\\Stage\\SpaceStage1.obj", "res\\Stage\\SpaceStage1.mtl"
+//#define MODEL_BACKGROUND "res\\sky.obj", "res\\sky.mtl"
 CGameScene::CGameScene()
 	:CSceneBase(EScene::eGame)
 {
@@ -47,14 +47,16 @@ void CGameScene::Update()
 //カメラの設定
 //gluLookAt(1.0f, 2.0f, 10.0f, 0.0f, 2.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 
-//全キャラクタの更新
-CTaskManager::Instance()->Update();
-//衝突処理の呼び出し
-CTaskManager::Instance()->Collision();
-//カメラの更新
-CCamera::Instance()->Update();
-//全キャラクタの描画
-CTaskManager::Instance()->Render();
-//コライダの描画
-CCollisionManager::Instance()->Render();
+	//削除フラグが立っているタスクを削除する
+	CTaskManager::Instance()->Delete();
+	//全キャラクタの更新
+	CTaskManager::Instance()->Update();
+	//衝突処理の呼び出し
+	CTaskManager::Instance()->Collision();
+	//カメラの更新
+	CCamera::Instance()->Update();
+	//全キャラクタの描画
+	CTaskManager::Instance()->Render();
+	//コライダの描画
+	CCollisionManager::Instance()->Render();
 }
