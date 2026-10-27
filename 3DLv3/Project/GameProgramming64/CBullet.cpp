@@ -9,7 +9,8 @@ CModel CBullet::msModel;
 void CBullet::Collision(CCollider* m, CCollider* o)
 {
 	//コライダのmとoが衝突しているか判定
-	if (CCollider::Collision(m, o)) {
+	if (CCollider::Collision(m, o))
+	{
 		//衝突している時は無効にする
 		mEnabled = false;
 	}
@@ -17,7 +18,7 @@ void CBullet::Collision(CCollider* m, CCollider* o)
 
 CBullet::CBullet()
 	: mLife(50)
-	, mCollider(this, &mMatrix, CVector(0.0f, 1.0f, 0.0f), 0.3f)
+	, mColliderCapsule1(this, &mMatrix, CVector(0.0f, 1.0f, -1.05f), CVector(0.0f, 1.0f, 1.05f), 0.3f)
 {
 	//モデルデータがなければ読み込み
 	if (msModel.Triangles().empty())
@@ -50,10 +51,11 @@ void CBullet::Update() {
 		CTransform::Update();
 		//位置更新
 		mPosition = mPosition + CVector(0.0f, 0.0f, 0.5f) * mMatrixRotate;;
+		mColliderCapsule1.Update();
 	}
 	else {
 		//無効にする
-		mEnabled = false;
+		//mEnabled = false;
 	}
 }
 
@@ -73,7 +75,7 @@ void CBullet::Render()
 void CBullet::Collision()
 {
 	//コライダの優先度変更
-	mCollider.ChangePriority();
+	mColliderCapsule1.ChangePriority();
 	//衝突処理を実行
-	CCollisionManager::Instance()->Collision(&mCollider, COLLISIONRANGE);
+	CCollisionManager::Instance()->Collision(&mColliderCapsule1, COLLISIONRANGE);
 }

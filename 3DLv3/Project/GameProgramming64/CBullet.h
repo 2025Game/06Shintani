@@ -5,6 +5,7 @@
 //三角形クラスのインクルード
 #include "CTriangle.h"
 #include "CCollider.h"
+#include"CColliderCapsule.h"
 
 /*
 弾クラス
@@ -38,6 +39,7 @@ private:
 
 	//モデルのインスタンス
 	static CModel msModel;
+	CColliderCapsule mColliderCapsule1;//カプセルコライダ
 };
 
 #endif
