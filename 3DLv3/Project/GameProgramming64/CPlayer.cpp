@@ -86,9 +86,9 @@ void CPlayer::Update() {
 	CTransform::Update();
 
 	//UIÝ’è
-	CApplication::Ui()->PosY(mPosition.Y());
-	CApplication::Ui()->RotX(mRotation.X());
-	CApplication::Ui()->RotY(mRotation.Y());
+	CApplication::Ui()->PosX(mPosition.X());
+	CApplication::Ui()->PosY(mRotation.Y());
+	CApplication::Ui()->PosZ(mRotation.Z());
 }
 
 //Õ“Ëˆ—

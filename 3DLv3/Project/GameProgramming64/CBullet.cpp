@@ -12,7 +12,7 @@ void CBullet::Collision(CCollider* m, CCollider* o)
 	if (CCollider::Collision(m, o))
 	{
 		//Õ“Ë‚µ‚Ä‚¢‚é‚Í–³Œø‚É‚·‚é
-		mEnabled = false;
+		//mEnabled = false;
 	}
 }
 

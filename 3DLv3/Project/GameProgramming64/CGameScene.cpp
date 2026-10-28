@@ -16,6 +16,12 @@ CGameScene::CGameScene()
 
 }
 
+CUi* CGameScene::spUi = nullptr;
+
+CUi* CGameScene::Ui()
+{
+	return spUi;	//インスタンスのポインタを返す
+}
 
 void CGameScene::Load()
 {
@@ -40,6 +46,8 @@ void CGameScene::Load()
 	cube->Scale(CVector(10.0f, 0.5f, 10.0f));
 	//カメラ位置の設定
 	CCamera::Instance()->Scale(CVector(0.0f, 1.0f, -12.0f));
+	spUi = new CUi();	//UIクラスの生成
+
 }
 
 void CGameScene::Update()
@@ -59,4 +67,6 @@ void CGameScene::Update()
 	CTaskManager::Instance()->Render();
 	//コライダの描画
 	CCollisionManager::Instance()->Render();
+	spUi->Render();	//UIの描画
+
 }

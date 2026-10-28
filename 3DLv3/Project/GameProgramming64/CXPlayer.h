@@ -13,6 +13,7 @@
 #include"CColliderCapsule.h"
 #include"CInput.h"
 #include"CBullet.h"
+#include"CGameScene.h"
 
 class CXPlayer :public CXCharacter
 {

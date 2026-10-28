@@ -52,6 +52,9 @@
     <Filter Include="ソース ファイル\BaseSystem\Game\Character\Paladin">
       <UniqueIdentifier>{91d8c385-113d-40c6-85e0-84cc2075e74f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\BaseSystem\Game\UI">
+      <UniqueIdentifier>{57136b2b-79dc-4baf-a7e2-d9a68539b4e8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp">
@@ -94,9 +97,6 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="CPoint.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="CUi.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="CVector.cpp">
@@ -219,6 +219,9 @@
     <ClCompile Include="CInput.cpp">
       <Filter>ソース ファイル\Lib</Filter>
     </ClCompile>
+    <ClCompile Include="CUi.cpp">
+      <Filter>ソース ファイル\BaseSystem\Game\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h">
@@ -264,9 +267,6 @@
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="CPoint.h">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="CUi.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="CVector.h">
@@ -400,6 +400,9 @@
     </ClInclude>
     <ClInclude Include="CInput.h">
       <Filter>ソース ファイル\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="CUi.h">
+      <Filter>ソース ファイル\BaseSystem\Game\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

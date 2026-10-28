@@ -40,11 +40,13 @@ void CPlayerIdle::Update()
 		mState = EState::EATTACK;
 	}
 	*/
+	/*
 	if (mInput.Key(' '))
 	{
 		//SPACEキーが押されているときはジャンプ状態にする
 		mState = EState::EJUMP;
 	}
+	*/
 	//左マウスのカーソルが押されたら
 	/*
 	if (mInput.Key(VK_LBUTTON))

@@ -15,8 +15,9 @@ void CUi::Hp(int hp)
 CUi::CUi()
 	: mTime(0)
 	, mHp(0)
+	, mPosX(0.0f)
 	, mPosY(0.0f)
-	, mRotX(0.0f)
+	, mPosZ(0.0f)
 
 {	//フォントファイルのロード
 	mFont.Load("FontWhite.png", 1, 64);
@@ -37,19 +38,19 @@ void CUi::Render()
 
 	//Y座標の表示
 	//文字列の設定
-	sprintf(buf, "PY:%7.2f", mPosY);
+	sprintf(buf, "X:%7.2f", mPosX);
 	//文字列の描画
 	mFont.Draw(500, 330, 8, 16, buf);
 
 	//X軸回転値の表示
 	//文字列の設定
-	sprintf(buf, "RX:%7.2f", mRotX);
+	sprintf(buf, "Y:%7.2f", mPosY);
 	//文字列の描画
 	mFont.Draw(500, 300, 8, 16, buf);
 
 	//Y軸回転値の表示
 	//文字列の設定
-	sprintf(buf, "RY:%7.2f", mRotY);
+	sprintf(buf, "Z:%7.2f", mPosZ);
 	//文字列の描画
 	mFont.Draw(500, 200, 8, 16, buf);
 	CCamera::End();	//2D描画終了
@@ -72,17 +73,17 @@ void CUi::Over()
 	mFont.Draw(36, 200, 18, 36, "PUSH ENTER KEY!");
 }
 
+void CUi::PosX(float f)
+{
+	mPosX = f;
+}
+
 void CUi::PosY(float f)
 {
 	mPosY = f;
 }
 
-void CUi::RotX(float f)
+void CUi::PosZ(float f)
 {
-	mRotX = f;
-}
-
-void CUi::RotY(float f)
-{
-	mRotY = f;
+	mPosZ = f;
 }
