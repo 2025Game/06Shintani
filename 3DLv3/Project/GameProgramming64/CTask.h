@@ -9,6 +9,7 @@ enum class ETag
 {
 	ENOME,//–¢Ý’è
 	EPLAYER,//ƒvƒŒƒCƒ„[
+	EBULLET,//’e
 	EENEMY,//“G
 };
 /*

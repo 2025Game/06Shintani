@@ -11,8 +11,15 @@ void CBullet::Collision(CCollider* m, CCollider* o)
 	//コライダのmとoが衝突しているか判定
 	if (CCollider::Collision(m, o))
 	{
-		//衝突している時は無効にする
-		//mEnabled = false;
+		if (o->Tag()==ETag::EBULLET)
+		{
+			//相手のタグがEBULLETの時は衝突処理を行わない
+			return;
+		}
+			//衝突している時は無効にする
+
+			mEnabled = false;
+		
 	}
 }
 
@@ -27,6 +34,7 @@ CBullet::CBullet()
 	}
 	//モデルポインタの設定
 	mpModel = &msModel;
+	mColliderCapsule1.Tag(ETag::EBULLET);
 }
 
 

@@ -50,7 +50,7 @@ void CPaladinIdle::Collision(CCollider* m, CCollider* o)
 			//カプセルとカプセルの衝突判定
 			if (CCollider::CollisionCapsuleCapsule(m, o, &adjust))
 			{
-				if (o->Parent()->Tag() == ETag::EPLAYER && o->Parent()->State() == EState::EATTACK && o->Tag() == ETag::ESWORD)
+				if (o->Parent()->Tag() == ETag::EPLAYER && o->Parent()->State() == EState::EATTACK)
 				{
 					//相手の親のタグがプレイヤーかつ、相手の親の状態が攻撃かつ、相手のタグが剣だったらダメージ状態に切り替える
 					mState = EState::EDAMAGE;//状態の種類をダメージにする
