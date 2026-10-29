@@ -9,7 +9,7 @@ enum class ETag
 {
 	ENOME,//未設定
 	EPLAYER,//プレイヤー
-	ESWORD,//剣
+	EENEMY,//敵
 };
 /*
 タスククラス

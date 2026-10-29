@@ -40,19 +40,19 @@ void CUi::Render()
 	//文字列の設定
 	sprintf(buf, "X:%7.2f", mPosX);
 	//文字列の描画
-	mFont.Draw(500, 330, 8, 16, buf);
+	mFont.Draw(650, 80, 8, 16, buf);
 
 	//X軸回転値の表示
 	//文字列の設定
 	sprintf(buf, "Y:%7.2f", mPosY);
 	//文字列の描画
-	mFont.Draw(500, 300, 8, 16, buf);
+	mFont.Draw(650, 50, 8, 16, buf);
 
 	//Y軸回転値の表示
 	//文字列の設定
 	sprintf(buf, "Z:%7.2f", mPosZ);
 	//文字列の描画
-	mFont.Draw(500, 200, 8, 16, buf);
+	mFont.Draw(650, 20, 8, 16, buf);
 	CCamera::End();	//2D描画終了
 }
 

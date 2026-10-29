@@ -55,7 +55,7 @@ void CBullet::Update() {
 	}
 	else {
 		//–³Œø‚É‚·‚é
-		//mEnabled = false;
+		mEnabled = false;
 	}
 }
 
