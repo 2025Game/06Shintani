@@ -1,7 +1,7 @@
 #pragma once
 #include "CRectangle.h"
 #include "CTexture.h"
-#include "CEnemy.h"
+#include "CEnemy1.h"
 #include "CBullet.h"
 #include "CPlayer.h"
 #include "CFont.h"
@@ -78,5 +78,5 @@ private:
 	CPlayer* mpPlayer;
 	CBullet* mpBullet;
 	static CTexture mTexture;
-	CEnemy* mpEnemy;
+	CEnemy1* mpEnemy;
 };

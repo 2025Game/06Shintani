@@ -36,7 +36,7 @@
     <ClCompile Include="CCollisionManager.cpp" />
     <ClCompile Include="CCube.cpp" />
     <ClCompile Include="CEffect.cpp" />
-    <ClCompile Include="CEnemy.cpp" />
+    <ClCompile Include="CEnemy1.cpp" />
     <ClCompile Include="CEnemy2.cpp" />
     <ClCompile Include="CEnemy3.cpp" />
     <ClCompile Include="CFont.cpp" />
@@ -93,7 +93,7 @@
     <ClInclude Include="CCollisionManager.h" />
     <ClInclude Include="CCube.h" />
     <ClInclude Include="CEffect.h" />
-    <ClInclude Include="CEnemy.h" />
+    <ClInclude Include="CEnemy1.h" />
     <ClInclude Include="CEnemy2.h" />
     <ClInclude Include="CEnemy3.h" />
     <ClInclude Include="CFont.h" />
