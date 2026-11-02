@@ -10,7 +10,7 @@ const float RAD_TO_DEG = 180.0f / (float)M_PI;
 //静的メンバ変数の定着
 CModel CEnemy1::msModel;
 
-CEnemy1::CEnemy1()
+CEnemy1::CEnemy1(const CVector& pos, const CVector& rot, const CVector& scale)
 	:mColliderCapsule1(this, &mMatrix, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, -20.0f), 1.1f)
 	, mColliderCapsule2(this, &mMatrix, CVector(2.0f, -1.0f, 20.0f), CVector(4.5f, -2.0f, 0.0f), 0.4f)
 	, mColliderCapsule3(this, &mMatrix, CVector(-2.0f, -1.0f, 20.0f), CVector(-4.5f, -2.0f, 0.0f), 0.4f)
@@ -25,9 +25,9 @@ CEnemy1::CEnemy1()
 	mScale = CVector(0.20f, 0.20f, 0.20f);
 	//最初は待機状態
 	//get()は、unique_ptrが保持しているポインタを取得する関数
-	mpState = mpIdle.get();
-	mpState->Start(this);
-	mState = mpState->State();
+	//mpState = mpIdle.get();
+	//mpState->Start(this);
+	//mState = mpState->State();
 	//タグの設定
 	Tag(ETag::EENEMY);
 	mColliderCapsule1.Tag(ETag::EENEMY);
@@ -38,7 +38,7 @@ CEnemy1::CEnemy1()
 void CEnemy1::Update()
 {
 	//状態の更新
-	mpState->Update();
+	/*mpState->Update();
 
 	//状態の切り替え
 	if (mState != mpState->State())
@@ -64,6 +64,7 @@ void CEnemy1::Update()
 		}
 		mpState->Start(this);
 	}
+	*/
 
 	//GRAVITYの大きさだけ、下方向へ移動させる
 	//mPosition = mPosition - CVector(0.0f, GRAVITY, 0.0f);
@@ -119,7 +120,7 @@ void CEnemy1::Update()
 void CEnemy1::Collision(CCollider* m, CCollider* o)
 {
 	//状態クラスの衝突処理
-	mpState->Collision(m, o);
+	//mpState->Collision(m, o);
 	//自身のコライダタイプの判定
 	switch (m->Type())
 	{

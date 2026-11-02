@@ -6,6 +6,7 @@
 #include"CCube.h"
 #include"CCamera.h"
 #include"CPaladin.h"
+#include"CEnemy1.h"
 
 //背景モデルデータの指定
 #define MODEL_BACKGROUND "res\\Stage\\SpaceStage1.obj", "res\\Stage\\SpaceStage1.mtl"
@@ -40,6 +41,8 @@ void CGameScene::Load()
 	mColliderMesh.Set(nullptr, nullptr, &mBackGround);
 	//パラディンのインスタンスを生成
 	CXCharacter* paladin = new CPaladin(CVector(0.0f,5.0f,-9.0f));
+	//エネミー１のインスタンスを生成
+	CXCharacter* emeny1 = new CEnemy1(CVector(0.0f, 0.0f, 0.0f));
 	//立方体インスタンスの生成
 	CCharacter3* cube = new CCube;
 	cube->Position(CVector(0.0f, 0.0f, -9.0f));

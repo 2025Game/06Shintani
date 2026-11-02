@@ -11,6 +11,7 @@ enum class ETag
 	EPLAYER,//プレイヤー
 	EBULLET,//弾
 	EENEMY,//敵
+	EENEMYBULLET,//敵の弾
 };
 /*
 タスククラス
