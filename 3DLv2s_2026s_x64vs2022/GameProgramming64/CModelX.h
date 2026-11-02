@@ -43,6 +43,7 @@ public:
 	CModelXFrame(CModelX* model);
 	//デストラクタ
 	~CModelXFrame();
+	
 private:
 	std::vector<CModelXFrame*> mChild;//子フレームの配列
 	CMatrix mTransformMatrix;//変換行列

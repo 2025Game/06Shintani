@@ -116,6 +116,11 @@ void CMatrix::Print() {
 		mM[3][0], mM[3][1], mM[3][2], mM[3][3]);
 }
 
+int CMatrix::Size()
+{
+	return sizeof(mM) / sizeof(float);
+}
+
 
 float CMatrix::M(int r, int c) const
 {

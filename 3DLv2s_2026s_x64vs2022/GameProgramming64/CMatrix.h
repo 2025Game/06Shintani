@@ -53,6 +53,9 @@ public:
 	//表示確認用
 	//4×4の行列を画面出力
 	void Print();
+
+	//要素数の取得
+	int Size();
 private:
 	//4×4の行列データを設定
 	float mM[4][4];
