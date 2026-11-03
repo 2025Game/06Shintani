@@ -238,7 +238,7 @@ CModelXFrame::CModelXFrame(CModelX* model)
 	//デバッグバージョンのみ有効
 #ifdef _DEBUG
 	printf("%s\n", mpName);
-
+	
 	printf("%s\n",&CMatrix::Print);
 #endif // DEBUG
 
