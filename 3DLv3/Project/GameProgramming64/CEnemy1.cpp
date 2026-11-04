@@ -124,33 +124,50 @@ void CEnemy1::Collision(CCollider* m, CCollider* o)
 	//自身のコライダタイプの判定
 	switch (m->Type())
 	{
-		
-		
+
+
 	case CCollider::EType::ECAPSULE://カプセルコライダ
 
-		if (o->Tag()==ETag::EENEMY)
+		if (o == &mColliderCapsule1 || o == &mColliderCapsule2 || o == &mColliderCapsule3)
 		{
 			//相手のタグがエネミーの時は衝突処理を行わない
+			return;
+		}
+		if (o->Tag() == ETag::EENEMY)
+		{
 			return;
 		}
 		//相手のコライダがカプセルコライダの時
 		if (o->Type() == CCollider::EType::ECAPSULE)
 		{
 			CVector adjust;//調整用ベクトル
-			//カプセルとカプセルの衝突判定
-			if (CCollider::CollisionCapsuleCapsule(m, o, &adjust))
+			if (o->Tag() == ETag::EBULLET)
 			{
-				//衝突している場合、プレイヤーの位置を調整する
-				mPosition = CVector() * mMatrix + adjust;
-				//親子関係がある場合
-				if (m->Parent() && m->Parent()->Parent())
+				//カプセルとカプセルの衝突判定
+				if (CCollider::CollisionCapsuleCapsule(m, o, &adjust))
 				{
-					//親のローカル座標へ変換
-					mPosition = mPosition * m->Parent()->Parent()->CombinedMatrix().Inverse();
+					printf("当たった");
+					//ダメージ処理を入れる
 				}
-				//行列の更新
-				CTransform::Update();
 			}
+			else
+			{
+				//カプセルとカプセルの衝突判定
+				if (CCollider::CollisionCapsuleCapsule(m, o, &adjust))
+				{
+					//衝突している場合、プレイヤーの位置を調整する
+					mPosition = CVector() * mMatrix + adjust;
+					//親子関係がある場合
+					if (m->Parent() && m->Parent()->Parent())
+					{
+						//親のローカル座標へ変換
+						mPosition = mPosition * m->Parent()->Parent()->CombinedMatrix().Inverse();
+					}
+					//行列の更新
+					CTransform::Update();
+				}
+			}
+			
 		}
 
 		//相手のコライダが三角コライダの時

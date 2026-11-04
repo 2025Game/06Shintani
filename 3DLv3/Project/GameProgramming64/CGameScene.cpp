@@ -40,13 +40,14 @@ void CGameScene::Load()
 	character->Model(&mBackGround);
 	mColliderMesh.Set(nullptr, nullptr, &mBackGround);
 	//パラディンのインスタンスを生成
-	CXCharacter* paladin = new CPaladin(CVector(0.0f,5.0f,-9.0f));
+	//CXCharacter* paladin = new CPaladin(CVector(0.0f,5.0f,-9.0f));
 	//エネミー１のインスタンスを生成
-	CXCharacter* emeny1 = new CEnemy1(CVector(0.0f, 0.0f, 0.0f));
+	CXCharacter* enemy1 = new CEnemy1(CVector(0.0f, 0.0f, 0.0f));
+	enemy1->Position(CVector(0.0f, 0.0f, -9.0f));
 	//立方体インスタンスの生成
-	CCharacter3* cube = new CCube;
-	cube->Position(CVector(0.0f, 0.0f, -9.0f));
-	cube->Scale(CVector(10.0f, 0.5f, 10.0f));
+	//CCharacter3* cube = new CCube;
+	//cube->Position(CVector(0.0f, 0.0f, -9.0f));
+	//cube->Scale(CVector(10.0f, 0.5f, 10.0f));
 	//カメラ位置の設定
 	CCamera::Instance()->Scale(CVector(0.0f, 1.0f, -12.0f));
 	spUi = new CUi();	//UIクラスの生成

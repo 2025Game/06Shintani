@@ -16,9 +16,14 @@ void CBullet::Collision(CCollider* m, CCollider* o)
 			//相手のタグがEBULLETの時は衝突処理を行わない
 			return;
 		}
+		if (o->Tag() == ETag::EENEMY)
+		{
 			//衝突している時は無効にする
 
 			mEnabled = false;
+			//printf("弾が当たった");
+		}
+			
 		
 	}
 }
@@ -34,6 +39,7 @@ CBullet::CBullet()
 	}
 	//モデルポインタの設定
 	mpModel = &msModel;
+	Tag(ETag::EBULLET);
 	mColliderCapsule1.Tag(ETag::EBULLET);
 }
 

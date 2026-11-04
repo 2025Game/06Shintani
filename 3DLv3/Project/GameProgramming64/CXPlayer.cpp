@@ -182,11 +182,19 @@ void CXPlayer::Collision(CCollider* m, CCollider* o)
 		if (o == &mColliderCapsule1 || o == &mColliderCapsule2 || o == &mColliderCapsule3)
 		{
 			//相手がプレイヤーのコライダの時は衝突処理を行わない
+			
 			return;
 		}
+		if (o->Tag() == ETag::EBULLET)
+		{
+			return;
+		}
+		
 		//相手のコライダがカプセルコライダの時
 		if (o->Type() == CCollider::EType::ECAPSULE)
 		{
+			
+			//printf("%d",o->Tag());
 			CVector adjust;//調整用ベクトル
 			//カプセルとカプセルの衝突判定
 			if (CCollider::CollisionCapsuleCapsule(m, o, &adjust))
