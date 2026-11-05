@@ -14,6 +14,7 @@ CEnemy1::CEnemy1(const CVector& pos, const CVector& rot, const CVector& scale)
 	:mColliderCapsule1(this, &mMatrix, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, -20.0f), 1.1f)
 	, mColliderCapsule2(this, &mMatrix, CVector(2.0f, -1.0f, 20.0f), CVector(4.5f, -2.0f, 0.0f), 0.4f)
 	, mColliderCapsule3(this, &mMatrix, CVector(-2.0f, -1.0f, 20.0f), CVector(-4.5f, -2.0f, 0.0f), 0.4f)
+	,mAttackRenge(this, &mMatrix, CVector(0.0f, 0.0f, 0.0f), 10.0f)
 {
 	//モデルデータがなければ読み込み
 	if (msModel.Triangles().empty())
@@ -33,6 +34,7 @@ CEnemy1::CEnemy1(const CVector& pos, const CVector& rot, const CVector& scale)
 	mColliderCapsule1.Tag(ETag::EENEMY);
 	mColliderCapsule2.Tag(ETag::EENEMY);
 	mColliderCapsule3.Tag(ETag::EENEMY);
+	mAttackRenge.Tag(ETag::ATTACKRANGE);
 }
 
 void CEnemy1::Update()
@@ -74,6 +76,7 @@ void CEnemy1::Update()
 	mColliderCapsule1.Update();
 	mColliderCapsule2.Update();
 	mColliderCapsule3.Update();
+	//mAttackRenge.Update();
 
 	//スペースキー入力で弾発射
 	if (mInput.Key(VK_LBUTTON))
@@ -128,11 +131,7 @@ void CEnemy1::Collision(CCollider* m, CCollider* o)
 
 	case CCollider::EType::ECAPSULE://カプセルコライダ
 
-		if (o == &mColliderCapsule1 || o == &mColliderCapsule2 || o == &mColliderCapsule3)
-		{
-			//相手のタグがエネミーの時は衝突処理を行わない
-			return;
-		}
+		
 		if (o->Tag() == ETag::EENEMY)
 		{
 			return;
@@ -140,13 +139,14 @@ void CEnemy1::Collision(CCollider* m, CCollider* o)
 		//相手のコライダがカプセルコライダの時
 		if (o->Type() == CCollider::EType::ECAPSULE)
 		{
+			
 			CVector adjust;//調整用ベクトル
 			if (o->Tag() == ETag::EBULLET)
 			{
 				//カプセルとカプセルの衝突判定
 				if (CCollider::CollisionCapsuleCapsule(m, o, &adjust))
 				{
-					printf("当たった");
+					//printf("当たった");
 					//ダメージ処理を入れる
 				}
 			}
@@ -222,6 +222,10 @@ void CEnemy1::Collision()
 	mColliderCapsule3.ChangePriority();
 	//衝突処理を実行
 	CCollisionManager::Instance()->Collision(&mColliderCapsule3, COLLISIONRANGE);
+	//コライダの優先度変更
+	mAttackRenge.ChangePriority();
+	//衝突処理を実行
+	CCollisionManager::Instance()->Collision(&mAttackRenge, COLLISIONRANGE);
 }
 
 void CEnemy1::Init(CModelX* model)
