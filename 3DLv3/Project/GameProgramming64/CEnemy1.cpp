@@ -160,22 +160,42 @@ void CEnemy1::Collision(CCollider* m, CCollider* o)
 			//カプセルとカプセルの衝突判定
 			if (CCollider::CollisionCapsuleCapsule(m, o, &adjust))
 			{
-				if (m->Tag() == ETag::EATTACKRANGE) return;
-				if (o->Tag() == ETag::EBULLET)
+				if (m->Tag() != ETag::EATTACKRANGE)
 				{
-					printf("当たった");
-					mHP--;
-					//ダメージ処理を入れる
+					if (o->Tag() == ETag::EBULLET)
+					{
+						printf("敵に弾が当たった");
+						mHP--;
+						//ダメージ処理を入れる
+					}
+
 				}
 				
 			}
+			else
+			{
+				//カプセルとカプセルの衝突判定
+				if (CCollider::CollisionCapsuleCapsule(m, o, &adjust))
+				{
+					//衝突している場合、プレイヤーの位置を調整する
+					mPosition = CVector() * mMatrix + adjust;
+					//親子関係がある場合
+					if (m->Parent() && m->Parent()->Parent())
+					{
+						//親のローカル座標へ変換
+						mPosition = mPosition * m->Parent()->Parent()->CombinedMatrix().Inverse();
+					}
+					//行列の更新
+					CTransform::Update();
+				}
+			}
 		
 		//相手のタグがプレイヤーかつ自分のタグが索敵範囲の時
-		else if ((o->Tag() == ETag::EPLAYER || m->Tag() == ETag::EATTACKRANGE))
+		 if ((o->Tag()==ETag::EPLAYER || m->Tag() == ETag::EATTACKRANGE))
 		{
 			if (CCollider::CollisionCapsuleCapsule(m, o, &adjust))
 			{
-				//printf("当たった");
+				printf("索敵範囲に入った");
 				/*
 				//プレイヤーのポインタが0以外の時
 				CXPlayer* player = CXPlayer::Instance();
@@ -231,23 +251,7 @@ void CEnemy1::Collision(CCollider* m, CCollider* o)
 			}
 				
 		}
-		else
-		{
-			//カプセルとカプセルの衝突判定
-			if (CCollider::CollisionCapsuleCapsule(m, o, &adjust))
-			{
-				//衝突している場合、プレイヤーの位置を調整する
-				mPosition = CVector() * mMatrix + adjust;
-				//親子関係がある場合
-				if (m->Parent() && m->Parent()->Parent())
-				{
-					//親のローカル座標へ変換
-					mPosition = mPosition * m->Parent()->Parent()->CombinedMatrix().Inverse();
-				}
-				//行列の更新
-				CTransform::Update();
-			}
-		}
+		
 
 	}
 

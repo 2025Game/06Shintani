@@ -24,7 +24,7 @@ void CBullet::Collision(CCollider* m, CCollider* o)
 			if (CCollider::CollisionCapsuleCapsule(m, o, &adjust))
 			{
 				//“G‚ÆÕ“Ë‚µ‚Ä‚¢‚é‚Í–³Œø‚É‚·‚é
-				//printf("“–‚½‚Á‚½");
+				//printf("’e‚ª“–‚½‚Á‚½");
 				mEnabled = false;
 			}
 		}
