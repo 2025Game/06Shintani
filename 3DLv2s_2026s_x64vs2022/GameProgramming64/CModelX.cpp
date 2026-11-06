@@ -239,7 +239,7 @@ CModelXFrame::CModelXFrame(CModelX* model)
 #ifdef _DEBUG
 	printf("%s\n", mpName);
 	
-	printf("%s\n",&CMatrix::Print);
+	mTransformMatrix.Print();
 #endif // DEBUG
 
 
