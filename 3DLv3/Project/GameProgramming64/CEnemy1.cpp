@@ -15,6 +15,7 @@ CEnemy1::CEnemy1(const CVector& pos, const CVector& rot, const CVector& scale)
 	, mColliderCapsule2(this, &mMatrix, CVector(2.0f, -1.0f, 20.0f), CVector(4.5f, -2.0f, 0.0f), 0.4f)
 	, mColliderCapsule3(this, &mMatrix, CVector(-2.0f, -1.0f, 20.0f), CVector(-4.5f, -2.0f, 0.0f), 0.4f)
 	,mAttackRenge(this, &mMatrix, CVector(0.0f, 0.0f, 0.0f), 25.0f)
+	,mHP(3)
 {
 	//モデルデータがなければ読み込み
 	if (msModel.Triangles().empty())
@@ -118,6 +119,10 @@ void CEnemy1::Update()
 	//弾のクールタイム
 	BulletCoolTime--;
 
+	if (mHP <= 0)
+	{
+		mEnabled = false;
+	}
 }
 
 void CEnemy1::Collision(CCollider* m, CCollider* o)
@@ -147,6 +152,7 @@ void CEnemy1::Collision(CCollider* m, CCollider* o)
 				if (CCollider::CollisionCapsuleCapsule(m, o, &adjust))
 				{
 					//printf("当たった");
+					mHP--;
 					//ダメージ処理を入れる
 				}
 			}

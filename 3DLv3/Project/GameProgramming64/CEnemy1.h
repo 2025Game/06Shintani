@@ -50,5 +50,7 @@ private:
 	//モデルのインスタンス
 	static CModel msModel;
 
+	int mHP;//HP
+
 };
 #endif // !CENEMY1_E
