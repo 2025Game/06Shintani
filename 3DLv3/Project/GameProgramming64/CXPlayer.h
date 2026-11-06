@@ -31,6 +31,9 @@ public:
 	void Init(CModelX* model);
 
 	void Render() override;
+
+	//プレイヤーのポインタの取得
+	static CXPlayer* Instance();
 private:
 	CColliderLine mColliderLine;
 	//EState mState;//状態の保持
@@ -49,6 +52,7 @@ private:
 	int BulletCoolTime=0;
 	//モデルのインスタンス
 	static CModel msModel;
-
+	//プレイヤーのインスタンス
+	static CXPlayer* spInstance;
 };
 #endif // !CXPLAYER_E

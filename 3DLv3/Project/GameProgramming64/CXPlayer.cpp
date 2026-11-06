@@ -11,6 +11,8 @@ const float RAD_TO_DEG = 180.0f / (float)M_PI;
 //静的メンバ変数の定着
 CModel CXPlayer::msModel;
 
+CXPlayer* CXPlayer::spInstance = nullptr;
+
 CXPlayer::CXPlayer()
 	:mColliderCapsule1(this, &mMatrix, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, -20.0f), 1.1f)
 	,mColliderCapsule2(this, &mMatrix, CVector(2.0f, -1.0f, 20.0f), CVector(4.5f, -2.0f, 0.0f), 0.4f)
@@ -46,6 +48,8 @@ CXPlayer::CXPlayer()
 	mColliderCapsule1.Tag(ETag::EPLAYER);
 	mColliderCapsule2.Tag(ETag::EPLAYER);
 	mColliderCapsule3.Tag(ETag::EPLAYER);
+	//インスタンスの設定
+	spInstance = this;
 }
 
 void CXPlayer::Update()
@@ -189,6 +193,7 @@ void CXPlayer::Collision(CCollider* m, CCollider* o)
 		{
 			return;
 		}
+		if (o->Tag() == ETag::EATTACKRANGE) return;
 		
 		//相手のコライダがカプセルコライダの時
 		if (o->Type() == CCollider::EType::ECAPSULE)
@@ -288,4 +293,9 @@ const CMatrix& CXPlayer::FrameCombinedMatrix(const char* name)
 	}
 	static CMatrix dummy;//ダミーの行列
 	return dummy;
+}
+
+CXPlayer* CXPlayer::Instance()
+{
+	return spInstance;
 }

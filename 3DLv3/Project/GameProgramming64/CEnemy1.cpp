@@ -1,5 +1,6 @@
 #include"CEnemy1.h"
 //#define GRAVITY 0.0625f//重力
+#define VELOCITY 0.01f	//速度
 #define _USE_MATH_DEFINES
 #include<math.h>
 //ラジアンを度数に変換するための定数
@@ -14,7 +15,7 @@ CEnemy1::CEnemy1(const CVector& pos, const CVector& rot, const CVector& scale)
 	:mColliderCapsule1(this, &mMatrix, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, -20.0f), 1.1f)
 	, mColliderCapsule2(this, &mMatrix, CVector(2.0f, -1.0f, 20.0f), CVector(4.5f, -2.0f, 0.0f), 0.4f)
 	, mColliderCapsule3(this, &mMatrix, CVector(-2.0f, -1.0f, 20.0f), CVector(-4.5f, -2.0f, 0.0f), 0.4f)
-	,mAttackRenge(this, &mMatrix, CVector(0.0f, 0.0f, 0.0f), 25.0f)
+	,mAttackRenge(this, &mMatrix, CVector(-2.0f, -1.0f, 20.0f), CVector(-4.5f, -2.0f, 0.0f), 20.0f)
 	,mHP(3)
 {
 	//モデルデータがなければ読み込み
@@ -35,7 +36,10 @@ CEnemy1::CEnemy1(const CVector& pos, const CVector& rot, const CVector& scale)
 	mColliderCapsule1.Tag(ETag::EENEMY);
 	mColliderCapsule2.Tag(ETag::EENEMY);
 	mColliderCapsule3.Tag(ETag::EENEMY);
-	mAttackRenge.Tag(ETag::ATTACKRANGE);
+	mAttackRenge.Tag(ETag::EATTACKRANGE);
+	//目標地点の設定
+	mPoint = mPosition + CVector(0.0f, 0.0f, 100.0f) * mMatrixRotate;
+
 }
 
 void CEnemy1::Update()
@@ -77,7 +81,7 @@ void CEnemy1::Update()
 	mColliderCapsule1.Update();
 	mColliderCapsule2.Update();
 	mColliderCapsule3.Update();
-	//mAttackRenge.Update();
+	mAttackRenge.Update();
 
 	//スペースキー入力で弾発射
 	if (mInput.Key(VK_LBUTTON))
@@ -123,6 +127,8 @@ void CEnemy1::Update()
 	{
 		mEnabled = false;
 	}
+
+	
 }
 
 void CEnemy1::Collision(CCollider* m, CCollider* o)
@@ -136,83 +142,152 @@ void CEnemy1::Collision(CCollider* m, CCollider* o)
 
 	case CCollider::EType::ECAPSULE://カプセルコライダ
 
-		
+
+		//相手のタグがエネミーの時
 		if (o->Tag() == ETag::EENEMY)
 		{
+			//衝突しない
 			return;
 		}
-		//相手のコライダがカプセルコライダの時
-		if (o->Type() == CCollider::EType::ECAPSULE)
-		{
-			
-			CVector adjust;//調整用ベクトル
-			if (o->Tag() == ETag::EBULLET)
+	}
+	//相手のコライダがカプセルコライダの時
+	if (o->Type() == CCollider::EType::ECAPSULE)
+	{
+
+		CVector adjust;//調整用ベクトル
+		
+		
+			//カプセルとカプセルの衝突判定
+			if (CCollider::CollisionCapsuleCapsule(m, o, &adjust))
 			{
-				//カプセルとカプセルの衝突判定
-				if (CCollider::CollisionCapsuleCapsule(m, o, &adjust))
+				if (m->Tag() == ETag::EATTACKRANGE) return;
+				if (o->Tag() == ETag::EBULLET)
 				{
-					//printf("当たった");
+					printf("当たった");
 					mHP--;
 					//ダメージ処理を入れる
 				}
+				
 			}
-			else
-			{
-				//カプセルとカプセルの衝突判定
-				if (CCollider::CollisionCapsuleCapsule(m, o, &adjust))
-				{
-					//衝突している場合、プレイヤーの位置を調整する
-					mPosition = CVector() * mMatrix + adjust;
-					//親子関係がある場合
-					if (m->Parent() && m->Parent()->Parent())
-					{
-						//親のローカル座標へ変換
-						mPosition = mPosition * m->Parent()->Parent()->CombinedMatrix().Inverse();
-					}
-					//行列の更新
-					CTransform::Update();
-				}
-			}
-			
-		}
-
-		//相手のコライダが三角コライダの時
-		if (o->Type() == CCollider::EType::ETRIANGLE)
+		
+		//相手のタグがプレイヤーかつ自分のタグが索敵範囲の時
+		else if ((o->Tag() == ETag::EPLAYER || m->Tag() == ETag::EATTACKRANGE))
 		{
-			CVector adjust;//調整用ベクトル
-			//三角形とカプセルの衝突判定
-			if (CCollider::CollisionTriangleCapsule(o, m, &adjust))
+			if (CCollider::CollisionCapsuleCapsule(m, o, &adjust))
 			{
-				//位置の更新
-				//現在のワールドでの位置
-				mPosition = (CVector() * mMatrix + adjust);
-				//前方の位置を求める
-				CVector forward = (CVector(0.0f, 0.0f, 1.0f) * mMatrix + adjust);
+				//printf("当たった");
+				/*
+				//プレイヤーのポインタが0以外の時
+				CXPlayer* player = CXPlayer::Instance();
+				//目標地点までのベクトルを求める
+				CVector vp = mPoint - mPosition;
 
-				if (o->Parent())
+				//左ベクトルとの内積を求める
+				float dx = vp.Dot(mMatrixRotate.VectorX());
+				//上ベクトルとの内積を求める
+				float dy = vp.Dot(mMatrixRotate.VectorY());
+				const float margin = 0.1f;
+				//左方向へ回転
+				if (dx > margin)
+				{
+					//左へ回転
+					mRotation = mRotation + CVector(0.0f, 1.0f, 0.0f);
+				}
+				else if (dx < -margin)
+				{
+					// //右へ回転
+					mRotation = mRotation + CVector(0.0f, -1.0f, 0.0f);
+				}
+				//上下方向へ回転
+				if (dy > margin)
+				{
+					//上へ回転
+					mRotation = mRotation + CVector(-1.0f, 0.0f, 0.0f);
+				}
+				else if (dy < -margin)
+				{
+					//下へ回転
+					mRotation = mRotation + CVector(1.0f, 0.0f, 0.0f);
+				}
+				//機体前方へ移動する
+				mPosition = mPosition + mMatrixRotate.VectorZ() * VELOCITY;
+				//CTransform::Update();//行列更新
+				//およそ3秒毎に目標地点を更新
+				int r = rand() % 180;//randは整数の乱数を返す
+
+				if (r == 0)
+				{
+					if (player != nullptr)
+					{
+						mPoint = player->Position();
+					}
+					else
+					{
+						mPoint = mPoint * CMatrix().RotateY(45);
+					}
+				}
+				//プレイヤーを追いかける
+				*/
+			}
+				
+		}
+		else
+		{
+			//カプセルとカプセルの衝突判定
+			if (CCollider::CollisionCapsuleCapsule(m, o, &adjust))
+			{
+				//衝突している場合、プレイヤーの位置を調整する
+				mPosition = CVector() * mMatrix + adjust;
+				//親子関係がある場合
+				if (m->Parent() && m->Parent()->Parent())
 				{
 					//親のローカル座標へ変換
-					mPosition = mPosition * o->Parent()->CombinedMatrix().Inverse();
-					//親のローカル座標へ変換
-					forward = forward * o->Parent()->CombinedMatrix().Inverse();
-
-
+					mPosition = mPosition * m->Parent()->Parent()->CombinedMatrix().Inverse();
 				}
-				//ローカルの座標の向きを求める
-				forward = forward - mPosition;
-				//Y軸の回転角度の度数
-				//atan2f(forward.X(), forward.Z())* RAD_TO_DEG;
-				mRotation = CVector(0.0f, atan2f(forward.X(), forward.Z()) * RAD_TO_DEG, 0.0f);
-				//親の設定
-				mpParent = o->Parent();
 				//行列の更新
 				CTransform::Update();
 			}
 		}
-		//break;
 
 	}
+
+	//相手のコライダが三角コライダの時
+	if (o->Type() == CCollider::EType::ETRIANGLE)
+	{
+		CVector adjust;//調整用ベクトル
+		//三角形とカプセルの衝突判定
+		if (CCollider::CollisionTriangleCapsule(o, m, &adjust))
+		{
+			//位置の更新
+			//現在のワールドでの位置
+			mPosition = (CVector() * mMatrix + adjust);
+			//前方の位置を求める
+			CVector forward = (CVector(0.0f, 0.0f, 1.0f) * mMatrix + adjust);
+
+			if (o->Parent())
+			{
+				//親のローカル座標へ変換
+				mPosition = mPosition * o->Parent()->CombinedMatrix().Inverse();
+				//親のローカル座標へ変換
+				forward = forward * o->Parent()->CombinedMatrix().Inverse();
+
+
+			}
+			//ローカルの座標の向きを求める
+			forward = forward - mPosition;
+			//Y軸の回転角度の度数
+			//atan2f(forward.X(), forward.Z())* RAD_TO_DEG;
+			mRotation = CVector(0.0f, atan2f(forward.X(), forward.Z()) * RAD_TO_DEG, 0.0f);
+			//親の設定
+			mpParent = o->Parent();
+			//行列の更新
+			CTransform::Update();
+		}
+	}
+	//break;
+
 }
+
 
 void CEnemy1::Collision()
 {

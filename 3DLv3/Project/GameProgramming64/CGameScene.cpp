@@ -44,6 +44,9 @@ void CGameScene::Load()
 	//エネミー１のインスタンスを生成
 	CXCharacter* enemy1 = new CEnemy1(CVector(0.0f, 0.0f, 0.0f));
 	enemy1->Position(CVector(0.0f, 10.0f, -9.0f));
+	//エネミー2のインスタンスを生成
+	//CXCharacter* enemy2 = new CEnemy1(CVector(0.0f, 0.0f, 0.0f));
+	//enemy2->Position(CVector(0.0f, 5.0f, -9.0f));
 	//立方体インスタンスの生成
 	//CCharacter3* cube = new CCube;
 	//cube->Position(CVector(0.0f, 0.0f, -9.0f));
