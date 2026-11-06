@@ -3,8 +3,10 @@
 #define CMODELX_H
 #include <vector>//vectorクラスのインクルード（動的配列）
 #include"CMatrix.h"//マトリクスクラスのインクルード
+#include"CVector.h"
 class CModelX;//CModelXクラスの宣言
 class CModelXFrame;//CModelXFrameクラスの宣言
+class CMesh;//CMeshクラスの宣言
 
 #define MODEL_FILE "res\\sample.blend.x"//入力ファイル名\
 
@@ -25,6 +27,7 @@ public:
 	void Load(const char* file);
 	//単語の取り出し
 	char* GetToken();
+	char* Token();
 private:
 	char* mpPointer;//読み込み位置
 	char mToken[1024];//取り出した単語の領域
@@ -49,6 +52,23 @@ private:
 	CMatrix mTransformMatrix;//変換行列
 	char* mpName;//フレーム名
 	int mIndex;//フレーム番号
+	CMesh* mpMesh;//Meshデータ
+};
+
+//CMeshクラスの定義
+class CMesh
+{
+public:
+	//コンストラクタ
+	CMesh();
+	//デストラクタ
+	~CMesh();
+	//読み込み処理
+	void Init(CModelX* model);
+private:
+	int mVertexNum;//頂点数
+	CVector* mpVertex;//頂点データ
+
 };
 #endif // ! CMODELX_H//インクルードガード
 
