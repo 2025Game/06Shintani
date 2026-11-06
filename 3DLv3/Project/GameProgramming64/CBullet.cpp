@@ -9,27 +9,32 @@ CModel CBullet::msModel;
 void CBullet::Collision(CCollider* m, CCollider* o)
 {
 	//コライダのmとoが衝突しているか判定
-	if (CCollider::Collision(m, o))
-	{
+	//if (CCollider::Collision(m, o))
+	//{
 		if (o->Tag()==ETag::EBULLET)
 		{
 			//相手のタグがEBULLETの時は衝突処理を行わない
 			return;
 		}
+
+		CVector adjust;//調整用ベクトル
 		if (o->Tag() == ETag::EENEMY)
 		{
-			//衝突している時は無効にする
-
-			mEnabled = false;
-			//printf("弾が当たった");
+			//カプセルとカプセルの衝突判定
+			if (CCollider::CollisionCapsuleCapsule(m, o, &adjust))
+			{
+				//敵と衝突している時は無効にする
+				//printf("当たった");
+				mEnabled = false;
+			}
 		}
 			
 		
-	}
+	//}
 }
 
 CBullet::CBullet()
-	: mLife(50)
+	: mLife(100)
 	, mColliderCapsule1(this, &mMatrix, CVector(0.0f, 1.0f, -1.05f), CVector(0.0f, 1.0f, 1.05f), 0.3f)
 {
 	//モデルデータがなければ読み込み
