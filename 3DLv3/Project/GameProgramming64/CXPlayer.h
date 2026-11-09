@@ -45,7 +45,7 @@ private:
 	CColliderCapsule mColliderCapsule1;//カプセルコライダ
 	CColliderCapsule mColliderCapsule2;//カプセルコライダ
 	CColliderCapsule mColliderCapsule3;//カプセルコライダ
-
+	CColliderCapsule mPlayerRenge;//範囲のコライダ
 	CInput mInput;
 
 	bool BulletFlag=false;//弾を出したときにフラグを操作する

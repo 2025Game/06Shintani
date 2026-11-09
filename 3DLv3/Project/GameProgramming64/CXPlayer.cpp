@@ -17,6 +17,7 @@ CXPlayer::CXPlayer()
 	:mColliderCapsule1(this, &mMatrix, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, -20.0f), 1.1f)
 	,mColliderCapsule2(this, &mMatrix, CVector(2.0f, -1.0f, 20.0f), CVector(4.5f, -2.0f, 0.0f), 0.4f)
 	,mColliderCapsule3(this, &mMatrix, CVector(-2.0f, -1.0f, 20.0f), CVector(-4.5f, -2.0f, 0.0f), 0.4f)
+	, mPlayerRenge(this, &mMatrix, CVector(-2.0f, -1.0f, 20.0f), CVector(-4.5f, -2.0f, 0.0f), 30.0f)
 {
 	//モデルデータがなければ読み込み
 	if (msModel.Triangles().empty())
@@ -48,6 +49,7 @@ CXPlayer::CXPlayer()
 	mColliderCapsule1.Tag(ETag::EPLAYER);
 	mColliderCapsule2.Tag(ETag::EPLAYER);
 	mColliderCapsule3.Tag(ETag::EPLAYER);
+	mPlayerRenge.Tag(ETag::EPLAYERRANGE);
 	//インスタンスの設定
 	spInstance = this;
 }
@@ -92,6 +94,7 @@ void CXPlayer::Update()
 	mColliderCapsule1.Update();
 	mColliderCapsule2.Update();
 	mColliderCapsule3.Update();
+	mPlayerRenge.Update();
 
 	//スペースキー入力で弾発射
 	if (mInput.Key(VK_LBUTTON)) 
@@ -203,7 +206,7 @@ void CXPlayer::Collision(CCollider* m, CCollider* o)
 			CVector adjust;//調整用ベクトル
 			//カプセルとカプセルの衝突判定
 			if (CCollider::CollisionCapsuleCapsule(m, o, &adjust))
-			{
+			{/*
 				//衝突している場合、プレイヤーの位置を調整する
 				mPosition = CVector() * mMatrix + adjust;
 				//親子関係がある場合
@@ -214,6 +217,7 @@ void CXPlayer::Collision(CCollider* m, CCollider* o)
 				}
 				//行列の更新
 				CTransform::Update();
+				*/
 			}
 		}
 
@@ -269,6 +273,10 @@ void CXPlayer::Collision()
 	mColliderCapsule3.ChangePriority();
 	//衝突処理を実行
 	CCollisionManager::Instance()->Collision(&mColliderCapsule3, COLLISIONRANGE);
+	//コライダの優先度変更
+	mPlayerRenge.ChangePriority();
+	//衝突処理を実行
+	CCollisionManager::Instance()->Collision(&mPlayerRenge, COLLISIONRANGE);
 }
 
 void CXPlayer::Init(CModelX* model)

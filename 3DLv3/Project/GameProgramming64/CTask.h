@@ -13,6 +13,7 @@ enum class ETag
 	EENEMY,//敵
 	EENEMYBULLET,//敵の弾
 	EATTACKRANGE,//攻撃範囲
+	EPLAYERRANGE,//プレイヤーの範囲
 };
 /*
 タスククラス

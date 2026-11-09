@@ -177,6 +177,7 @@ void CEnemy1::Collision(CCollider* m, CCollider* o)
 				//カプセルとカプセルの衝突判定
 				if (CCollider::CollisionCapsuleCapsule(m, o, &adjust))
 				{
+					/*
 					//衝突している場合、プレイヤーの位置を調整する
 					mPosition = CVector() * mMatrix + adjust;
 					//親子関係がある場合
@@ -185,14 +186,22 @@ void CEnemy1::Collision(CCollider* m, CCollider* o)
 						//親のローカル座標へ変換
 						mPosition = mPosition * m->Parent()->Parent()->CombinedMatrix().Inverse();
 					}
+					
 					//行列の更新
 					CTransform::Update();
+					*/
+					
 				}
 			}
-		
+			
+			//相手のタグがプレイヤー範囲かつ自分のタグがエネミーの時
+			if (o->Tag() == ETag::EPLAYERRANGE||m->Tag()==ETag::EENEMY) return;
 		//相手のタグがプレイヤーかつ自分のタグが索敵範囲の時
 		 if ((o->Tag()==ETag::EPLAYER || m->Tag() == ETag::EATTACKRANGE))
 		{
+			 if (o->Tag() == ETag::EBULLET|| (o->Tag() == ETag::EPLAYERRANGE)) return;
+			 
+			
 			if (CCollider::CollisionCapsuleCapsule(m, o, &adjust))
 			{
 				//printf("索敵範囲に入った");
@@ -235,7 +244,7 @@ void CEnemy1::Collision(CCollider* m, CCollider* o)
 				mPosition = mPosition + mMatrixRotate.VectorZ() * VELOCITY;
 				CTransform::Update();//行列更新
 				//およそ3秒毎に目標地点を更新
-				int r = rand() % 60;//randは整数の乱数を返す
+				int r = rand() % 1;//randは整数の乱数を返す
 
 				if (r == 0)
 				{
@@ -251,6 +260,7 @@ void CEnemy1::Collision(CCollider* m, CCollider* o)
 				//プレイヤーを追いかける
 				
 			}
+			
 				
 		}
 		
