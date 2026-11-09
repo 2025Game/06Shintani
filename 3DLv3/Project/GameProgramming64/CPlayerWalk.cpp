@@ -3,7 +3,7 @@
 #include"CCamera.h"
 
 //ˆÚ“®‘¬“x
-#define VELOCITY 0.1f
+#define VELOCITY 0.2f
 //‰ñ“]‘¬“x
 #define ROTATIONSPEED 2.0f
 

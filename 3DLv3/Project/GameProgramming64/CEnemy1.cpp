@@ -144,7 +144,7 @@ void CEnemy1::Collision(CCollider* m, CCollider* o)
 
 
 		//相手のタグがエネミーの時
-		if (o->Tag() == ETag::EENEMY)
+		if (o->Tag() == ETag::EENEMY||o->Tag()==ETag::EENEMYBULLET||o->Tag()==ETag::EATTACKRANGE)
 		{
 			//衝突しない
 			return;
@@ -164,9 +164,9 @@ void CEnemy1::Collision(CCollider* m, CCollider* o)
 				{
 					if (o->Tag() == ETag::EBULLET)
 					{
-						printf("敵に弾が当たった");
+						//printf("敵に弾が当たった");
 						mHP--;
-						//ダメージ処理を入れる
+						
 					}
 
 				}
@@ -195,8 +195,8 @@ void CEnemy1::Collision(CCollider* m, CCollider* o)
 		{
 			if (CCollider::CollisionCapsuleCapsule(m, o, &adjust))
 			{
-				printf("索敵範囲に入った");
-				/*
+				//printf("索敵範囲に入った");
+				
 				//プレイヤーのポインタが0以外の時
 				CXPlayer* player = CXPlayer::Instance();
 				//目標地点までのベクトルを求める
@@ -229,11 +229,13 @@ void CEnemy1::Collision(CCollider* m, CCollider* o)
 					//下へ回転
 					mRotation = mRotation + CVector(1.0f, 0.0f, 0.0f);
 				}
+				//TODO　プレイヤーから一定距離離す（近すぎないようにする）
+				
 				//機体前方へ移動する
 				mPosition = mPosition + mMatrixRotate.VectorZ() * VELOCITY;
-				//CTransform::Update();//行列更新
+				CTransform::Update();//行列更新
 				//およそ3秒毎に目標地点を更新
-				int r = rand() % 180;//randは整数の乱数を返す
+				int r = rand() % 60;//randは整数の乱数を返す
 
 				if (r == 0)
 				{
@@ -247,7 +249,7 @@ void CEnemy1::Collision(CCollider* m, CCollider* o)
 					}
 				}
 				//プレイヤーを追いかける
-				*/
+				
 			}
 				
 		}
