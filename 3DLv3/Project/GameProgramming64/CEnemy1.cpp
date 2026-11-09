@@ -7,15 +7,13 @@
 const float RAD_TO_DEG = 180.0f / (float)M_PI;
 
 //モデルデータの指定
-#define MODEL_PATH "res\\Spaceship\\SpaceShip.obj","res\\Spaceship\\SpaceShip.mtl"
+#define MODEL_PATH "res\\Enemy1\\Enemy1.obj","res\\Enemy1\\Enemy1.mtl"
 //静的メンバ変数の定着
 CModel CEnemy1::msModel;
 
 CEnemy1::CEnemy1(const CVector& pos, const CVector& rot, const CVector& scale)
-	:mColliderCapsule1(this, &mMatrix, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, -20.0f), 1.1f)
-	, mColliderCapsule2(this, &mMatrix, CVector(2.0f, -1.0f, 20.0f), CVector(4.5f, -2.0f, 0.0f), 0.4f)
-	, mColliderCapsule3(this, &mMatrix, CVector(-2.0f, -1.0f, 20.0f), CVector(-4.5f, -2.0f, 0.0f), 0.4f)
-	,mAttackRenge(this, &mMatrix, CVector(-2.0f, -1.0f, 20.0f), CVector(-4.5f, -2.0f, 0.0f), 30.0f)
+	:mColliderCapsule1(this, &mCombinedMatrix, CVector(0.0f, 2.0f, 5.0f), CVector(0.0f, 3.0f, -8.0f), 2.0f)
+	//,mAttackRenge(this, &mCombinedMatrix, CVector(-2.0f, -1.0f, 20.0f), CVector(-4.5f, -2.0f, 0.0f), 30.0f)
 	,mHP(3)
 {
 	//モデルデータがなければ読み込み
@@ -25,7 +23,7 @@ CEnemy1::CEnemy1(const CVector& pos, const CVector& rot, const CVector& scale)
 	}
 	//モデルポインタの設定
 	CCharacter3::mpModel = &msModel;
-	mScale = CVector(0.20f, 0.20f, 0.20f);
+	mScale = CVector(3.00f, 3.00f, 3.00f);
 	//最初は待機状態
 	//get()は、unique_ptrが保持しているポインタを取得する関数
 	//mpState = mpIdle.get();
@@ -34,9 +32,7 @@ CEnemy1::CEnemy1(const CVector& pos, const CVector& rot, const CVector& scale)
 	//タグの設定
 	Tag(ETag::EENEMY);
 	mColliderCapsule1.Tag(ETag::EENEMY);
-	mColliderCapsule2.Tag(ETag::EENEMY);
-	mColliderCapsule3.Tag(ETag::EENEMY);
-	mAttackRenge.Tag(ETag::EATTACKRANGE);
+	//mAttackRenge.Tag(ETag::EATTACKRANGE);
 	//目標地点の設定
 	mPoint = mPosition + CVector(0.0f, 0.0f, 100.0f) * mMatrixRotate;
 
@@ -79,9 +75,8 @@ void CEnemy1::Update()
 	CXCharacter::Update();
 	//カプセルコライダの更新
 	mColliderCapsule1.Update();
-	mColliderCapsule2.Update();
-	mColliderCapsule3.Update();
-	mAttackRenge.Update();
+	
+	//mAttackRenge.Update();
 
 	//スペースキー入力で弾発射
 	if (mInput.Key(VK_LBUTTON))
@@ -179,7 +174,7 @@ void CEnemy1::Collision(CCollider* m, CCollider* o)
 				if (o->Tag() == ETag::EPLAYERRANGE && m->Tag() == ETag::EENEMY)
 				{
 					//機体前方へ移動する
-					mPosition = mPosition + mMatrixRotate.VectorZ() * -VELOCITY;
+					//mPosition = mPosition + mMatrixRotate.VectorZ() * -VELOCITY;
 					//printf("攻撃しない");
 					return;
 				}
@@ -188,7 +183,7 @@ void CEnemy1::Collision(CCollider* m, CCollider* o)
 					{
 						//if (o->Tag() == ETag::EBULLET || (o->Tag() == ETag::EPLAYERRANGE)) return;
 						
-
+						/*
 
 						//printf("攻撃する");
 							//printf("索敵範囲に入った");
@@ -245,7 +240,7 @@ void CEnemy1::Collision(CCollider* m, CCollider* o)
 							}
 						}
 						//プレイヤーを追いかける
-
+						*/
 					}
 				
 				
@@ -325,18 +320,11 @@ void CEnemy1::Collision()
 	mColliderCapsule1.ChangePriority();
 	//衝突処理を実行
 	CCollisionManager::Instance()->Collision(&mColliderCapsule1, COLLISIONRANGE);
+	
 	//コライダの優先度変更
-	mColliderCapsule2.ChangePriority();
+	//mAttackRenge.ChangePriority();
 	//衝突処理を実行
-	CCollisionManager::Instance()->Collision(&mColliderCapsule2, COLLISIONRANGE);
-	//コライダの優先度変更
-	mColliderCapsule3.ChangePriority();
-	//衝突処理を実行
-	CCollisionManager::Instance()->Collision(&mColliderCapsule3, COLLISIONRANGE);
-	//コライダの優先度変更
-	mAttackRenge.ChangePriority();
-	//衝突処理を実行
-	CCollisionManager::Instance()->Collision(&mAttackRenge, COLLISIONRANGE);
+	//CCollisionManager::Instance()->Collision(&mAttackRenge, COLLISIONRANGE);
 }
 
 void CEnemy1::Init(CModelX* model)
