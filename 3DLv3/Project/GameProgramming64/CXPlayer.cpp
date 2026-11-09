@@ -186,17 +186,7 @@ void CXPlayer::Collision(CCollider* m, CCollider* o)
 			break;*/
 	case CCollider::EType::ECAPSULE://カプセルコライダ
 
-		if (o == &mColliderCapsule1 || o == &mColliderCapsule2 || o == &mColliderCapsule3)
-		{
-			//相手がプレイヤーのコライダの時は衝突処理を行わない
-			
-			return;
-		}
-		if (o->Tag() == ETag::EBULLET)
-		{
-			return;
-		}
-		if (o->Tag() == ETag::EATTACKRANGE) return;
+		
 		
 		//相手のコライダがカプセルコライダの時
 		if (o->Type() == CCollider::EType::ECAPSULE)
@@ -206,7 +196,24 @@ void CXPlayer::Collision(CCollider* m, CCollider* o)
 			CVector adjust;//調整用ベクトル
 			//カプセルとカプセルの衝突判定
 			if (CCollider::CollisionCapsuleCapsule(m, o, &adjust))
-			{/*
+			{
+				if (o == &mColliderCapsule1 || o == &mColliderCapsule2 || o == &mColliderCapsule3|| o == &mPlayerRenge)
+				{
+					//相手がプレイヤーのコライダの時は衝突処理を行わない
+
+					return;
+				}
+				if (o->Tag() == ETag::EBULLET|| o->Tag() == ETag::EATTACKRANGE||o->Tag() == ETag::EPLAYERRANGE)
+				{
+					//相手が自分の弾または相手の索敵範囲または自分の範囲だった場合はreturn
+					return;
+				}
+				if (m->Tag() == ETag::EPLAYERRANGE && o->Tag() == ETag::EENEMY)
+				{
+					//自分の範囲と敵は当たらない
+					return;
+				}
+				
 				//衝突している場合、プレイヤーの位置を調整する
 				mPosition = CVector() * mMatrix + adjust;
 				//親子関係がある場合
@@ -217,7 +224,8 @@ void CXPlayer::Collision(CCollider* m, CCollider* o)
 				}
 				//行列の更新
 				CTransform::Update();
-				*/
+				printf("%d",o->Tag());
+				printf("当たった");
 			}
 		}
 

@@ -90,7 +90,7 @@ void CEnemy1::Update()
 		{
 			if (BulletFlag == false)
 			{
-				CBullet* bullet = new CBullet();
+				CEnemy1Bullet* bullet = new CEnemy1Bullet();
 				bullet->Set(0.1f, 1.5f);
 				bullet->Position(CVector(1.5f, -3.0f, 35.0f) * mMatrix);
 				bullet->Rotation(mRotation);
@@ -100,7 +100,7 @@ void CEnemy1::Update()
 			}
 			else if (BulletFlag == true)
 			{
-				CBullet* bullet = new CBullet();
+				CEnemy1Bullet* bullet = new CEnemy1Bullet();
 				bullet->Set(0.1f, 1.5f);
 				bullet->Position(CVector(-1.5f, -3.0f, 35.0f) * mMatrix);
 				bullet->Rotation(mRotation);

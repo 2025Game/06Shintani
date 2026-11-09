@@ -12,7 +12,7 @@
 #include"CState.h"
 #include"CColliderCapsule.h"
 #include"CInput.h"
-#include"CBullet.h"
+#include"CEnemy1Bullet.h"
 #include"CGameScene.h"
 #include"CXPlayer.h"
 

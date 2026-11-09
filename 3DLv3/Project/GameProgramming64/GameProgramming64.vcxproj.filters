@@ -225,6 +225,9 @@
     <ClCompile Include="CEnemy1.cpp">
       <Filter>ソース ファイル\BaseSystem\Game\Character\Enemy1</Filter>
     </ClCompile>
+    <ClCompile Include="CEnemy1Bullet.cpp">
+      <Filter>ソース ファイル\BaseSystem\Game\Character\Enemy1</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h">
@@ -405,6 +408,9 @@
       <Filter>ソース ファイル\BaseSystem\Game\UI</Filter>
     </ClInclude>
     <ClInclude Include="CEnemy1.h">
+      <Filter>ソース ファイル\BaseSystem\Game\Character\Enemy1</Filter>
+    </ClInclude>
+    <ClInclude Include="CEnemy1Bullet.h">
       <Filter>ソース ファイル\BaseSystem\Game\Character\Enemy1</Filter>
     </ClInclude>
   </ItemGroup>
