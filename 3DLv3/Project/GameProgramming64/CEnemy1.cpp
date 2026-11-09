@@ -15,7 +15,7 @@ CEnemy1::CEnemy1(const CVector& pos, const CVector& rot, const CVector& scale)
 	:mColliderCapsule1(this, &mMatrix, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, -20.0f), 1.1f)
 	, mColliderCapsule2(this, &mMatrix, CVector(2.0f, -1.0f, 20.0f), CVector(4.5f, -2.0f, 0.0f), 0.4f)
 	, mColliderCapsule3(this, &mMatrix, CVector(-2.0f, -1.0f, 20.0f), CVector(-4.5f, -2.0f, 0.0f), 0.4f)
-	,mAttackRenge(this, &mMatrix, CVector(-2.0f, -1.0f, 20.0f), CVector(-4.5f, -2.0f, 0.0f), 20.0f)
+	,mAttackRenge(this, &mMatrix, CVector(-2.0f, -1.0f, 20.0f), CVector(-4.5f, -2.0f, 0.0f), 30.0f)
 	,mHP(3)
 {
 	//モデルデータがなければ読み込み
@@ -160,6 +160,7 @@ void CEnemy1::Collision(CCollider* m, CCollider* o)
 			//カプセルとカプセルの衝突判定
 			if (CCollider::CollisionCapsuleCapsule(m, o, &adjust))
 			{
+
 				if (m->Tag() != ETag::EATTACKRANGE)
 				{
 					if (o->Tag() == ETag::EBULLET)
@@ -170,6 +171,85 @@ void CEnemy1::Collision(CCollider* m, CCollider* o)
 					}
 
 				}
+
+				
+				
+
+				//相手のタグがプレイヤー範囲かつ自分のタグがエネミーの時
+				if (o->Tag() == ETag::EPLAYERRANGE && m->Tag() == ETag::EENEMY)
+				{
+					//機体前方へ移動する
+					mPosition = mPosition + mMatrixRotate.VectorZ() * -VELOCITY;
+					//printf("攻撃しない");
+					return;
+				}
+					//相手のタグがプレイヤーかつ自分のタグが索敵範囲の時
+					if ((o->Tag() == ETag::EPLAYER && m->Tag() == ETag::EATTACKRANGE))
+					{
+						//if (o->Tag() == ETag::EBULLET || (o->Tag() == ETag::EPLAYERRANGE)) return;
+						
+
+
+						//printf("攻撃する");
+							//printf("索敵範囲に入った");
+
+							//プレイヤーのポインタが0以外の時
+						CXPlayer* player = CXPlayer::Instance();
+						//目標地点までのベクトルを求める
+						CVector vp = mPoint - mPosition;
+
+						//左ベクトルとの内積を求める
+						float dx = vp.Dot(mMatrixRotate.VectorX());
+						//上ベクトルとの内積を求める
+						float dy = vp.Dot(mMatrixRotate.VectorY());
+						const float margin = 0.1f;
+						//左方向へ回転
+						if (dx > margin)
+						{
+							//左へ回転
+							mRotation = mRotation + CVector(0.0f, 1.0f, 0.0f);
+						}
+						else if (dx < -margin)
+						{
+							// //右へ回転
+							mRotation = mRotation + CVector(0.0f, -1.0f, 0.0f);
+						}
+						//上下方向へ回転
+						if (dy > margin)
+						{
+							//上へ回転
+							mRotation = mRotation + CVector(-1.0f, 0.0f, 0.0f);
+						}
+						else if (dy < -margin)
+						{
+							//下へ回転
+							mRotation = mRotation + CVector(1.0f, 0.0f, 0.0f);
+						}
+						//TODO　プレイヤーから一定距離離す（近すぎないようにする）
+
+						//機体前方へ移動する
+						mPosition = mPosition + mMatrixRotate.VectorZ() * VELOCITY;
+						CTransform::Update();//行列更新
+						//およそ3秒毎に目標地点を更新
+						int r = rand() % 1;//randは整数の乱数を返す
+
+						if (r == 0)
+						{
+							if (player != nullptr)
+							{
+								mPoint = player->Position();
+							}
+							else
+							{
+								mPoint = mPoint * CMatrix().RotateY(45);
+							}
+						}
+						//プレイヤーを追いかける
+
+					}
+				
+				
+
 				
 			}
 			else
@@ -194,75 +274,9 @@ void CEnemy1::Collision(CCollider* m, CCollider* o)
 				}
 			}
 			
-			//相手のタグがプレイヤー範囲かつ自分のタグがエネミーの時
-			if (o->Tag() == ETag::EPLAYERRANGE||m->Tag()==ETag::EENEMY) return;
-		//相手のタグがプレイヤーかつ自分のタグが索敵範囲の時
-		 if ((o->Tag()==ETag::EPLAYER || m->Tag() == ETag::EATTACKRANGE))
-		{
-			 if (o->Tag() == ETag::EBULLET|| (o->Tag() == ETag::EPLAYERRANGE)) return;
-			 
-			
-			if (CCollider::CollisionCapsuleCapsule(m, o, &adjust))
-			{
-				//printf("索敵範囲に入った");
-				
-				//プレイヤーのポインタが0以外の時
-				CXPlayer* player = CXPlayer::Instance();
-				//目標地点までのベクトルを求める
-				CVector vp = mPoint - mPosition;
 
-				//左ベクトルとの内積を求める
-				float dx = vp.Dot(mMatrixRotate.VectorX());
-				//上ベクトルとの内積を求める
-				float dy = vp.Dot(mMatrixRotate.VectorY());
-				const float margin = 0.1f;
-				//左方向へ回転
-				if (dx > margin)
-				{
-					//左へ回転
-					mRotation = mRotation + CVector(0.0f, 1.0f, 0.0f);
-				}
-				else if (dx < -margin)
-				{
-					// //右へ回転
-					mRotation = mRotation + CVector(0.0f, -1.0f, 0.0f);
-				}
-				//上下方向へ回転
-				if (dy > margin)
-				{
-					//上へ回転
-					mRotation = mRotation + CVector(-1.0f, 0.0f, 0.0f);
-				}
-				else if (dy < -margin)
-				{
-					//下へ回転
-					mRotation = mRotation + CVector(1.0f, 0.0f, 0.0f);
-				}
-				//TODO　プレイヤーから一定距離離す（近すぎないようにする）
-				
-				//機体前方へ移動する
-				mPosition = mPosition + mMatrixRotate.VectorZ() * VELOCITY;
-				CTransform::Update();//行列更新
-				//およそ3秒毎に目標地点を更新
-				int r = rand() % 1;//randは整数の乱数を返す
-
-				if (r == 0)
-				{
-					if (player != nullptr)
-					{
-						mPoint = player->Position();
-					}
-					else
-					{
-						mPoint = mPoint * CMatrix().RotateY(45);
-					}
-				}
-				//プレイヤーを追いかける
-				
-			}
 			
-				
-		}
+		
 		
 
 	}

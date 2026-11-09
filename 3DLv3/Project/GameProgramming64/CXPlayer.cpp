@@ -17,7 +17,7 @@ CXPlayer::CXPlayer()
 	:mColliderCapsule1(this, &mMatrix, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, -20.0f), 1.1f)
 	,mColliderCapsule2(this, &mMatrix, CVector(2.0f, -1.0f, 20.0f), CVector(4.5f, -2.0f, 0.0f), 0.4f)
 	,mColliderCapsule3(this, &mMatrix, CVector(-2.0f, -1.0f, 20.0f), CVector(-4.5f, -2.0f, 0.0f), 0.4f)
-	, mPlayerRenge(this, &mMatrix, CVector(-2.0f, -1.0f, 20.0f), CVector(-4.5f, -2.0f, 0.0f), 30.0f)
+	, mPlayerRenge(this, &mMatrix, CVector(-2.0f, -1.0f, 20.0f), CVector(-4.5f, -2.0f, 0.0f), 20.0f)
 {
 	//モデルデータがなければ読み込み
 	if (msModel.Triangles().empty())
