@@ -11,20 +11,20 @@ void CEnemy1Bullet::Collision(CCollider* m, CCollider* o)
 	//コライダのmとoが衝突しているか判定
 	//if (CCollider::Collision(m, o))
 	//{
-	if (o->Tag() == ETag::EBULLET || o->Tag() == ETag::EATTACKRANGE)
+	if (o->Tag() == ETag::EBULLET || o->Tag() == ETag::EENEMYBULLET ||o->Tag() == ETag::EATTACKRANGE|| o->Tag() == ETag::EPLAYERRANGE )
 	{
 		//相手のタグがEBULLETの時は衝突処理を行わない
 		return;
 	}
 
 	CVector adjust;//調整用ベクトル
-	if (o->Tag() == ETag::EENEMY)
+	if (o->Tag() == ETag::EPLAYER)
 	{
 		//カプセルとカプセルの衝突判定
 		if (CCollider::CollisionCapsuleCapsule(m, o, &adjust))
 		{
-			//敵と衝突している時は無効にする
-			//printf("弾が当たった");
+			//プレイヤーと衝突している時は無効にする
+			//printf("プレイヤーに弾が当たった");
 			mEnabled = false;
 		}
 	}
@@ -44,8 +44,8 @@ CEnemy1Bullet::CEnemy1Bullet()
 	}
 	//モデルポインタの設定
 	mpModel = &msModel;
-	Tag(ETag::EBULLET);
-	mColliderCapsule1.Tag(ETag::EBULLET);
+	Tag(ETag::EENEMYBULLET);
+	mColliderCapsule1.Tag(ETag::EENEMYBULLET);
 }
 
 
@@ -72,7 +72,8 @@ void CEnemy1Bullet::Update() {
 		mPosition = mPosition + CVector(0.0f, 0.0f, 0.5f) * mMatrixRotate;;
 		mColliderCapsule1.Update();
 	}
-	else {
+	else 
+	{
 		//無効にする
 		mEnabled = false;
 	}

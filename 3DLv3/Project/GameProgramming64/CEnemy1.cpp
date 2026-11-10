@@ -1,6 +1,7 @@
 #include"CEnemy1.h"
 //#define GRAVITY 0.0625f//重力
 #define VELOCITY 0.01f	//速度
+#define BULLETTIME 60 //弾のクールタイム
 #define _USE_MATH_DEFINES
 #include<math.h>
 //ラジアンを度数に変換するための定数
@@ -159,7 +160,7 @@ void CEnemy1::Collision(CCollider* m, CCollider* o)
 				{
 					if (o->Tag() == ETag::EBULLET)
 					{
-						//printf("敵に弾が当たった");
+						//printf("敵1に弾が当たった");
 						mHP--;
 						
 					}
@@ -231,6 +232,32 @@ void CEnemy1::Collision(CCollider* m, CCollider* o)
 							mPosition = mPosition + mMatrixRotate.VectorZ() * VELOCITY;
 						}
 						
+						//X軸のずれが2.0未満
+						if (-2.0f < dx && dx < 2.0f)
+						{
+							//Y軸のずれが2.0未満
+							if (-2.0f < dy && dy < 2.0f)
+							{
+								//Z軸のずれが30.0未満
+								if (0.0f < dz && dz < 30.0f)
+								{
+									if (BulletCoolTime <= 0)
+									{
+										//球を発射します
+										CEnemy1Bullet* bullet = new CEnemy1Bullet();
+										bullet->Set(0.1f, 1.5f);
+										bullet->Position(CVector(0.0f, 0.5f, 2.0f)* mMatrix);
+										bullet->Rotation(mRotation);
+										bullet->Update();
+										BulletCoolTime = BULLETTIME;
+										//printf("弾発射");
+									}
+									
+								}
+
+							}
+
+						}
 						CTransform::Update();//行列更新
 						//およそ3秒毎に目標地点を更新
 						int r = rand() % 1;//randは整数の乱数を返す

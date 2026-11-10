@@ -203,14 +203,26 @@ void CXPlayer::Collision(CCollider* m, CCollider* o)
 
 					return;
 				}
+				//自分のコライダーかつ相手のコライダーが敵の弾だったら
+				if (m->Tag() == ETag::EPLAYER && o->Tag() == ETag::EENEMYBULLET)
+				{
+					//ダメージ処理
+					printf("プレイヤーがダメージを食らった");
+					return;
+				}
 				if (o->Tag() == ETag::EBULLET|| o->Tag() == ETag::EATTACKRANGE||o->Tag() == ETag::EPLAYERRANGE)
 				{
-					//相手が自分の弾または相手の索敵範囲または自分の範囲だった場合はreturn
+					//相手が自分の弾または相手の索敵範囲または自分の範囲だった場合は衝突処理を行わない
 					return;
 				}
 				if (m->Tag() == ETag::EPLAYERRANGE && o->Tag() == ETag::EENEMY)
 				{
-					//自分の範囲と敵は当たらない
+					//自分の範囲と敵は衝突処理を行わない
+					return;
+				}
+				if (o->Tag() == ETag::EENEMYBULLET)
+				{
+					//弾とは衝突処理を行わない
 					return;
 				}
 				
@@ -226,6 +238,7 @@ void CXPlayer::Collision(CCollider* m, CCollider* o)
 				CTransform::Update();
 				printf("%d",o->Tag());
 				printf("当たった");
+				
 			}
 		}
 

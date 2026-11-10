@@ -11,7 +11,7 @@ void CBullet::Collision(CCollider* m, CCollider* o)
 	//コライダのmとoが衝突しているか判定
 	//if (CCollider::Collision(m, o))
 	//{
-		if (o->Tag()==ETag::EBULLET||o->Tag() == ETag::EATTACKRANGE)
+		if (o->Tag() == ETag::EBULLET || o->Tag() == ETag::EENEMYBULLET || o->Tag() == ETag::EATTACKRANGE || o->Tag() == ETag::EPLAYERRANGE)
 		{
 			//相手のタグがEBULLETの時は衝突処理を行わない
 			return;
