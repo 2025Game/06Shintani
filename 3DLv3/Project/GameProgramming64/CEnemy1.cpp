@@ -246,7 +246,7 @@ void CEnemy1::Collision(CCollider* m, CCollider* o)
 										//‹…‚ð”­ŽË‚µ‚Ü‚·
 										CEnemy1Bullet* bullet = new CEnemy1Bullet();
 										bullet->Set(0.1f, 1.5f);
-										bullet->Position(CVector(0.0f, 0.5f, 2.0f)* mMatrix);
+										bullet->Position(CVector(0.0f, 0.0f, 2.0f)* mMatrix);
 										bullet->Rotation(mRotation);
 										bullet->Update();
 										BulletCoolTime = BULLETTIME;

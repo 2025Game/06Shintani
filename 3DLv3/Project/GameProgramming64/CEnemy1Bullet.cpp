@@ -1,7 +1,7 @@
 #include "CEnemy1Bullet.h"
 #include "CCollisionManager.h"
 
-#define MODEL_BULLET "res\\cube.obj","res\\cube.mtl"
+#define MODEL_BULLET "res\\Enemy1\\Enemy1Bullet.obj","res\\Enemy1\\Enemy1Bullet.mtl"
 #define BULLETHP 300 //弾の生存時間
 #define VELOCITY 0.1f
 //静的メンバ変数の定着
@@ -36,7 +36,7 @@ void CEnemy1Bullet::Collision(CCollider* m, CCollider* o)
 
 CEnemy1Bullet::CEnemy1Bullet()
 	: mLife(BULLETHP)
-	, mColliderCapsule1(this, &mMatrix, CVector(0.0f, 1.0f, -1.05f), CVector(0.0f, 1.0f, 1.05f), 0.3f)
+	, mColliderCapsule1(this, &mMatrix, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 0.01f), 0.5f)
 {
 	//モデルデータがなければ読み込み
 	if (msModel.Triangles().empty())
@@ -54,7 +54,7 @@ CEnemy1Bullet::CEnemy1Bullet()
 //Set(幅, 奥行)
 void CEnemy1Bullet::Set(float w, float d) {
 	//スケール設定
-	mScale = CVector(0.2f, 0.2f, 1.0f);
+	mScale = CVector(0.5f, 0.5f, 0.5f);
 	//三角形の頂点設定→ヒント 3
 	mT.Vertex(CVector(w, 0.0f, 0.0f), CVector(0.0f, 0.0f, -d), CVector(-w, 0.0f, 0.0f));
 	//三角形の法線設定
