@@ -42,7 +42,7 @@ private:
 	std::unique_ptr<CPlayerJump> mpJump;//ジャンプ状態
 	CColliderCapsule mColliderCapsule1;//カプセルコライダ
 	
-	//CColliderCapsule mAttackRenge;//攻撃範囲のコライダ
+	CColliderCapsule mAttackRenge;//攻撃範囲のコライダ
 	CInput mInput;
 
 	bool BulletFlag = false;//弾を出したときにフラグを操作する

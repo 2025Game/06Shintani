@@ -13,7 +13,7 @@ CModel CEnemy1::msModel;
 
 CEnemy1::CEnemy1(const CVector& pos, const CVector& rot, const CVector& scale)
 	:mColliderCapsule1(this, &mCombinedMatrix, CVector(0.0f, 2.0f, 5.0f), CVector(0.0f, 3.0f, -8.0f), 2.0f)
-	//,mAttackRenge(this, &mCombinedMatrix, CVector(-2.0f, -1.0f, 20.0f), CVector(-4.5f, -2.0f, 0.0f), 30.0f)
+	,mAttackRenge(this, &mCombinedMatrix, CVector(-2.0f, -1.0f, 20.0f), CVector(-4.5f, -2.0f, 0.0f), 30.0f)
 	,mHP(3)
 {
 	//モデルデータがなければ読み込み
@@ -32,7 +32,7 @@ CEnemy1::CEnemy1(const CVector& pos, const CVector& rot, const CVector& scale)
 	//タグの設定
 	Tag(ETag::EENEMY);
 	mColliderCapsule1.Tag(ETag::EENEMY);
-	//mAttackRenge.Tag(ETag::EATTACKRANGE);
+	mAttackRenge.Tag(ETag::EATTACKRANGE);
 	//目標地点の設定
 	mPoint = mPosition + CVector(0.0f, 0.0f, 100.0f) * mMatrixRotate;
 
@@ -75,8 +75,7 @@ void CEnemy1::Update()
 	CXCharacter::Update();
 	//カプセルコライダの更新
 	mColliderCapsule1.Update();
-	
-	//mAttackRenge.Update();
+	mAttackRenge.Update();
 
 	//スペースキー入力で弾発射
 	if (mInput.Key(VK_LBUTTON))
@@ -173,8 +172,9 @@ void CEnemy1::Collision(CCollider* m, CCollider* o)
 				//相手のタグがプレイヤー範囲かつ自分のタグがエネミーの時
 				if (o->Tag() == ETag::EPLAYERRANGE && m->Tag() == ETag::EENEMY)
 				{
-					//機体前方へ移動する
-					//mPosition = mPosition + mMatrixRotate.VectorZ() * -VELOCITY;
+					//プレイヤーに近すぎるので
+					//機体を後方へ移動する
+					mPosition = mPosition + mMatrixRotate.VectorZ() * -VELOCITY*5;
 					//printf("攻撃しない");
 					return;
 				}
@@ -183,7 +183,7 @@ void CEnemy1::Collision(CCollider* m, CCollider* o)
 					{
 						//if (o->Tag() == ETag::EBULLET || (o->Tag() == ETag::EPLAYERRANGE)) return;
 						
-						/*
+						
 
 						//printf("攻撃する");
 							//printf("索敵範囲に入った");
@@ -197,6 +197,8 @@ void CEnemy1::Collision(CCollider* m, CCollider* o)
 						float dx = vp.Dot(mMatrixRotate.VectorX());
 						//上ベクトルとの内積を求める
 						float dy = vp.Dot(mMatrixRotate.VectorY());
+						//前ベクトルとの内積を求める
+						float dz = vp.Dot(mMatrixRotate.VectorZ());
 						const float margin = 0.1f;
 						//左方向へ回転
 						if (dx > margin)
@@ -221,9 +223,14 @@ void CEnemy1::Collision(CCollider* m, CCollider* o)
 							mRotation = mRotation + CVector(1.0f, 0.0f, 0.0f);
 						}
 						//TODO　プレイヤーから一定距離離す（近すぎないようにする）
-
-						//機体前方へ移動する
-						mPosition = mPosition + mMatrixRotate.VectorZ() * VELOCITY;
+						// 
+						//Z軸のずれが30.0未満の時
+						if (0.0f < dz && dz > 30.0f)
+						{
+							//機体前方へ移動する
+							mPosition = mPosition + mMatrixRotate.VectorZ() * VELOCITY;
+						}
+						
 						CTransform::Update();//行列更新
 						//およそ3秒毎に目標地点を更新
 						int r = rand() % 1;//randは整数の乱数を返す
@@ -240,7 +247,7 @@ void CEnemy1::Collision(CCollider* m, CCollider* o)
 							}
 						}
 						//プレイヤーを追いかける
-						*/
+						
 					}
 				
 				
@@ -322,9 +329,9 @@ void CEnemy1::Collision()
 	CCollisionManager::Instance()->Collision(&mColliderCapsule1, COLLISIONRANGE);
 	
 	//コライダの優先度変更
-	//mAttackRenge.ChangePriority();
+	mAttackRenge.ChangePriority();
 	//衝突処理を実行
-	//CCollisionManager::Instance()->Collision(&mAttackRenge, COLLISIONRANGE);
+	CCollisionManager::Instance()->Collision(&mAttackRenge, COLLISIONRANGE);
 }
 
 void CEnemy1::Init(CModelX* model)
