@@ -7,6 +7,7 @@
 #include"CCamera.h"
 #include"CPaladin.h"
 #include"CEnemy1.h"
+#include"EnemySpawner.h"
 
 //背景モデルデータの指定
 #define MODEL_BACKGROUND "res\\Stage\\SpaceStage1.obj", "res\\Stage\\SpaceStage1.mtl"
@@ -53,6 +54,8 @@ void CGameScene::Load()
 	//cube->Scale(CVector(10.0f, 0.5f, 10.0f));
 	//カメラ位置の設定
 	CCamera::Instance()->Scale(CVector(0.0f, 1.0f, -12.0f));
+	//スポナーの生成
+	EnemySpawner::Instance();
 	spUi = new CUi();	//UIクラスの生成
 
 }
@@ -70,6 +73,8 @@ void CGameScene::Update()
 	CTaskManager::Instance()->Collision();
 	//カメラの更新
 	CCamera::Instance()->Update();
+	//スポナーの更新
+	EnemySpawner::Instance()->Update();
 	//全キャラクタの描画
 	CTaskManager::Instance()->Render();
 	//コライダの描画

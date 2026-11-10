@@ -55,7 +55,10 @@
     <Filter Include="ソース ファイル\BaseSystem\Game\UI">
       <UniqueIdentifier>{57136b2b-79dc-4baf-a7e2-d9a68539b4e8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\BaseSystem\Game\Character\Enemy1">
+    <Filter Include="ソース ファイル\BaseSystem\Game\Character\Enemys">
+      <UniqueIdentifier>{743d6740-a07c-45ad-91b7-e2edc4435aa9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\BaseSystem\Game\Character\Enemys\Enemy1">
       <UniqueIdentifier>{d10035d6-48f4-4931-8a03-50442fc33849}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -223,10 +226,13 @@
       <Filter>ソース ファイル\BaseSystem\Game\UI</Filter>
     </ClCompile>
     <ClCompile Include="CEnemy1.cpp">
-      <Filter>ソース ファイル\BaseSystem\Game\Character\Enemy1</Filter>
+      <Filter>ソース ファイル\BaseSystem\Game\Character\Enemys\Enemy1</Filter>
     </ClCompile>
     <ClCompile Include="CEnemy1Bullet.cpp">
-      <Filter>ソース ファイル\BaseSystem\Game\Character\Enemy1</Filter>
+      <Filter>ソース ファイル\BaseSystem\Game\Character\Enemys\Enemy1</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemySpawner.cpp">
+      <Filter>ソース ファイル\BaseSystem\Game\Character\Enemys</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -408,10 +414,13 @@
       <Filter>ソース ファイル\BaseSystem\Game\UI</Filter>
     </ClInclude>
     <ClInclude Include="CEnemy1.h">
-      <Filter>ソース ファイル\BaseSystem\Game\Character\Enemy1</Filter>
+      <Filter>ソース ファイル\BaseSystem\Game\Character\Enemys\Enemy1</Filter>
     </ClInclude>
     <ClInclude Include="CEnemy1Bullet.h">
-      <Filter>ソース ファイル\BaseSystem\Game\Character\Enemy1</Filter>
+      <Filter>ソース ファイル\BaseSystem\Game\Character\Enemys\Enemy1</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemySpawner.h">
+      <Filter>ソース ファイル\BaseSystem\Game\Character\Enemys</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

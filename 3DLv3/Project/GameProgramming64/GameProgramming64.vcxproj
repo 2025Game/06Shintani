@@ -74,6 +74,7 @@
     <ClCompile Include="CVector.cpp" />
     <ClCompile Include="CXCharacter.cpp" />
     <ClCompile Include="CXPlayer.cpp" />
+    <ClCompile Include="EnemySpawner.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -135,6 +136,7 @@
     <ClInclude Include="CVertex.h" />
     <ClInclude Include="CXCharacter.h" />
     <ClInclude Include="CXPlayer.h" />
+    <ClInclude Include="EnemySpawner.h" />
     <ClInclude Include="EScene.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="CTitleScene.h" />

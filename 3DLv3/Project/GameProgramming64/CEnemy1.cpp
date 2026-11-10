@@ -223,8 +223,7 @@ void CEnemy1::Collision(CCollider* m, CCollider* o)
 							//下へ回転
 							mRotation = mRotation + CVector(1.0f, 0.0f, 0.0f);
 						}
-						//TODO　プレイヤーから一定距離離す（近すぎないようにする）
-						// 
+
 						//Z軸のずれが30.0未満の時
 						if (0.0f < dz && dz > 30.0f)
 						{
