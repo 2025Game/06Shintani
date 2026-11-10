@@ -2,7 +2,8 @@
 #include "CCollisionManager.h"
 
 #define MODEL_BULLET "res\\cube.obj","res\\cube.mtl"
-
+#define BULLETHP 300 //弾の生存時間
+#define VELOCITY 0.1f
 //静的メンバ変数の定着
 CModel CEnemy1Bullet::msModel;
 
@@ -34,7 +35,7 @@ void CEnemy1Bullet::Collision(CCollider* m, CCollider* o)
 }
 
 CEnemy1Bullet::CEnemy1Bullet()
-	: mLife(100)
+	: mLife(BULLETHP)
 	, mColliderCapsule1(this, &mMatrix, CVector(0.0f, 1.0f, -1.05f), CVector(0.0f, 1.0f, 1.05f), 0.3f)
 {
 	//モデルデータがなければ読み込み
@@ -69,7 +70,7 @@ void CEnemy1Bullet::Update() {
 	if (mLife-- > 0) {
 		CTransform::Update();
 		//位置更新
-		mPosition = mPosition + CVector(0.0f, 0.0f, 0.5f) * mMatrixRotate;;
+		mPosition = mPosition + mMatrixRotate.VectorZ() * VELOCITY;
 		mColliderCapsule1.Update();
 	}
 	else 
