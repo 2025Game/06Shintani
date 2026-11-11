@@ -44,8 +44,8 @@ void CGameScene::Load()
 	//パラディンのインスタンスを生成
 	//CXCharacter* paladin = new CPaladin(CVector(0.0f,5.0f,-9.0f));
 	//エネミー１のインスタンスを生成
-	//CXCharacter* enemy1 = new CEnemy1(CVector(0.0f, 0.0f, 0.0f));
-	//enemy1->Position(CVector(0.0f, 10.0f, -30.0f));
+	CXCharacter* enemy1 = new CEnemy1(CVector(0.0f, 0.0f, 0.0f));
+	enemy1->Position(CVector(0.0f, 10.0f, -30.0f));
 	//エネミー2のインスタンスを生成
 	//CXCharacter* enemy2 = new CEnemy1(CVector(0.0f, 0.0f, 0.0f));
 	//enemy2->Position(CVector(0.0f, 5.0f, -9.0f));
@@ -78,7 +78,7 @@ void CGameScene::Update()
 	//全キャラクタの描画
 	CTaskManager::Instance()->Render();
 	//コライダの描画
-	CCollisionManager::Instance()->Render();
+	//CCollisionManager::Instance()->Render();
 	spUi->Render();	//UIの描画
 
 }
