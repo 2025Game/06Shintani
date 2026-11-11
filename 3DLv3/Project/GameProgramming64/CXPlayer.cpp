@@ -96,7 +96,7 @@ void CXPlayer::Update()
 	mColliderCapsule3.Update();
 	mPlayerRenge.Update();
 
-	//スペースキー入力で弾発射
+	//左クリックで弾発射
 	if (mInput.Key(VK_LBUTTON)) 
 	{
 		if (BulletCoolTime <= 0)

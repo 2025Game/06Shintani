@@ -3,7 +3,7 @@
 
 #define MODEL_BULLET "res\\Enemy1\\Enemy1Bullet.obj","res\\Enemy1\\Enemy1Bullet.mtl"
 #define BULLETHP 300 //’e‚Ì¶‘¶ŠÔ
-#define VELOCITY 0.1f
+#define VELOCITY 0.2f
 //Ã“Iƒƒ“ƒo•Ï”‚Ì’è’…
 CModel CEnemy1Bullet::msModel;
 

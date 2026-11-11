@@ -8,6 +8,7 @@
 #include"CPaladin.h"
 #include"CEnemy1.h"
 #include"EnemySpawner.h"
+#include"Warp.h"
 
 //背景モデルデータの指定
 #define MODEL_BACKGROUND "res\\Stage\\SpaceStage1.obj", "res\\Stage\\SpaceStage1.mtl"
@@ -43,8 +44,8 @@ void CGameScene::Load()
 	//パラディンのインスタンスを生成
 	//CXCharacter* paladin = new CPaladin(CVector(0.0f,5.0f,-9.0f));
 	//エネミー１のインスタンスを生成
-	CXCharacter* enemy1 = new CEnemy1(CVector(0.0f, 0.0f, 0.0f));
-	enemy1->Position(CVector(0.0f, 10.0f, -30.0f));
+	//CXCharacter* enemy1 = new CEnemy1(CVector(0.0f, 0.0f, 0.0f));
+	//enemy1->Position(CVector(0.0f, 10.0f, -30.0f));
 	//エネミー2のインスタンスを生成
 	//CXCharacter* enemy2 = new CEnemy1(CVector(0.0f, 0.0f, 0.0f));
 	//enemy2->Position(CVector(0.0f, 5.0f, -9.0f));
@@ -57,7 +58,6 @@ void CGameScene::Load()
 	//スポナーの生成
 	EnemySpawner::Instance();
 	spUi = new CUi();	//UIクラスの生成
-
 }
 
 void CGameScene::Update()

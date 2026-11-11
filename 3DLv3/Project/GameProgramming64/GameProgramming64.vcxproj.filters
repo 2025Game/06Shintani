@@ -234,6 +234,9 @@
     <ClCompile Include="EnemySpawner.cpp">
       <Filter>ソース ファイル\BaseSystem\Game\Character\Enemys</Filter>
     </ClCompile>
+    <ClCompile Include="Warp.cpp">
+      <Filter>ソース ファイル\BaseSystem\Game\Character\Enemys</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h">
@@ -420,6 +423,9 @@
       <Filter>ソース ファイル\BaseSystem\Game\Character\Enemys\Enemy1</Filter>
     </ClInclude>
     <ClInclude Include="EnemySpawner.h">
+      <Filter>ソース ファイル\BaseSystem\Game\Character\Enemys</Filter>
+    </ClInclude>
+    <ClInclude Include="Warp.h">
       <Filter>ソース ファイル\BaseSystem\Game\Character\Enemys</Filter>
     </ClInclude>
   </ItemGroup>

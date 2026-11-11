@@ -19,6 +19,8 @@ private:
 	//スポナーのインスタンス
 	static EnemySpawner* mpInstance;
 	int Time;//スポーン間隔
+	
 };
+
 #endif // !ENEMY_SPAWNER
 

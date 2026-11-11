@@ -76,6 +76,7 @@
     <ClCompile Include="CXPlayer.cpp" />
     <ClCompile Include="EnemySpawner.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Warp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h" />
@@ -140,6 +141,7 @@
     <ClInclude Include="EScene.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="CTitleScene.h" />
+    <ClInclude Include="Warp.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
