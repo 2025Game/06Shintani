@@ -78,36 +78,7 @@ void CEnemy1::Update()
 	mColliderCapsule1.Update();
 	mAttackRenge.Update();
 
-	//スペースキー入力で弾発射
-	if (mInput.Key(VK_LBUTTON))
-	{
-		if (BulletCoolTime <= 0)
-		{
-			if (BulletFlag == false)
-			{
-				CEnemy1Bullet* bullet = new CEnemy1Bullet();
-				bullet->Set(0.1f, 1.5f);
-				bullet->Position(CVector(1.5f, -3.0f, 35.0f) * mMatrix);
-				bullet->Rotation(mRotation);
-				bullet->Update();
-				BulletFlag = true;
-				BulletCoolTime = 20;
-			}
-			else if (BulletFlag == true)
-			{
-				CEnemy1Bullet* bullet = new CEnemy1Bullet();
-				bullet->Set(0.1f, 1.5f);
-				bullet->Position(CVector(-1.5f, -3.0f, 35.0f) * mMatrix);
-				bullet->Rotation(mRotation);
-				bullet->Update();
-				BulletFlag = false;
-				BulletCoolTime = 20;
-			}
-
-			//CApplication::TaskManager()->Add(bullet);
-		}
-
-	}
+	
 	/*
 	else
 	{
