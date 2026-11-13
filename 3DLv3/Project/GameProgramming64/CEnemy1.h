@@ -5,10 +5,6 @@
 #include "CXCharacter.h"
 #include"CColliderLine.h"
 #include"CCollisionManager.h"
-#include"CPlayerIdle.h"
-#include"CPlayerWalk.h"
-#include"CPlayerAttack.h"
-#include"CPlayerJump.h"
 #include"CState.h"
 #include"CColliderCapsule.h"
 #include"CInput.h"
@@ -36,10 +32,6 @@ private:
 	CColliderLine mColliderLine;
 	//EState mState;//状態の保持
 	CState* mpState;//状態待機
-	std::unique_ptr<CPlayerIdle> mpIdle;//待機状態
-	std::unique_ptr<CPlayerWalk> mpWalk;//歩く状態
-	std::unique_ptr<CPlayerAttack> mpAttack;//攻撃状態
-	std::unique_ptr<CPlayerJump> mpJump;//ジャンプ状態
 	CColliderCapsule mColliderCapsule1;//カプセルコライダ
 	
 	CColliderCapsule mAttackRenge;//攻撃範囲のコライダ

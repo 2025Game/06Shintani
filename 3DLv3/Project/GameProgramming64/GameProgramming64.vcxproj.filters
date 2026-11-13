@@ -61,6 +61,9 @@
     <Filter Include="ソース ファイル\BaseSystem\Game\Character\Enemys\Enemy1">
       <UniqueIdentifier>{d10035d6-48f4-4931-8a03-50442fc33849}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\BaseSystem\Game\Character\Enemys\Enemy2">
+      <UniqueIdentifier>{a1e195a8-4d00-4be7-a5cc-142f46d6ab3d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp">
@@ -94,9 +97,6 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="CBlock.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="CEnemy2.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="CPoint.cpp">
@@ -198,9 +198,6 @@
     <ClCompile Include="CPlayerJump.cpp">
       <Filter>ソース ファイル\BaseSystem\Game\Character\Player</Filter>
     </ClCompile>
-    <ClCompile Include="CCube.cpp">
-      <Filter>ソース ファイル\BaseSystem\Game\Character</Filter>
-    </ClCompile>
     <ClCompile Include="CCamera.cpp">
       <Filter>ソース ファイル\BaseSystem\Object</Filter>
     </ClCompile>
@@ -236,6 +233,12 @@
     </ClCompile>
     <ClCompile Include="Warp.cpp">
       <Filter>ソース ファイル\BaseSystem\Game\Character\Enemys</Filter>
+    </ClCompile>
+    <ClCompile Include="CCube.cpp">
+      <Filter>ソース ファイル\BaseSystem\Game\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="CEnemy2.cpp">
+      <Filter>ソース ファイル\BaseSystem\Game\Character\Enemys\Enemy2</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -273,9 +276,6 @@
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="CBlock.h">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="CEnemy2.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="CPoint.h">
@@ -404,9 +404,6 @@
     <ClInclude Include="CPaladin.h">
       <Filter>ソース ファイル\BaseSystem\Game\Character\Paladin</Filter>
     </ClInclude>
-    <ClInclude Include="CPaladinIdle.h">
-      <Filter>ソース ファイル\BaseSystem\Game\Character\Paladin</Filter>
-    </ClInclude>
     <ClInclude Include="CPaladinDamage.h">
       <Filter>ソース ファイル\BaseSystem\Game\Character\Paladin</Filter>
     </ClInclude>
@@ -427,6 +424,12 @@
     </ClInclude>
     <ClInclude Include="Warp.h">
       <Filter>ソース ファイル\BaseSystem\Game\Character\Enemys</Filter>
+    </ClInclude>
+    <ClInclude Include="CPaladinIdle.h">
+      <Filter>ソース ファイル\BaseSystem\Game\Character\Paladin</Filter>
+    </ClInclude>
+    <ClInclude Include="CEnemy2.h">
+      <Filter>ソース ファイル\BaseSystem\Game\Character\Enemys\Enemy2</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

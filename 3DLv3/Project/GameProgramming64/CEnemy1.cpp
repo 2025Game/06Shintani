@@ -208,7 +208,7 @@ void CEnemy1::Collision(CCollider* m, CCollider* o)
 							//YŽ²‚Ì‚¸‚ê‚ª2.0–¢–ž
 							if (-2.0f < dy && dy < 2.0f)
 							{
-								//ZŽ²‚Ì‚¸‚ê‚ª30.0–¢–ž
+								//ZŽ²‚Ì‚¸‚ê‚ª40.0–¢–ž
 								if (0.0f < dz && dz < 40.0f)
 								{
 									if (BulletCoolTime <= 0)

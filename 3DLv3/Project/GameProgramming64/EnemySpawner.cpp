@@ -39,9 +39,10 @@ void EnemySpawner::Update()
 void EnemySpawner::Spawn()
 {
 	int r= rand() % 99+1;//1`100‚Ìƒ‰ƒ“ƒ_ƒ€‚È”Žš‚ðŒÄ‚Ño‚·
-
+	/*
 	if (r >= 1 && r <= 20)//”Žš‚ª1‚©‚ç20‚¾‚Á‚½ê‡‚Í
 	{
+		
 		//Enemy1‚ðŒÄ‚Ô
 		Warp* warp = new Warp();
 		warp->Scale(CVector(5.0f, 5.0f, 5.0f));
@@ -104,6 +105,6 @@ void EnemySpawner::Spawn()
 		enemy1->Position(CVector(warpPos));
 		//printf("Enemy5‚ªŒÄ‚Î‚ê‚½:%d\n",r);
 	}
-	
+	*/
 }
 
