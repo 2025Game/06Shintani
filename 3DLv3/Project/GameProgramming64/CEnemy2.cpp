@@ -16,8 +16,8 @@ CEnemy2::CEnemy2(const CVector& pos, const CVector& rot, const CVector& scale)
 	:mColliderCapsule1(this, &mCombinedMatrix, CVector(0.0f, 2.0f, 0.0f), CVector(0.0f, 3.0f, -8.0f), 2.0f)
 	, mColliderCapsule2(this, &mCombinedMatrix, CVector(5.0f, 2.0f, 5.0f), CVector(5.0f, 3.0f, -8.0f), 2.0f)
 	, mColliderCapsule3(this, &mCombinedMatrix, CVector(-5.0f, 2.0f, 5.0f), CVector(-5.0f, 3.0f, -8.0f), 2.0f)
-	, mAttackRenge(this, &mCombinedMatrix, CVector(-2.0f, -1.0f, 20.0f), CVector(-4.5f, -2.0f, 0.0f), 30.0f)
-	, mHP(3)
+	, mAttackRenge(this, &mCombinedMatrix, CVector(-2.0f, -1.0f, 20.0f), CVector(-4.5f, -2.0f, 0.0f), 50.0f)
+	, mHP(5)
 {
 	//ÉÇÉfÉãÉfÅ[É^Ç™Ç»ÇØÇÍÇŒì«Ç›çûÇ›
 	if (msModel.Triangles().empty())
@@ -182,23 +182,23 @@ void CEnemy2::Collision(CCollider* m, CCollider* o)
 				if (dx > margin)
 				{
 					//ç∂Ç÷âÒì]
-					mRotation = mRotation + CVector(0.0f, 1.0f, 0.0f);
+					mRotation = mRotation + CVector(0.0f, 0.08f, 0.0f);
 				}
 				else if (dx < -margin)
 				{
 					// //âEÇ÷âÒì]
-					mRotation = mRotation + CVector(0.0f, -1.0f, 0.0f);
+					mRotation = mRotation + CVector(0.0f, -0.08f, 0.0f);
 				}
 				//è„â∫ï˚å¸Ç÷âÒì]
 				if (dy > margin)
 				{
 					//è„Ç÷âÒì]
-					mRotation = mRotation + CVector(-1.0f, 0.0f, 0.0f);
+					mRotation = mRotation + CVector(-0.08f, 0.0f, 0.0f);
 				}
 				else if (dy < -margin)
 				{
 					//â∫Ç÷âÒì]
-					mRotation = mRotation + CVector(1.0f, 0.0f, 0.0f);
+					mRotation = mRotation + CVector(0.08f, 0.0f, 0.0f);
 				}
 
 				//Zé≤ÇÃÇ∏ÇÍÇ™30.0ñ¢ñûÇÃéû

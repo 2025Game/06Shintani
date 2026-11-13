@@ -40,6 +40,7 @@
     <ClCompile Include="CEnemy1Bullet.cpp" />
     <ClCompile Include="CEnemy2.cpp" />
     <ClCompile Include="CEnemy3.cpp" />
+    <ClCompile Include="CEnemyShield.cpp" />
     <ClCompile Include="CFont.cpp" />
     <ClCompile Include="CGame.cpp" />
     <ClCompile Include="CGameScene.cpp" />
@@ -100,6 +101,7 @@
     <ClInclude Include="CEnemy1Bullet.h" />
     <ClInclude Include="CEnemy2.h" />
     <ClInclude Include="CEnemy3.h" />
+    <ClInclude Include="CEnemyShield.h" />
     <ClInclude Include="CFont.h" />
     <ClInclude Include="CGame.h" />
     <ClInclude Include="CGameScene.h" />
