@@ -15,6 +15,8 @@ public:
 	void Collision(CCollider* m, CCollider* o);
 	//衝突処理
 	void Collision();
+
+	void Render() override;
 private:
 
 	//モデルのインスタンス

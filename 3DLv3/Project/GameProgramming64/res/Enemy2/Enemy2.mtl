@@ -10,7 +10,7 @@ Ke 1.000000 1.000000 1.000000
 Ni 1.500000
 d 1.000000
 illum 2
-map_Kd Enemy2/Red.png
+map_Kd Enemy2/internal_ground_ao_texture.jpeg
 
 newmtl Blue_Buttons.001
 Ns 324.000031
@@ -21,7 +21,7 @@ Ke 1.000000 1.000000 1.000000
 Ni 1.500000
 d 1.000000
 illum 2
-map_Kd Enemy2/Red.png
+map_Kd Enemy2/internal_ground_ao_texture.jpeg
 
 newmtl Engine
 Ns 324.000031
@@ -54,7 +54,7 @@ Ke 1.000000 1.000000 1.000000
 Ni 1.500000
 d 1.000000
 illum 2
-map_Kd Enemy2/Red.png
+map_Kd Enemy2/Height.png
 
 newmtl Material.003
 Ns 390.871857
@@ -62,7 +62,7 @@ Ka 0.445055 0.445055 0.445055
 Kd 0.800000 0.800000 0.800000
 Ks 0.500000 0.500000 0.500000
 Ke 1.000000 1.000000 1.000000
-Ni 1.500000
+Ni 1.50000
 d 1.000000
 illum 3
 map_Kd Enemy2/Red.png
