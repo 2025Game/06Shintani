@@ -249,6 +249,12 @@ void CXPlayer::Collision(CCollider* m, CCollider* o)
 			//三角形とカプセルの衝突判定
 			if (CCollider::CollisionTriangleCapsule(o, m, &adjust))
 			{
+				//相手がエネミーだと衝突しない
+				if (o->Tag() == ETag::EENEMY)
+				{
+					//printf("当たった");
+					return;
+				}
 				//位置の更新
 				//現在のワールドでの位置
 				mPosition = (CVector() * mMatrix + adjust);

@@ -44,8 +44,8 @@ void CGameScene::Load()
 	character->Model(&mBackGround);
 	mColliderMesh.Set(nullptr, nullptr, &mBackGround);
 	
-	CXCharacter* shield = new CEnemyShield();
-	shield->Position(CVector(0.0f, 10.0f, -30.0f));
+	//CXCharacter* shield = new CEnemyShield(nullptr);
+	//shield->Position(CVector(0.0f, 10.0f, -30.0f));
 
 	//パラディンのインスタンスを生成
 	//CXCharacter* paladin = new CPaladin(CVector(0.0f,5.0f,-9.0f));
@@ -53,8 +53,8 @@ void CGameScene::Load()
 	//CXCharacter* enemy1 = new CEnemy1(CVector(0.0f, 0.0f, 0.0f));
 	//enemy1->Position(CVector(0.0f, 10.0f, -30.0f));
 	//エネミー2のインスタンスを生成
-	//CXCharacter* enemy2 = new CEnemy2(CVector(0.0f, 0.0f, 0.0f));
-	//enemy2->Position(CVector(0.0f, 10.0f, -30.0f));
+	CXCharacter* enemy2 = new CEnemy2(CVector(0.0f, 0.0f, 0.0f));
+	enemy2->Position(CVector(0.0f, 10.0f, -30.0f));
 	//立方体インスタンスの生成
 	//CCharacter3* cube = new CCube;
 	//cube->Position(CVector(0.0f, 0.0f, -9.0f));

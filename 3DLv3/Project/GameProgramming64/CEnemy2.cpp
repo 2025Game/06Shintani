@@ -2,6 +2,7 @@
 //#define GRAVITY 0.0625f//重力
 #define VELOCITY 0.01f	//速度
 #define BULLETTIME 60 //弾のクールタイム
+#define SHIELDTIME 600 //弾のクールタイム
 #define _USE_MATH_DEFINES
 #include<math.h>
 //ラジアンを度数に変換するための定数
@@ -40,7 +41,12 @@ CEnemy2::CEnemy2(const CVector& pos, const CVector& rot, const CVector& scale)
 	mAttackRenge.Tag(ETag::EATTACKRANGE);
 	//目標地点の設定
 	mPoint = mPosition + CVector(0.0f, 0.0f, 100.0f) * mMatrixRotate;
+	
+}
 
+CEnemy2::~CEnemy2()
+{
+	delete shield;
 }
 
 void CEnemy2::Update()
@@ -84,7 +90,26 @@ void CEnemy2::Update()
 	mColliderCapsule3.Update();
 	mAttackRenge.Update();
 
-
+	if (ShieldFlag == false)
+	{
+		if (ShieldCoolTime <= 0)
+		{
+			//シールドの作成
+			shield = new CEnemyShield(this);
+			ShieldFlag = true;
+			
+		}
+	}
+	else
+	{
+		ShieldCoolTime = SHIELDTIME;
+	}
+	
+	if (shield == nullptr)
+	{
+		printf("再生中");
+		ShieldFlag = false;
+	}
 	/*
 	else
 	{
@@ -94,6 +119,8 @@ void CEnemy2::Update()
 	*/
 	//弾のクールタイム
 	BulletCoolTime--;
+	//シールド再生のクールタイム
+	ShieldCoolTime--;
 
 	if (mHP <= 0)
 	{
@@ -356,6 +383,7 @@ void CEnemy2::Render()
 {
 	CCharacter3::Render();
 }
+
 
 const CMatrix& CEnemy2::FrameCombinedMatrix(const char* name)
 {

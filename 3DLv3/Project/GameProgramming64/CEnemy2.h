@@ -11,11 +11,13 @@
 #include"CEnemy1Bullet.h"
 #include"CGameScene.h"
 #include"CXPlayer.h"
+#include"CEnemyShield.h"
 
 class CEnemy2 :public CXCharacter
 {
 public:
 	CEnemy2(const CVector& pos, const CVector& rot = CVector(), const CVector& scale = CVector(2.5f, 2.5f, 2.5f));
+	~CEnemy2();
 	void Update() override;
 	//衝突処理
 	//Collision(コライダ１,コライダ２)
@@ -37,16 +39,17 @@ private:
 	CColliderCapsule mColliderCapsule3;//カプセルコライダ
 
 	CColliderCapsule mAttackRenge;//攻撃範囲のコライダ
+
 	CInput mInput;
 
 	bool BulletFlag = false;//弾を出したときにフラグを操作する
+	bool ShieldFlag = false;//シールドがあるか判断する
 	int BulletCoolTime = 0;
 	//モデルのインスタンス
 	static CModel msModel;
-
 	int mHP;//HP
-
+	int ShieldCoolTime = 0;
 	CVector mPoint;	//目標地点
-
+	CXCharacter* shield;
 };
 #endif // !CENEMY1_E

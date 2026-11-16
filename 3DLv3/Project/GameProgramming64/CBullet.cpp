@@ -27,6 +27,12 @@ void CBullet::Collision(CCollider* m, CCollider* o)
 				printf("’e‚ª“–‚½‚Á‚½");
 				mEnabled = false;
 			}
+			if (CCollider::CollisionTriangleCapsule(o, m, &adjust))
+			{
+				//“G‚ÆÕ“Ë‚µ‚Ä‚¢‚é‚Í–³Œø‚É‚·‚é
+				printf("’e‚ª“–‚½‚Á‚½");
+				mEnabled = false;
+			}
 		}
 			
 		
