@@ -80,4 +80,5 @@ private:
 	static CTexture mTexture;
 	CEnemy* mpEnemy;
 	CModelX mModelX;
+	CMatrix mMatrix;
 };

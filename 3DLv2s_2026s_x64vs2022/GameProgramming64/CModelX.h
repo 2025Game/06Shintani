@@ -21,6 +21,7 @@ class CModelX
 public:
 	~CModelX();
 	CModelX();
+	void Render();
 	//ノードの読み飛ばし
 	void SkipNode();
 	//ファイル読み込み
@@ -46,7 +47,7 @@ public:
 	CModelXFrame(CModelX* model);
 	//デストラクタ
 	~CModelXFrame();
-	
+	void Render();
 private:
 	std::vector<CModelXFrame*> mChild;//子フレームの配列
 	CMatrix mTransformMatrix;//変換行列
@@ -63,6 +64,7 @@ public:
 	CMesh();
 	//デストラクタ
 	~CMesh();
+	void Render();
 	//読み込み処理
 	void Init(CModelX* model);
 private:
