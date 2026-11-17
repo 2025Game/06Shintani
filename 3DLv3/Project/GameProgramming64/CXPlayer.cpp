@@ -52,6 +52,8 @@ CXPlayer::CXPlayer()
 	mPlayerRenge.Tag(ETag::EPLAYERRANGE);
 	//インスタンスの設定
 	spInstance = this;
+	//マウスを非表示にする
+	mInput.MouseShowCursor(false);
 }
 
 void CXPlayer::Update()

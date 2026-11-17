@@ -46,7 +46,11 @@ CEnemy2::CEnemy2(const CVector& pos, const CVector& rot, const CVector& scale)
 
 CEnemy2::~CEnemy2()
 {
-	delete shield;
+	if (shield != nullptr)
+	{
+		delete shield;
+	}
+	
 }
 
 void CEnemy2::Update()
@@ -107,7 +111,7 @@ void CEnemy2::Update()
 	
 	if (shield == nullptr)
 	{
-		printf("Ä¶’†");
+		//printf("Ä¶’†");
 		ShieldFlag = false;
 	}
 	/*
