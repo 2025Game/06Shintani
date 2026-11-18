@@ -17,8 +17,9 @@ CEnemy2::CEnemy2(const CVector& pos, const CVector& rot, const CVector& scale)
 	:mColliderCapsule1(this, &mCombinedMatrix, CVector(0.0f, 2.0f, 0.0f), CVector(0.0f, 3.0f, -8.0f), 2.0f)
 	, mColliderCapsule2(this, &mCombinedMatrix, CVector(5.0f, 2.0f, 5.0f), CVector(5.0f, 3.0f, -8.0f), 2.0f)
 	, mColliderCapsule3(this, &mCombinedMatrix, CVector(-5.0f, 2.0f, 5.0f), CVector(-5.0f, 3.0f, -8.0f), 2.0f)
+	, mColliderCapsule4(this, &mCombinedMatrix, CVector(10.0f, 4.0f, -10.0f), CVector(-10.0f, 4.0f, -10.0f), 2.0f)
 	, mAttackRenge(this, &mCombinedMatrix, CVector(-2.0f, -1.0f, 20.0f), CVector(-4.5f, -2.0f, 0.0f), 50.0f)
-	, mHP(5)
+	, mHp(5)
 {
 	//モデルデータがなければ読み込み
 	if (msModel.Triangles().empty())
@@ -38,6 +39,7 @@ CEnemy2::CEnemy2(const CVector& pos, const CVector& rot, const CVector& scale)
 	mColliderCapsule1.Tag(ETag::EENEMY);
 	mColliderCapsule2.Tag(ETag::EENEMY);
 	mColliderCapsule3.Tag(ETag::EENEMY);
+	mColliderCapsule4.Tag(ETag::EENEMY);
 	mAttackRenge.Tag(ETag::EATTACKRANGE);
 	//目標地点の設定
 	mPoint = mPosition + CVector(0.0f, 0.0f, 100.0f) * mMatrixRotate;
@@ -105,6 +107,7 @@ void CEnemy2::Update()
 	mColliderCapsule1.Update();
 	mColliderCapsule2.Update();
 	mColliderCapsule3.Update();
+	mColliderCapsule4.Update();
 	mAttackRenge.Update();
 
 	if (mpShield==nullptr)
@@ -131,7 +134,8 @@ void CEnemy2::Update()
 	//シールド再生のクールタイム
 	mShieldCoolTime--;
 
-	if (mHP <= 0)
+	
+	if (mHp <= 0)
 	{
 		mEnabled = false;
 	}
@@ -174,7 +178,7 @@ void CEnemy2::Collision(CCollider* m, CCollider* o)
 				if (o->Tag() == ETag::EBULLET)
 				{
 					//printf("敵1に弾が当たった");
-					mHP--;
+					mHp--;
 
 				}
 
@@ -198,10 +202,10 @@ void CEnemy2::Collision(CCollider* m, CCollider* o)
 				//if (o->Tag() == ETag::EBULLET || (o->Tag() == ETag::EPLAYERRANGE)) return;
 
 
-
+				
 				//printf("攻撃する");
 					//printf("索敵範囲に入った");
-
+				
 					//プレイヤーのポインタが0以外の時
 				CXPlayer* player = CXPlayer::Instance();
 				//目標地点までのベクトルを求める
@@ -268,7 +272,7 @@ void CEnemy2::Collision(CCollider* m, CCollider* o)
 						}
 
 					}
-
+					
 				}
 				CTransform::Update();//行列更新
 				//およそ3秒毎に目標地点を更新
@@ -376,6 +380,11 @@ void CEnemy2::Collision()
 	mColliderCapsule3.ChangePriority();
 	//衝突処理を実行
 	CCollisionManager::Instance()->Collision(&mColliderCapsule3, COLLISIONRANGE);
+
+	//コライダの優先度変更
+	mColliderCapsule4.ChangePriority();
+	//衝突処理を実行
+	CCollisionManager::Instance()->Collision(&mColliderCapsule4, COLLISIONRANGE);
 
 	//コライダの優先度変更
 	mAttackRenge.ChangePriority();

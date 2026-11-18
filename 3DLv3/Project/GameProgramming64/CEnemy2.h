@@ -38,7 +38,7 @@ private:
 	CColliderCapsule mColliderCapsule1;//カプセルコライダ
 	CColliderCapsule mColliderCapsule2;//カプセルコライダ
 	CColliderCapsule mColliderCapsule3;//カプセルコライダ
-
+	CColliderCapsule mColliderCapsule4;//カプセルコライダ
 	CColliderCapsule mAttackRenge;//攻撃範囲のコライダ
 
 	CInput mInput;
@@ -47,7 +47,7 @@ private:
 	int mBulletCoolTime = 0;
 	//モデルのインスタンス
 	static CModel msModel;
-	int mHP;//HP
+	int mHp;//HP
 	int mShieldCoolTime = 0;
 	CVector mPoint;	//目標地点
 	CEnemyShield* mpShield;

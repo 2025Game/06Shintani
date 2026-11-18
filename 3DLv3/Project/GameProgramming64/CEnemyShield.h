@@ -27,7 +27,7 @@ private:
 	static CModel msModel;
 	//CColliderCapsule mColliderCapsule1;//カプセルコライダ
 	CColliderTriangle mCollider[6];
-	int mHP;//HP
+	int mHp;//HP
 
 };
 

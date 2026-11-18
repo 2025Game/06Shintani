@@ -7,7 +7,7 @@
 CModel CEnemyShield::msModel;
 
 CEnemyShield::CEnemyShield(CXCharacter* parent)
-	:mHP(10)
+	:mHp(10)
 {
 	//親のポインタを保存
 	SetParent(parent);
@@ -54,9 +54,31 @@ void CEnemyShield::Update()
 {
 	//親クラスの更新
 	CTransform::Update();
-	if (mHP <= 0)
+	if (mHp <= 7 && mHp >= 5)
 	{
-		//割れる演出入れる
+		//HPが７以下5以上の時はシールドの見た目を黄色にする
+		static bool ShieldHpFlag = false;
+		if (!ShieldHpFlag)
+		{
+			//TODO　モデルを黄色にする
+			ShieldHpFlag = true;
+		}
+
+	}
+	if (mHp <= 4 && mHp >= 0)
+	{
+		//HPが4以下0以上の時はシールドの見た目を赤色にする
+		static bool ShieldHpFlag = false;
+		if (!ShieldHpFlag)
+		{
+			//TODO　モデルを赤色にする
+			ShieldHpFlag = true;
+		}
+
+	}
+	if (mHp <= 0)
+	{
+		//TODO 割れる演出入れる
 		mEnabled = false;
 	}
 	//CTransform::Update();
@@ -116,7 +138,7 @@ void CEnemyShield::Collision(CCollider* m, CCollider* o)
 			if (o->Tag() == ETag::EBULLET)
 			{
 				printf("敵1に弾が当たった");
-				mHP--;
+				mHp--;
 
 			}
 		}
