@@ -85,11 +85,6 @@ void CCamera::End()
 	glEnable(GL_LIGHTING);
 }
 
-void CCamera::Parent( CXPlayer* parent)
-{
-	mpParent = parent;
-}
-
 
 
 CCamera* CCamera::spInstance = nullptr;

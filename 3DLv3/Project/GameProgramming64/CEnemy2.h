@@ -18,6 +18,7 @@ class CEnemy2 :public CXCharacter
 public:
 	CEnemy2(const CVector& pos, const CVector& rot = CVector(), const CVector& scale = CVector(2.5f, 2.5f, 2.5f));
 	~CEnemy2();
+	void RemoveChild(CTransform* child) override;
 	void Update() override;
 	//衝突処理
 	//Collision(コライダ１,コライダ２)
@@ -42,14 +43,13 @@ private:
 
 	CInput mInput;
 
-	bool BulletFlag = false;//弾を出したときにフラグを操作する
-	bool ShieldFlag = false;//シールドがあるか判断する
-	int BulletCoolTime = 0;
+	bool mBulletFlag = false;//弾を出したときにフラグを操作する
+	int mBulletCoolTime = 0;
 	//モデルのインスタンス
 	static CModel msModel;
 	int mHP;//HP
-	int ShieldCoolTime = 0;
+	int mShieldCoolTime = 0;
 	CVector mPoint;	//目標地点
-	CXCharacter* shield;
+	CEnemyShield* mpShield;
 };
 #endif // !CENEMY1_E

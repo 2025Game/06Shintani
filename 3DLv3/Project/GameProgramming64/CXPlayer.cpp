@@ -43,7 +43,7 @@ CXPlayer::CXPlayer()
 	//ジャンプ状態の作成
 	//mpJump = std::make_unique<CPlayerJump>();
 	//カメラの親をプレイヤーにする
-	CCamera::Instance()->Parent(this);
+	CCamera::Instance()->SetParent(this);
 	//タグの設定
 	Tag(ETag::EPLAYER);
 	mColliderCapsule1.Tag(ETag::EPLAYER);
@@ -278,7 +278,7 @@ void CXPlayer::Collision(CCollider* m, CCollider* o)
 				//atan2f(forward.X(), forward.Z())* RAD_TO_DEG;
 				mRotation = CVector(0.0f, atan2f(forward.X(), forward.Z()) * RAD_TO_DEG, 0.0f);
 				//親の設定
-				mpParent = o->Parent();
+				SetParent(o->Parent());
 				//行列の更新
 				CTransform::Update();
 			}

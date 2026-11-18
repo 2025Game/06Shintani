@@ -43,6 +43,8 @@ public:
 	//タグの設定
 	//tag:識別タグ
 	void Tag(ETag tag) { mTag = tag; }
+	//有効状態を設定
+	void SetEnable(bool enable) { mEnabled = enable; }
 protected:
 	int mPriority;	//優先度
 	bool mEnabled;	//有効フラグ

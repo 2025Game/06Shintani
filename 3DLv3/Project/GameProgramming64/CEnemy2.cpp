@@ -46,11 +46,24 @@ CEnemy2::CEnemy2(const CVector& pos, const CVector& rot, const CVector& scale)
 
 CEnemy2::~CEnemy2()
 {
-	if (shield != nullptr)
+	if (mpShield != nullptr)
 	{
-		delete shield;
+		//シールドと親子関係を削除する
+		mpShield->SetParent(nullptr);
+		//シールドの有効フラグをオフにする
+		mpShield->SetEnable(false);
 	}
 	
+}
+
+void CEnemy2::RemoveChild(CTransform* child)
+{
+	//子供がシールドならば、
+	if (child == mpShield)
+	{
+		//シールドのポインタを空にする
+		mpShield = nullptr;
+	}
 }
 
 void CEnemy2::Update()
@@ -94,25 +107,17 @@ void CEnemy2::Update()
 	mColliderCapsule3.Update();
 	mAttackRenge.Update();
 
-	if (ShieldFlag == false)
+	if (mpShield==nullptr)
 	{
-		if (ShieldCoolTime <= 0)
+		if (mShieldCoolTime <= 0)
 		{
 			//シールドの作成
-			shield = new CEnemyShield(this);
-			ShieldFlag = true;
-			
+			mpShield = new CEnemyShield(this);
 		}
 	}
 	else
 	{
-		ShieldCoolTime = SHIELDTIME;
-	}
-	
-	if (shield == nullptr)
-	{
-		//printf("再生中");
-		ShieldFlag = false;
+		mShieldCoolTime = SHIELDTIME;
 	}
 	/*
 	else
@@ -122,9 +127,9 @@ void CEnemy2::Update()
 	}
 	*/
 	//弾のクールタイム
-	BulletCoolTime--;
+	mBulletCoolTime--;
 	//シールド再生のクールタイム
-	ShieldCoolTime--;
+	mShieldCoolTime--;
 
 	if (mHP <= 0)
 	{
@@ -248,7 +253,7 @@ void CEnemy2::Collision(CCollider* m, CCollider* o)
 						//Z軸のずれが40.0未満
 						if (0.0f < dz && dz < 40.0f)
 						{
-							if (BulletCoolTime <= 0)
+							if (mBulletCoolTime <= 0)
 							{
 								//球を発射します
 								//CEnemy1Bullet* bullet = new CEnemy1Bullet();
@@ -345,7 +350,7 @@ void CEnemy2::Collision(CCollider* m, CCollider* o)
 			//atan2f(forward.X(), forward.Z())* RAD_TO_DEG;
 			mRotation = CVector(0.0f, atan2f(forward.X(), forward.Z()) * RAD_TO_DEG, 0.0f);
 			//親の設定
-			mpParent = o->Parent();
+			SetParent(o->Parent());
 			//行列の更新
 			CTransform::Update();
 		}

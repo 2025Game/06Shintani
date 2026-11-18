@@ -83,8 +83,27 @@ void CGameScene::Update()
 	EnemySpawner::Instance()->Update();
 	//全キャラクタの描画
 	CTaskManager::Instance()->Render();
-	//コライダの描画
-	CCollisionManager::Instance()->Render();
+	static bool isRenderCollision = true;
+	static bool isPushDebugKey = false;
+	if (mInput.Key(VK_SHIFT) && mInput.Key('0'))
+	{
+		if (!isPushDebugKey)
+		{
+			isRenderCollision = !isRenderCollision;
+			isPushDebugKey = true;
+				
+		}
+	}
+	else
+	{
+		isPushDebugKey = false;
+	}
+	if (isRenderCollision)
+	{
+		//コライダの描画
+		CCollisionManager::Instance()->Render();
+	}
+	
 	spUi->Render();	//UIの描画
 
 }

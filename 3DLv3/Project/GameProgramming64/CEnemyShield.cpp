@@ -1,4 +1,5 @@
 #include"CEnemyShield.h"
+#include"CXCharacter.h"
 
 //モデルデータの指定
 #define MODEL_PATH "res\\Shield\\Shield.obj","res\\Shield\\Shield.mtl"
@@ -9,7 +10,7 @@ CEnemyShield::CEnemyShield(CXCharacter* parent)
 	:mHP(10)
 {
 	//親のポインタを保存
-	mpParent = parent;
+	SetParent(parent);
 
 	//モデルデータがなければ読み込み
 	if (msModel.Triangles().empty())
@@ -37,12 +38,22 @@ CEnemyShield::CEnemyShield(CXCharacter* parent)
 	mCollider[5].Set(this, &mMatrix, CVector(-0.8f, 1.5f, 0.4f), CVector(-1.3f, 0.0f, -0.8f), CVector(-0.8f, 0.0f, 0.4f));
 }
 
+CEnemyShield::~CEnemyShield()
+{
+	CTransform* parent = Parent();
+	//シールドがなくなるときに、親がいたら親子関係を削除する
+	if (parent != nullptr)
+	{
+		parent->RemoveChild(this);
+	}
+}
+
 
 
 void CEnemyShield::Update()
 {
 	//親クラスの更新
-	CXCharacter::Update();
+	CTransform::Update();
 	if (mHP <= 0)
 	{
 		//割れる演出入れる

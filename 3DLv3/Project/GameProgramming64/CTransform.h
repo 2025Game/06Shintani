@@ -33,7 +33,12 @@ public:
 	void Update();
 	//Update(位置, 回転, スケール)
 	void Update(const CVector& pos, const CVector& rot, const CVector& scale);
+	//親を取得
 	CTransform* Parent();
+	//親を設定
+	void SetParent(CTransform* parent);
+	//指定した子の親子関係を解除
+	virtual void RemoveChild(CTransform* child);
 protected: //子クラスはアクセス可能
 	CVector mPosition;	//位置
 	CVector mRotation;	//回転
@@ -42,8 +47,9 @@ protected: //子クラスはアクセス可能
 	CMatrix mMatrixRotate; //回転行列
 	CMatrix mMatrixScale; //拡大縮小行列
 	CMatrix mMatrix; //合成行列
-	CTransform* mpParent;//親へのポインタ
 	CMatrix mCombinedMatrix;//子への合成行列
+private:
+	CTransform* mpParent;//親へのポインタ
 };
 
 #endif

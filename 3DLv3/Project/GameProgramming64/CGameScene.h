@@ -7,7 +7,7 @@
 #include"CColliderMesh.h"
 #include"CCollisionManager.h"
 #include"CUi.h"
-
+#include"CInput.h"
 
 //ゲームシーン
 class CGameScene :public CSceneBase
@@ -25,7 +25,7 @@ private:
 	CModelX mPlayer;
 	CColliderMesh mColliderMesh;//メッシュコライダ
 	static CUi* spUi;	//UIクラスのポインタ
-
+	CInput mInput;
 	
 };
 #endif // !CGAMESCENE_H

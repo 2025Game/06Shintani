@@ -4,12 +4,15 @@
 #include"CColliderCapsule.h"
 #include"CCollisionManager.h"
 #include"CColliderTriangle.h"
-#include"CEnemy2.h"
-class CEnemyShield :public CXCharacter
+
+class CXCaracter;
+
+class CEnemyShield :public CCharacter3
 {
 
 public:
 	CEnemyShield(CXCharacter* parent);
+	~CEnemyShield();
 	void Update();
 	//衝突処理
 	//Collision(コライダ１,コライダ２)

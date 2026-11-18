@@ -308,7 +308,7 @@ void CEnemy1::Collision(CCollider* m, CCollider* o)
 			//atan2f(forward.X(), forward.Z())* RAD_TO_DEG;
 			mRotation = CVector(0.0f, atan2f(forward.X(), forward.Z()) * RAD_TO_DEG, 0.0f);
 			//親の設定
-			mpParent = o->Parent();
+			SetParent(o->Parent());
 			//行列の更新
 			CTransform::Update();
 		}

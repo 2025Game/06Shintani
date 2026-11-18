@@ -89,3 +89,13 @@ CTransform* CTransform::Parent()
 {
 	return mpParent;
 }
+
+void CTransform::SetParent(CTransform* parent)
+{
+	mpParent = parent;
+}
+
+//指定した子の親子関係を解除
+void CTransform::RemoveChild(CTransform* child)
+{
+}

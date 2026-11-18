@@ -17,8 +17,6 @@ public:
 		, double bottom, double top);
 	//表示終了
 	static void End();
-	//親のポインタ取得
-	void Parent(CXPlayer* parent);
 
     CMatrix ModelViewInverse();
 private:
