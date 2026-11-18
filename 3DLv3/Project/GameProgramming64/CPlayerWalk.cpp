@@ -99,11 +99,11 @@ void CPlayerWalk::Update()
 		CVector p = mpParent->Position();
 		if (mInput.Key(MK_RBUTTON))
 		{
-			mpParent->Position(p + mpParent->MatrixRotate().VectorZ() * -1 * VELOCITY* 0.5);
+			mpParent->Position(p + mpParent->MatrixRotate().VectorZ()  * -VELOCITY* 0.5);
 		}
 		else
 		{
-			mpParent->Position(p + mpParent->MatrixRotate().VectorZ() * -1 * VELOCITY);
+			mpParent->Position(p + mpParent->MatrixRotate().VectorZ()  * -VELOCITY);
 		}
 
 		//Sキーが押されているときは歩く状態にする
@@ -121,11 +121,11 @@ void CPlayerWalk::Update()
 		CVector p = mpParent->Position();
 		if (mInput.Key(MK_RBUTTON))
 		{
-			mpParent->Position(p + mpParent->MatrixRotate().VectorX() * -1 * VELOCITY * 0.5);
+			mpParent->Position(p + mpParent->MatrixRotate().VectorX()  * -VELOCITY * 0.5);
 		}
 		else
 		{
-			mpParent->Position(p + mpParent->MatrixRotate().VectorX() * -1 * VELOCITY);
+			mpParent->Position(p + mpParent->MatrixRotate().VectorX()  * -VELOCITY);
 		}
 
 		//Dキーが押されているときは歩く状態にする
