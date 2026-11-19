@@ -1,191 +1,343 @@
 #include"CEnemy3.h"
-#include"CEffect.h"
-#include"CCollisionManager.h"
-#include"CPlayer.h"
+//#define GRAVITY 0.0625f//重力
+#define VELOCITY 0.01f	//速度
+#define BULLETTIME 60 //弾のクールタイム
+#define _USE_MATH_DEFINES
+#include<math.h>
+//ラジアンを度数に変換するための定数
+const float RAD_TO_DEG = 180.0f / (float)M_PI;
 
-#define OBJ "res\\f16.obj"//モデルのファイル
-#define MTL "res\\f16.mtl"//モデルのマテリアルファイル
+//モデルデータの指定
+#define MODEL_PATH "res\\Enemy3\\Enemy3.obj","res\\Enemy3\\Enemy3.mtl"
+//静的メンバ変数の定着
+CModel CEnemy3::msModel;
 
-#define HP 3//耐久値
-#define VELOCITY 0.11f;//速度
-CModel CEnemy3::sModel;//モデルデータ作成
-
-//デフォルトコンストラクタ
-
-CEnemy3::CEnemy3()
-	:CCharacter3(1)
-	,mCollider(this,&mMatrix,CVector(0.0f,0.0f,0.0f),0.4f)
-	,mHp(HP)
+CEnemy3::CEnemy3(const CVector& pos, const CVector& rot, const CVector& scale)
+	:mColliderCapsule1(this, &mCombinedMatrix, CVector(0.0f, 2.0f, 5.0f), CVector(0.0f, 3.0f, -8.0f), 2.0f)
+	, mAttackRenge(this, &mCombinedMatrix, CVector(-2.0f, -1.0f, 20.0f), CVector(-4.5f, -2.0f, 0.0f), 30.0f)
+	, mHP(3)
 {
-	//モデルがないときは読み込む
-	if (sModel.Triangles().size() == 0)
+	//モデルデータがなければ読み込み
+	if (msModel.Triangles().empty())
 	{
-		sModel.Load(OBJ, MTL);
+		msModel.Load(MODEL_PATH);
 	}
-	//モデルのポインタ設定
-	mpModel = &sModel;
-}
-
-//コンストラクタ
-//CEnemy3(位置、回転、拡縮)
-CEnemy3::CEnemy3(const CVector& position, const CVector& rotation, const CVector& scale)
-	:CEnemy3()
-{
- //位置、回転、拡縮を設定する
-	mPosition = position;//位置の設定
-	mRotation = rotation;//回転の設定
-	mScale = scale;//拡縮の設定
-	CTransform::Update();//行列の更新
+	//モデルポインタの設定
+	CCharacter3::mpModel = &msModel;
+	mScale = CVector(3.00f, 3.00f, 3.00f);
+	//最初は待機状態
+	//get()は、unique_ptrが保持しているポインタを取得する関数
+	//mpState = mpIdle.get();
+	//mpState->Start(this);
+	//mState = mpState->State();
+	//タグの設定
+	Tag(ETag::EENEMY);
+	mColliderCapsule1.Tag(ETag::EENEMY);
+	mAttackRenge.Tag(ETag::EATTACKRANGE);
 	//目標地点の設定
 	mPoint = mPosition + CVector(0.0f, 0.0f, 100.0f) * mMatrixRotate;
+
 }
 
 void CEnemy3::Update()
 {
-	//プレイヤーのポインタが0以外の時
-	CPlayer* player = CPlayer::Instance();
-	if (player != nullptr)
+	//状態の更新
+	/*mpState->Update();
+
+	//状態の切り替え
+	if (mState != mpState->State())
 	{
-		//プレイヤーまでのベクトルを求める
-		CVector vp = player->Position() - mPosition;
-		//左ベクトルとの内積を求める
-		float dx = vp.Dot(mMatrixRotate.VectorX());
-		//上ベクトルとの内積を求める
-		float dy = vp.Dot(mMatrixRotate.VectorY());
-		//前ベクトルとの内積を求める
-		float dz = vp.Dot(mMatrixRotate.VectorZ());
-		//X軸のずれが2.0未満
-		if (-2.0f < dx && dx < 2.0f)
+		mState = mpState->State();
+		switch (mState)
 		{
-			//Y軸のずれが2.0未満
-			if (-2.0f < dy && dy < 2.0f)
-			{
-				//Z軸のずれが30.0未満
-				if (0.0f < dz && dz < 30.0f)
-				{
-					//球を発射します
-					CBullet* bullet = new CBullet();
-					bullet->Set(0.1f, 1.5f);
-					bullet->Position(CVector(0.0f, 0.0f, 10.0f) * mMatrix);
-					bullet->Rotation(mRotation);
-					bullet->Update();
-				}
-				
-			}
-			
+		case EState::EIDLE:
+			mpState = mpIdle.get();
+			break;
+		case EState::EWALK:
+			mpState = mpWalk.get();
+			break;
+		case EState::EATTACK:
+			mpState = mpAttack.get();
+			break;
+			//case EState::EJUMP:
+				//mpState = mpJump.get();
+				//break;
+		default:
+			break;
+
 		}
-		
+		mpState->Start(this);
+	}
+	*/
+
+	//GRAVITYの大きさだけ、下方向へ移動させる
+	//mPosition = mPosition - CVector(0.0f, GRAVITY, 0.0f);
+	//親クラスの更新
+	CTransform::Update();
+	//カプセルコライダの更新
+	mColliderCapsule1.Update();
+	mAttackRenge.Update();
+
+
+	/*
+	else
+	{
+		//撃ってなかったらクールタイムをなくす
+		BulletCoolTime = 0;
+	}
+	*/
+	//弾のクールタイム
+	BulletCoolTime--;
+
+	if (mHP <= 0)
+	{
+		mEnabled = false;
 	}
 
-	//HPが0以下の時に撃破
-	if (mHp <= 0)
-	{
-		mHp--;
-		//１５フレーム毎にエフェクト
-		if (mHp % 15 == 0)
-		{
-			//エフェクト生成
-			new CEffect(mPosition, 1.0f, 1.0f, "exp.tga", 4, 4, 2);
-		}
-		//下降させる
-		mPosition = mPosition - CVector(0.0f, 0.03f, 0.0f);
-		CTransform::Update();
-		return;
-	}
 
-	//目標地点までのベクトルを求める
-	CVector vp = mPoint - mPosition;
-	//課題
-	//左ベクトルとの内積を求める
-	float dx = vp.Dot(mMatrixRotate.VectorX());
-	//上ベクトルとの内積を求める
-	float dy = vp.Dot(mMatrixRotate.VectorY());
-	const float margin = 0.1f;
-	//左方向へ回転
-	if (dx > margin)
-	{
-		//左へ回転
-		mRotation = mRotation + CVector(0.0f, 1.0f, 0.0f);
-	}
-	else if (dx < -margin)
-	{
-		//課題
-		// //右へ回転
-		mRotation = mRotation + CVector(0.0f, -1.0f, 0.0f);
-
-	}
-	//上下方向へ回転
-	if (dy > margin)
-	{
-		//上へ回転
-		mRotation = mRotation + CVector(-1.0f, 0.0f, 0.0f);
-	}
-	else if (dy < -margin)
-	{
-		//課題
-		//下へ回転
-		mRotation = mRotation + CVector(1.0f, 0.0f, 0.0f);
-	}
-	//機体前方へ移動する
-	mPosition = mPosition + mMatrixRotate.VectorZ() * VELOCITY;
-	CTransform::Update();//行列更新
-
-	//およそ3秒毎に目標地点を更新
-	int r = rand() % 180;//randは整数の乱数を返す
-
-	if (r == 0)
-	{
-		if (player != nullptr)
-		{
-			mPoint = player->Position();
-		}
-		else
-		{
-			mPoint = mPoint * CMatrix().RotateY(45);
-		}
-	}
 }
-//衝突処理
-//Collision（コライダ１，コライダ２）
 
 void CEnemy3::Collision(CCollider* m, CCollider* o)
 {
-	//相手のコライダタイプの判定
-	switch (o->Type())
+	//状態クラスの衝突処理
+	//mpState->Collision(m, o);
+	//自身のコライダタイプの判定
+	switch (m->Type())
 	{
-	case CCollider::EType::ESPHERE: //球コライダの時
-		//コライダのmとyが衝突しているか判定
-		if (CCollider::Collision(m, o)) {
-			//エフェクト生成
-			new CEffect(o->Parent()->Position(), 1.0f, 1.0f, "exp.tga", 4, 4, 2);
-			//衝突している時は無効にする
-			//mEnabled = false;
-			mHp--;
+
+
+	case CCollider::EType::ECAPSULE://カプセルコライダ
+
+
+		//相手のタグがエネミーの時
+		if (o->Tag() == ETag::EENEMY || o->Tag() == ETag::EENEMYBULLET || o->Tag() == ETag::EATTACKRANGE)
+		{
+			//衝突しない
+			return;
 		}
-		break;
-	case CCollider::EType::ETRIANGLE: //三角コライダの時
-		CVector adjust; //調整値
-		//三角コライダと球コライダの衝突判定
-		if (CCollider::CollisionTriangleSphere(o, m, &adjust))
-		{	//衝突しない位置まで戻す
-			mPosition = mPosition + adjust;
-			//撃破で地面に衝突すると無効
-			if (mHp <= 0)
+	}
+	//相手のコライダがカプセルコライダの時
+	if (o->Type() == CCollider::EType::ECAPSULE)
+	{
+
+		CVector adjust;//調整用ベクトル
+
+
+		//カプセルとカプセルの衝突判定
+		if (CCollider::CollisionCapsuleCapsule(m, o, &adjust))
+		{
+
+			if (m->Tag() != ETag::EATTACKRANGE)
 			{
-				mEnabled = false;
+				if (o->Tag() == ETag::EBULLET)
+				{
+					//printf("敵1に弾が当たった");
+					mHP--;
+
+				}
+
+			}
+
+
+
+
+			//相手のタグがプレイヤー範囲かつ自分のタグがエネミーの時
+			if (o->Tag() == ETag::EPLAYERRANGE && m->Tag() == ETag::EENEMY)
+			{
+				//プレイヤーに近すぎるので
+				//機体を後方へ移動する
+				mPosition = mPosition + mMatrixRotate.VectorZ() * -VELOCITY * 5;
+				//printf("攻撃しない");
+				return;
+			}
+			//相手のタグがプレイヤーかつ自分のタグが索敵範囲の時
+			if ((o->Tag() == ETag::EPLAYER && m->Tag() == ETag::EATTACKRANGE))
+			{
+				//if (o->Tag() == ETag::EBULLET || (o->Tag() == ETag::EPLAYERRANGE)) return;
+
+
+
+				//printf("攻撃する");
+					//printf("索敵範囲に入った");
+
+					//プレイヤーのポインタが0以外の時
+				CPlayer* player = CPlayer::Instance();
+				//目標地点までのベクトルを求める
+				CVector vp = mPoint - mPosition;
+
+				//左ベクトルとの内積を求める
+				float dx = vp.Dot(mMatrixRotate.VectorX());
+				//上ベクトルとの内積を求める
+				float dy = vp.Dot(mMatrixRotate.VectorY());
+				//前ベクトルとの内積を求める
+				float dz = vp.Dot(mMatrixRotate.VectorZ());
+				const float margin = 0.1f;
+				//左方向へ回転
+				if (dx > margin)
+				{
+					//左へ回転
+					mRotation = mRotation + CVector(0.0f, 1.0f, 0.0f);
+				}
+				else if (dx < -margin)
+				{
+					// //右へ回転
+					mRotation = mRotation + CVector(0.0f, -1.0f, 0.0f);
+				}
+				//上下方向へ回転
+				if (dy > margin)
+				{
+					//上へ回転
+					mRotation = mRotation + CVector(-1.0f, 0.0f, 0.0f);
+				}
+				else if (dy < -margin)
+				{
+					//下へ回転
+					mRotation = mRotation + CVector(1.0f, 0.0f, 0.0f);
+				}
+
+				//Z軸のずれが30.0未満の時
+				if (0.0f < dz && dz > 30.0f)
+				{
+					//機体前方へ移動する
+					mPosition = mPosition + mMatrixRotate.VectorZ() * VELOCITY;
+				}
+
+				//X軸のずれが2.0未満
+				if (-2.0f < dx && dx < 2.0f)
+				{
+					//Y軸のずれが2.0未満
+					if (-2.0f < dy && dy < 2.0f)
+					{
+						//Z軸のずれが40.0未満
+						if (0.0f < dz && dz < 40.0f)
+						{
+							if (BulletCoolTime <= 0)
+							{
+								//球を発射します
+								CEnemy1Bullet* bullet = new CEnemy1Bullet();
+								bullet->Set(0.1f, 1.5f);
+								bullet->Position(CVector(0.0f, 0.0f, 2.0f) * mMatrix);
+								bullet->Rotation(mRotation);
+								bullet->Update();
+								BulletCoolTime = BULLETTIME;
+								//printf("弾発射");
+							}
+
+						}
+
+					}
+
+				}
+				CTransform::Update();//行列更新
+				//およそ3秒毎に目標地点を更新
+				int r = rand() % 1;//randは整数の乱数を返す
+
+				if (r == 0)
+				{
+					if (player != nullptr)
+					{
+						mPoint = player->Position();
+					}
+					else
+					{
+						mPoint = mPoint * CMatrix().RotateY(45);
+					}
+				}
+				//プレイヤーを追いかける
+
+			}
+
+
+
+
+		}
+		else
+		{
+			//カプセルとカプセルの衝突判定
+			if (CCollider::CollisionCapsuleCapsule(m, o, &adjust))
+			{
+				/*
+				//衝突している場合、プレイヤーの位置を調整する
+				mPosition = CVector() * mMatrix + adjust;
+				//親子関係がある場合
+				if (m->Parent() && m->Parent()->Parent())
+				{
+					//親のローカル座標へ変換
+					mPosition = mPosition * m->Parent()->Parent()->CombinedMatrix().Inverse();
+				}
+
+				//行列の更新
+				CTransform::Update();
+				*/
+
 			}
 		}
-		
-		break;
-		
+
+
+
+
+
+
 	}
+
+	//相手のコライダが三角コライダの時
+	if (o->Type() == CCollider::EType::ETRIANGLE)
+	{
+		CVector adjust;//調整用ベクトル
+		//三角形とカプセルの衝突判定
+		if (CCollider::CollisionTriangleCapsule(o, m, &adjust))
+		{
+			//位置の更新
+			//現在のワールドでの位置
+			mPosition = (CVector() * mMatrix + adjust);
+			//前方の位置を求める
+			CVector forward = (CVector(0.0f, 0.0f, 1.0f) * mMatrix + adjust);
+
+			if (o->Parent())
+			{
+				//親のローカル座標へ変換
+				mPosition = mPosition * o->Parent()->CombinedMatrix().Inverse();
+				//親のローカル座標へ変換
+				forward = forward * o->Parent()->CombinedMatrix().Inverse();
+
+
+			}
+			//ローカルの座標の向きを求める
+			forward = forward - mPosition;
+			//Y軸の回転角度の度数
+			//atan2f(forward.X(), forward.Z())* RAD_TO_DEG;
+			mRotation = CVector(0.0f, atan2f(forward.X(), forward.Z()) * RAD_TO_DEG, 0.0f);
+			//親の設定
+			SetParent(o->Parent());
+			//行列の更新
+			CTransform::Update();
+		}
+	}
+	//break;
+
 }
+
+
 void CEnemy3::Collision()
 {
 	//コライダの優先度変更
-	mCollider.ChangePriority();
-	
+	mColliderCapsule1.ChangePriority();
 	//衝突処理を実行
-	CCollisionManager::Instance()->Collision(&mCollider, COLLISIONRANGE);
-	
+	CCollisionManager::Instance()->Collision(&mColliderCapsule1, COLLISIONRANGE);
+
+	//コライダの優先度変更
+	mAttackRenge.ChangePriority();
+	//衝突処理を実行
+	CCollisionManager::Instance()->Collision(&mAttackRenge, COLLISIONRANGE);
 }
+
+void CEnemy3::Init(CModelX* model)
+{
+	//CXCharacter::Init(model);
+}
+
+void CEnemy3::Render()
+{
+	CCharacter3::Render();
+}
+

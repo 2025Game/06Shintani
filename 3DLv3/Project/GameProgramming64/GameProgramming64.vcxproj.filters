@@ -64,6 +64,9 @@
     <Filter Include="ソース ファイル\BaseSystem\Game\Character\Enemys\Enemy2">
       <UniqueIdentifier>{a1e195a8-4d00-4be7-a5cc-142f46d6ab3d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\BaseSystem\Game\Character\Enemys\Enemy3">
+      <UniqueIdentifier>{e44c3853-052a-4282-8660-fa16f27132ba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp">
@@ -115,9 +118,6 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="CPlayer2.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="CEnemy3.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="CSceneBase.cpp">
@@ -243,6 +243,9 @@
     <ClCompile Include="CPlayer.cpp">
       <Filter>ソース ファイル\BaseSystem\Game\Character\Player</Filter>
     </ClCompile>
+    <ClCompile Include="CEnemy3.cpp">
+      <Filter>ソース ファイル\BaseSystem\Game\Character\Enemys\Enemy3</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h">
@@ -297,9 +300,6 @@
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="CPlayer2.h">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="CEnemy3.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="EScene.h">
@@ -436,6 +436,9 @@
     </ClInclude>
     <ClInclude Include="CPlayer.h">
       <Filter>ソース ファイル\BaseSystem\Game\Character\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CEnemy3.h">
+      <Filter>ソース ファイル\BaseSystem\Game\Character\Enemys\Enemy3</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

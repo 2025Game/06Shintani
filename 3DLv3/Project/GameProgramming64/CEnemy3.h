@@ -1,34 +1,50 @@
 #pragma once
-#ifndef  CENEMY3_H
-#define CENEMY3_H
+#ifndef CENEMY3_E
+#define CENEMY3_E
 
-//キャラクタクラスのインクルード
-#include"CCharacter3.h"
-//	コライダクラスのインクルード
-#include"CCollider.h"
-/*
-エネミークラス
-キャラクタクラスを継承
-*/
+#include "CXCharacter.h"
+#include"CColliderLine.h"
+#include"CCollisionManager.h"
+#include"CState.h"
+#include"CColliderCapsule.h"
+#include"CInput.h"
+#include"CEnemy1Bullet.h"
+#include"CGameScene.h"
+#include"CPlayer.h"
+
 class CEnemy3 :public CCharacter3
 {
 public:
-	//コンストラクタ
-	CEnemy3();
-	//CEnemy3(位置、回転、拡縮)
-	CEnemy3(const CVector&position,const CVector& rotation,const CVector&scale);
-	//更新処理
-	void Update();
+	CEnemy3(const CVector& pos, const CVector& rot = CVector(), const CVector& scale = CVector(2.5f, 2.5f, 2.5f));
+	void Update() override;
 	//衝突処理
-	//Collision(コライダ１、コライダ２)
+	//Collision(コライダ１,コライダ２)
 	void Collision(CCollider* m, CCollider* o);
+	//衝突処理
 	void Collision();
+
+	const CMatrix& FrameCombinedMatrix(const char* name);
+
+	void Init(CModelX* model);
+
+	void Render() override;
 private:
-	//モデルデータ
-	static CModel sModel;
-	//コライダ
-	CCollider mCollider;
-	int mHp;//ヒットポイント
-	CVector mPoint;//目標地点
+	CColliderLine mColliderLine;
+	//EState mState;//状態の保持
+	CState* mpState;//状態待機
+	CColliderCapsule mColliderCapsule1;//カプセルコライダ
+
+	CColliderCapsule mAttackRenge;//攻撃範囲のコライダ
+	CInput mInput;
+
+	bool BulletFlag = false;//弾を出したときにフラグを操作する
+	int BulletCoolTime = 0;
+	//モデルのインスタンス
+	static CModel msModel;
+
+	int mHP;//HP
+
+	CVector mPoint;	//目標地点
+
 };
-#endif // ! CENEMY3_H
+#endif // !CENEMY3_E

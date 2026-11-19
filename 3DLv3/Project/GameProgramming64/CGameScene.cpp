@@ -9,6 +9,7 @@
 #include"CPaladin.h"
 #include"CEnemy1.h"
 #include"CEnemy2.h"
+#include"CEnemy3.h"
 #include"EnemySpawner.h"
 #include"Warp.h"
 #include"CEnemyShield.h"
@@ -54,8 +55,11 @@ void CGameScene::Load()
 	//CCharacter3* enemy1 = new CEnemy1(CVector(0.0f, 0.0f, 0.0f));
 	//enemy1->Position(CVector(0.0f, 10.0f, -30.0f));
 	//エネミー2のインスタンスを生成
-	CCharacter3* enemy2 = new CEnemy2(CVector(0.0f, 0.0f, 0.0f));
-	enemy2->Position(CVector(0.0f, 10.0f, -30.0f));
+	//CCharacter3* enemy2 = new CEnemy2(CVector(0.0f, 0.0f, 0.0f));
+	//enemy2->Position(CVector(0.0f, 10.0f, -30.0f));
+	//エネミー3のインスタンスを生成
+	CCharacter3* enemy3 = new CEnemy3(CVector(0.0f, 0.0f, 0.0f));
+	enemy3->Position(CVector(0.0f, 10.0f, -30.0f));
 	//立方体インスタンスの生成
 	//CCharacter3* cube = new CCube;
 	//cube->Position(CVector(0.0f, 0.0f, -9.0f));

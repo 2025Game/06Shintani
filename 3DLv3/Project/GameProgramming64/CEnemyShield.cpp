@@ -70,7 +70,7 @@ void CEnemyShield::Update()
 	CTransform::Update();
 	if (mHp <= 7 && mHp >= 4)
 	{
-		//HPが７以下5以上の時はシールドの見た目を黄色にする
+		//HPが７以下4以上の時はシールドの見た目を黄色にする
 		static bool ShieldHpFlag = false;
 		if (!ShieldHpFlag)
 		{
@@ -82,7 +82,7 @@ void CEnemyShield::Update()
 	}
 	if (mHp <= 3 && mHp >= 0)
 	{
-		//HPが4以下0以上の時はシールドの見た目を赤色にする
+		//HPが3以下0以上の時はシールドの見た目を赤色にする
 		static bool ShieldHpFlag = false;
 		if (!ShieldHpFlag)
 		{
