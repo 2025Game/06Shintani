@@ -6,7 +6,7 @@
 class CPlayerWalk :public CState
 {
 public:
-	void Start(CXCharacter* parent)override;
+	void Start(CCharacter3* parent)override;
 	void Update()override;
 private:
 	CInput mInput;

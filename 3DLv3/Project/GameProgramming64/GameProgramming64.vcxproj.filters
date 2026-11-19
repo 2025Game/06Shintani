@@ -87,9 +87,6 @@
     <ClCompile Include="CBullet.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="CPlayer.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="CFont.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -243,6 +240,9 @@
     <ClCompile Include="CEnemyShield.cpp">
       <Filter>ソース ファイル\BaseSystem\Game\Character\Enemys</Filter>
     </ClCompile>
+    <ClCompile Include="CPlayer.cpp">
+      <Filter>ソース ファイル\BaseSystem\Game\Character\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h">
@@ -264,9 +264,6 @@
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="CBullet.h">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="CPlayer.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="CFont.h">
@@ -436,6 +433,9 @@
     </ClInclude>
     <ClInclude Include="CEnemy2.h">
       <Filter>ソース ファイル\BaseSystem\Game\Character\Enemys\Enemy2</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayer.h">
+      <Filter>ソース ファイル\BaseSystem\Game\Character\Player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -7,12 +7,12 @@
 //回転速度
 #define ROTATIONSPEED 2.0f
 
-void CPlayerWalk::Start(CXCharacter* parent)
+void CPlayerWalk::Start(CCharacter3* parent)
 {
 	//親のポインタを保存
 	mpParent = parent;
 	//アニメーションの変更
-	mpParent->ChangeAnimation(1, true, 60);
+	//mpParent->ChangeAnimation(1, true, 60);
 	mState = EState::EWALK;//状態の種類を歩くにする
 }
 

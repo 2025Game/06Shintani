@@ -161,7 +161,7 @@ void CEnemy1::Collision(CCollider* m, CCollider* o)
 							//printf("索敵範囲に入った");
 
 							//プレイヤーのポインタが0以外の時
-						CXPlayer* player = CXPlayer::Instance();
+						CPlayer* player = CPlayer::Instance();
 						//目標地点までのベクトルを求める
 						CVector vp = mPoint - mPosition;
 

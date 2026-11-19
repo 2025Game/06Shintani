@@ -15,27 +15,27 @@ CPaladinDamage::CPaladinDamage(CXCharacter* parent)
 	if (first)
 	{
 		//アニメーションの読み込み
-		parent->Model()->AddAnimationSet(ANIMATION_FILE);
-		msAnimNo = parent->Model()->AnimationSet().size() - 1;
-		first = false;
+		//parent->Model()->AddAnimationSet(ANIMATION_FILE);
+		//msAnimNo = parent->Model()->AnimationSet().size() - 1;
+		//first = false;
 	}
 	
 }
 
 void CPaladinDamage::Start()
 {
-	int animation_size =
-		mpParent->Model()->AnimationSet()[msAnimNo]->MaxTime();
+	//int animation_size =
+	//	mpParent->Model()->AnimationSet()[msAnimNo]->MaxTime();
 	//アニメーションの変更
-	mpParent->ChangeAnimation(msAnimNo, false, animation_size);
-	mState = EState::EDAMAGE;//状態の種類をダメージにする
-	printf("ダメージ状態");
+	//mpParent->ChangeAnimation(msAnimNo, false, animation_size);
+	//mState = EState::EDAMAGE;//状態の種類をダメージにする
+	//printf("ダメージ状態");
 }
 void CPaladinDamage::Update()
 {
 	//アニメーションが終了したら待機状態(EIDLE)へ遷移させる
-	if (mpParent->IsAnimationFinished())
-	{
-		mState = EState::EIDLE;
-	}
+	//if (mpParent->IsAnimationFinished())
+	//{
+	//	mState = EState::EIDLE;
+	//}
 }

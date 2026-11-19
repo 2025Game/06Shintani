@@ -1,38 +1,58 @@
+#pragma once
+#ifndef CPLAYER_E
+#define CPLAYER_E
 
-#ifndef CPLAYER_H
-#define CPLAYER_H
-//キャラクタクラスのインクルード
-#include "CCharacter3.h"
-#include "CInput.h"
-#include "CBullet.h"
-#include "CColliderLine.h"
+#include "CXCharacter.h"
+#include"CColliderLine.h"
+#include"CCollisionManager.h"
+#include"CPlayerIdle.h"
+#include"CPlayerWalk.h"
+#include"CPlayerAttack.h"
+#include"CPlayerJump.h"
+#include"CState.h"
+#include"CColliderCapsule.h"
+#include"CInput.h"
+#include"CBullet.h"
+#include"CGameScene.h"
 
-/*
-プレイヤークラス
-キャラクタクラスを継承
-*/
-class CPlayer : public CCharacter3 {
+class CPlayer :public CCharacter3
+{
 public:
-	//衝突処理
-	void Collision(CCollider* m, CCollider* o);
-
 	CPlayer();
-	//CPlayer(位置, 回転, スケール)
-	CPlayer(const CVector& pos, const CVector& rot
-		, const CVector& scale);
-	//更新処理
-	void Update();
+	void Update() override;
+	//衝突処理
+	//Collision(コライダ１,コライダ２)
+	void Collision(CCollider* m, CCollider* o);
+	//衝突処理
 	void Collision();
+
+	const CMatrix& FrameCombinedMatrix(const char* name);
+
+	void Init(CModelX* model);
+
+	void Render() override;
+
 	//プレイヤーのポインタの取得
 	static CPlayer* Instance();
 private:
-	CColliderLine mLine; //線分コライダ
-	CColliderLine mLine2; //線分コライダ
-	CColliderLine mLine3; //線分コライダ
+	CColliderLine mColliderLine;
+	//EState mState;//状態の保持
+	CState* mpState;//状態待機
+	std::unique_ptr<CPlayerIdle> mpIdle;//待機状態
+	std::unique_ptr<CPlayerWalk> mpWalk;//歩く状態
+	std::unique_ptr<CPlayerAttack> mpAttack;//攻撃状態
+	std::unique_ptr<CPlayerJump> mpJump;//ジャンプ状態
+	CColliderCapsule mColliderCapsule1;//カプセルコライダ
+	CColliderCapsule mColliderCapsule2;//カプセルコライダ
+	CColliderCapsule mColliderCapsule3;//カプセルコライダ
+	CColliderCapsule mPlayerRenge;//範囲のコライダ
 	CInput mInput;
+
+	bool BulletFlag = false;//弾を出したときにフラグを操作する
+	int BulletCoolTime = 0;
+	//モデルのインスタンス
+	static CModel msModel;
 	//プレイヤーのインスタンス
 	static CPlayer* spInstance;
 };
-
-#endif
-
+#endif // !CXPLAYER_E

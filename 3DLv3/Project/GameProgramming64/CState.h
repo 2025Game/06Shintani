@@ -2,6 +2,7 @@
 
 class CCollider;
 class CXCharacter;
+class CCharacter3;
 //状態の種類
 enum class EState
 {
@@ -19,6 +20,7 @@ public:
 	virtual ~CState() {};
 	//状態の開始
 	virtual void Start(CXCharacter* parent){};
+	virtual void Start(CCharacter3* parent) {};
 	virtual void Start() {};
 	//状態の更新
 	virtual void Update() {};
@@ -32,5 +34,5 @@ public:
 	}
 protected:
 	EState mState;//状態の種類
-	CXCharacter* mpParent;//親のポインタ
+	CCharacter3* mpParent;//親のポインタ
 };

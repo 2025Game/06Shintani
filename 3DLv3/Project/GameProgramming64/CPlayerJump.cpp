@@ -8,7 +8,7 @@ void CPlayerJump::Start(CXCharacter* parent)
 	//親のポインタを保存
 	mpParent = parent;
 	//アニメーションの変更
-	mpParent->ChangeAnimation(7, false, 60);
+	//mpParent->ChangeAnimation(7, false, 60);
 	mState = EState::EJUMP;//状態の種類を歩くにする
 	//mJumpV = JUMP_V;//ジャンプの初速度
 }

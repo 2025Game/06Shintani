@@ -1,115 +1,325 @@
-//プレイヤークラスのインクルード
-#include "CPlayer.h"
-#include "CApplication.h"
-#include "CCollisionManager.h"
+#include"CPlayer.h"
+//#define GRAVITY 0.0625f//重力
+#define _USE_MATH_DEFINES
+#include<math.h>
+#include"CCamera.h"
+//ラジアンを度数に変換するための定数
+const float RAD_TO_DEG = 180.0f / (float)M_PI;
 
-#define ROTATION_YV	CVector(0.0f, 1.0f, 0.0f) //回転速度
-#define VELOCITY CVector(0.0f, 0.0f, 0.1f) //移動速度
-#define ROTATION_XV	CVector(1.0f, 0.0f, 0.0f) //回転速度
+//モデルデータの指定
+#define MODEL_PATH "res\\Spaceship\\SpaceShip.obj","res\\Spaceship\\SpaceShip.mtl"
+//静的メンバ変数の定着
+CModel CPlayer::msModel;
 
 CPlayer* CPlayer::spInstance = nullptr;
 
+CPlayer::CPlayer()
+	:mColliderCapsule1(this, &mMatrix, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, -20.0f), 1.1f)
+	, mColliderCapsule2(this, &mMatrix, CVector(2.0f, -1.0f, 20.0f), CVector(4.5f, -2.0f, 0.0f), 0.4f)
+	, mColliderCapsule3(this, &mMatrix, CVector(-2.0f, -1.0f, 20.0f), CVector(-4.5f, -2.0f, 0.0f), 0.4f)
+	, mPlayerRenge(this, &mMatrix, CVector(-2.0f, -1.0f, 20.0f), CVector(-4.5f, -2.0f, 0.0f), 20.0f)
+{
+	//モデルデータがなければ読み込み
+	if (msModel.Triangles().empty())
+	{
+		msModel.Load(MODEL_PATH);
+	}
+	//モデルポインタの設定
+	CCharacter3::mpModel = &msModel;
+	mScale = CVector(0.20f, 0.20f, 0.20f);
+
+	mPosition = mPosition + CVector(1.0f, 0.0f, 0.0f);
+	//待機状態の作成
+	mpIdle = std::make_unique<CPlayerIdle>();
+	//最初は待機状態
+	//get()は、unique_ptrが保持しているポインタを取得する関数
+	mpState = mpIdle.get();
+	mpState->Start(this);
+	mState = mpState->State();
+	//歩く状態の作成
+	mpWalk = std::make_unique<CPlayerWalk>();
+	//攻撃状態の作成
+	mpAttack = std::make_unique<CPlayerAttack>();
+	//ジャンプ状態の作成
+	//mpJump = std::make_unique<CPlayerJump>();
+	//カメラの親をプレイヤーにする
+	CCamera::Instance()->SetParent(this);
+	//タグの設定
+	Tag(ETag::EPLAYER);
+	mColliderCapsule1.Tag(ETag::EPLAYER);
+	mColliderCapsule2.Tag(ETag::EPLAYER);
+	mColliderCapsule3.Tag(ETag::EPLAYER);
+	mPlayerRenge.Tag(ETag::EPLAYERRANGE);
+	//インスタンスの設定
+	spInstance = this;
+	//マウスを非表示にする
+	mInput.MouseShowCursor(false);
+}
+
+void CPlayer::Update()
+{
+	//状態の更新
+	mpState->Update();
+
+	//状態の切り替え
+	if (mState != mpState->State())
+	{
+		mState = mpState->State();
+		switch (mState)
+		{
+		case EState::EIDLE:
+			mpState = mpIdle.get();
+			break;
+		case EState::EWALK:
+			mpState = mpWalk.get();
+			break;
+		case EState::EATTACK:
+			mpState = mpAttack.get();
+			break;
+			//case EState::EJUMP:
+				//mpState = mpJump.get();
+				//break;
+		default:
+			break;
+
+		}
+		mpState->Start(this);
+	}
+
+	//GRAVITYの大きさだけ、下方向へ移動させる
+	//mPosition = mPosition - CVector(0.0f, GRAVITY, 0.0f);
+	//親クラスの更新
+	CTransform::Update();
+	//カメラの位置をプレイヤーの少し上にする
+	CCamera::Instance()->Position(CVector(0.0f, 4.0f, 0.0f));
+	//カプセルコライダの更新
+	mColliderCapsule1.Update();
+	mColliderCapsule2.Update();
+	mColliderCapsule3.Update();
+	mPlayerRenge.Update();
+
+	//左クリックで弾発射
+	if (mInput.Key(VK_LBUTTON))
+	{
+		if (BulletCoolTime <= 0)
+		{
+			if (BulletFlag == false)
+			{
+				CBullet* bullet = new CBullet();
+				bullet->Set(0.1f, 1.5f);
+				bullet->Position(CVector(1.5f, -3.0f, 35.0f) * mMatrix);
+				bullet->Rotation(mRotation);
+				bullet->Update();
+				BulletFlag = true;
+				BulletCoolTime = 20;
+			}
+			else if (BulletFlag == true)
+			{
+				CBullet* bullet = new CBullet();
+				bullet->Set(0.1f, 1.5f);
+				bullet->Position(CVector(-1.5f, -3.0f, 35.0f) * mMatrix);
+				bullet->Rotation(mRotation);
+				bullet->Update();
+				BulletFlag = false;
+				BulletCoolTime = 20;
+			}
+
+			//CApplication::TaskManager()->Add(bullet);
+		}
+
+	}
+	/*
+	else
+	{
+		//撃ってなかったらクールタイムをなくす
+		BulletCoolTime = 0;
+	}
+	*/
+	//弾のクールタイム
+	BulletCoolTime--;
+
+	//UI設定
+	CGameScene::Ui()->PosX(mPosition.X());
+	CGameScene::Ui()->PosY(mPosition.Y());
+	CGameScene::Ui()->PosZ(mPosition.Z());
+}
+
 void CPlayer::Collision(CCollider* m, CCollider* o)
 {
+	//状態クラスの衝突処理
+	mpState->Collision(m, o);
 	//自身のコライダタイプの判定
-	switch (m->Type()) {
-	case CCollider::EType::ELINE://線分コライダ
-		//相手のコライダが三角コライダの時
-		if (o->Type() == CCollider::EType::ETRIANGLE) {
-			CVector adjust;//調整用ベクトル
-			//三角形と線分の衝突判定
-			if (CCollider::CollisionTriangleLine(o, m, &adjust))
+	switch (m->Type())
+	{
+		/*case CCollider::EType::ELINE://線分コライダ
+			//相手のコライダが三角コライダの時
+			if (o->Type() == CCollider::EType::ETRIANGLE)
 			{
-				//位置の更新(mPosition + adjust)
-				mPosition = mPosition + adjust;
+				CVector adjust;//調整用ベクトル
+				//三角形と線分の衝突判定
+				if (CCollider::CollisionTriangleLine(o, m, &adjust))
+				{
+					//位置の更新
+					//現在のワールドでの位置
+					mPosition = (CVector() * mMatrix + adjust);
+					//前方の位置を求める
+					CVector forward = (CVector(0.0f, 0.0f, 1.0f) * mMatrix + adjust);
+
+					if (o->Parent())
+					{
+						//親のローカル座標へ変換
+						mPosition = mPosition * o->Parent()->CombinedMatrix().Inverse();
+						//親のローカル座標へ変換
+						forward = forward * o->Parent()->CombinedMatrix().Inverse();
+
+
+					}
+					//ローカルの座標の向きを求める
+					forward = forward - mPosition;
+					//Y軸の回転角度の度数
+					//atan2f(forward.X(), forward.Z())* RAD_TO_DEG;
+					mRotation =CVector(0.0f, atan2f(forward.X(), forward.Z()) * RAD_TO_DEG, 0.0f);
+					//親の設定
+					mpParent = o->Parent();
+					//行列の更新
+					CTransform::Update();
+				}
+			}
+			break;*/
+	case CCollider::EType::ECAPSULE://カプセルコライダ
+
+
+
+		//相手のコライダがカプセルコライダの時
+		if (o->Type() == CCollider::EType::ECAPSULE)
+		{
+
+			//printf("%d",o->Tag());
+			CVector adjust;//調整用ベクトル
+			//カプセルとカプセルの衝突判定
+			if (CCollider::CollisionCapsuleCapsule(m, o, &adjust))
+			{
+				if (o == &mColliderCapsule1 || o == &mColliderCapsule2 || o == &mColliderCapsule3 || o == &mPlayerRenge)
+				{
+					//相手がプレイヤーのコライダの時は衝突処理を行わない
+
+					return;
+				}
+				//自分のコライダーかつ相手のコライダーが敵の弾だったら
+				if (m->Tag() == ETag::EPLAYER && o->Tag() == ETag::EENEMYBULLET)
+				{
+					//ダメージ処理
+					printf("プレイヤーがダメージを食らった");
+					return;
+				}
+				if (o->Tag() == ETag::EBULLET || o->Tag() == ETag::EATTACKRANGE || o->Tag() == ETag::EPLAYERRANGE)
+				{
+					//相手が自分の弾または相手の索敵範囲または自分の範囲だった場合は衝突処理を行わない
+					return;
+				}
+				if (m->Tag() == ETag::EPLAYERRANGE && o->Tag() == ETag::EENEMY)
+				{
+					//自分の範囲と敵は衝突処理を行わない
+					return;
+				}
+				if (o->Tag() == ETag::EENEMYBULLET)
+				{
+					//弾とは衝突処理を行わない
+					return;
+				}
+
+				//衝突している場合、プレイヤーの位置を調整する
+				mPosition = CVector() * mMatrix + adjust;
+				//親子関係がある場合
+				if (m->Parent() && m->Parent()->Parent())
+				{
+					//親のローカル座標へ変換
+					mPosition = mPosition * m->Parent()->Parent()->CombinedMatrix().Inverse();
+				}
+				//行列の更新
+				CTransform::Update();
+				printf("%d", o->Tag());
+				printf("当たった");
+
+			}
+		}
+
+		//相手のコライダが三角コライダの時
+		if (o->Type() == CCollider::EType::ETRIANGLE)
+		{
+			CVector adjust;//調整用ベクトル
+			//三角形とカプセルの衝突判定
+			if (CCollider::CollisionTriangleCapsule(o, m, &adjust))
+			{
+				//相手がエネミーだと衝突しない
+				if (o->Tag() == ETag::EENEMY)
+				{
+					//printf("当たった");
+					return;
+				}
+				//位置の更新
+				//現在のワールドでの位置
+				mPosition = (CVector() * mMatrix + adjust);
+				//前方の位置を求める
+				CVector forward = (CVector(0.0f, 0.0f, 1.0f) * mMatrix + adjust);
+
+				if (o->Parent())
+				{
+					//親のローカル座標へ変換
+					mPosition = mPosition * o->Parent()->CombinedMatrix().Inverse();
+					//親のローカル座標へ変換
+					forward = forward * o->Parent()->CombinedMatrix().Inverse();
+
+
+				}
+				//ローカルの座標の向きを求める
+				forward = forward - mPosition;
+				//Y軸の回転角度の度数
+				//atan2f(forward.X(), forward.Z())* RAD_TO_DEG;
+				mRotation = CVector(0.0f, atan2f(forward.X(), forward.Z()) * RAD_TO_DEG, 0.0f);
+				//親の設定
+				SetParent(o->Parent());
 				//行列の更新
 				CTransform::Update();
 			}
 		}
-		break;
+		//break;
+
 	}
 }
 
-CPlayer::CPlayer()
-	: mLine(this, &mMatrix, CVector(0.0f, 0.0f, -14.0f), CVector(0.0f, 0.0f, 17.0f))
-	, mLine2(this, &mMatrix, CVector(0.0f, 5.0f, -8.0f), CVector(0.0f, -3.0f, -8.0f))
-	, mLine3(this, &mMatrix, CVector(9.0f, 0.0f, -8.0f), CVector(-9.0f, 0.0f, -8.0f))
-{
-	//インスタンスの設定
-	spInstance = this;
-}
-
-//CPlayer(位置, 回転, スケール)
-CPlayer::CPlayer(const CVector& pos, const CVector& rot
-	, const CVector& scale)
-{
-	CTransform::Update(pos, rot, scale); //行列の更新
-}
-
-//更新処理
-void CPlayer::Update() {
-	//Dキー入力で回転
-	if (mInput.Key('D')) {
-		//Y軸の回転値を減少
-		mRotation = mRotation - ROTATION_YV;
-	}
-	if (mInput.Key('A')) {
-		//Y軸の回転値を増加
-		mRotation = mRotation + ROTATION_YV;
-	}
-	//上キー入力で前進
-	if (mInput.Key(VK_UP)) {
-		//Z軸方向の値を回転させ移動させる
-		mPosition = mPosition + VELOCITY * mMatrixRotate;
-	}
-	//Sキー入力で上向き
-	if (mInput.Key('S')) {
-		//X軸の回転値を減算
-		mRotation = mRotation - ROTATION_XV;
-	}
-	//Wキー入力で下向き
-	if (mInput.Key('W')) {
-		//X軸の回転値を加算
-		mRotation = mRotation + ROTATION_XV;
-	}
-	//スペースキー入力で弾発射
-	if (mInput.Key(VK_SPACE)) {
-		CBullet* bullet = new CBullet();
-		bullet->Set(0.1f, 1.5f);
-		bullet->Position(CVector(0.0f, 0.0f, 10.0f) * mMatrix);
-		bullet->Rotation(mRotation);
-		bullet->Update();
-		//CApplication::TaskManager()->Add(bullet);
-	}
-
-	//変換行列の更新
-	CTransform::Update();
-
-	//UI設定
-	CApplication::Ui()->PosX(mPosition.X());
-	CApplication::Ui()->PosY(mRotation.Y());
-	CApplication::Ui()->PosZ(mRotation.Z());
-}
-
-//衝突処理
 void CPlayer::Collision()
 {
 	//コライダの優先度変更
-	mLine.ChangePriority();
-	mLine2.ChangePriority();
-	mLine3.ChangePriority();
+	mColliderCapsule1.ChangePriority();
 	//衝突処理を実行
-	CCollisionManager::Instance()->Collision(&mLine, COLLISIONRANGE);
-	CCollisionManager::Instance()->Collision(&mLine2, COLLISIONRANGE);
-	CCollisionManager::Instance()->Collision(&mLine3, COLLISIONRANGE);
+	CCollisionManager::Instance()->Collision(&mColliderCapsule1, COLLISIONRANGE);
+	//コライダの優先度変更
+	mColliderCapsule2.ChangePriority();
+	//衝突処理を実行
+	CCollisionManager::Instance()->Collision(&mColliderCapsule2, COLLISIONRANGE);
+	//コライダの優先度変更
+	mColliderCapsule3.ChangePriority();
+	//衝突処理を実行
+	CCollisionManager::Instance()->Collision(&mColliderCapsule3, COLLISIONRANGE);
+	//コライダの優先度変更
+	mPlayerRenge.ChangePriority();
+	//衝突処理を実行
+	CCollisionManager::Instance()->Collision(&mPlayerRenge, COLLISIONRANGE);
 }
+
+void CPlayer::Init(CModelX* model)
+{
+	//CXCharacter::Init(model);
+}
+
+void CPlayer::Render()
+{
+	CCharacter3::Render();
+}
+
 
 CPlayer* CPlayer::Instance()
 {
 	return spInstance;
 }
-
-
-
-
-

@@ -10,7 +10,7 @@
 #include"CInput.h"
 #include"CEnemy1Bullet.h"
 #include"CGameScene.h"
-#include"CXPlayer.h"
+#include"CPlayer.h"
 #include"CEnemyShield.h"
 
 class CEnemy2 :public CCharacter3

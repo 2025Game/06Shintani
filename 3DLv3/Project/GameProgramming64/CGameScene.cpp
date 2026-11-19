@@ -2,6 +2,7 @@
 #include"CCharacter3.h"
 #include"CTaskManager.h"
 #include"CXCharacter.h"
+#include"CPlayer.h"
 #include"CXPlayer.h"
 #include"CCube.h"
 #include"CCamera.h"
@@ -37,8 +38,8 @@ void CGameScene::Load()
 	//キャラのインスタンス作成
 	CCharacter3* character = new CCharacter3();
 	//mPlayerのインスタンス作成
-	CXCharacter* xchar = new CXPlayer();
-	xchar->Init(&mPlayer);
+	CCharacter3* xchar = new CPlayer();
+	xchar->Render();
 	xchar->Position(CVector(10.0f, -1.0f, 10.0f));
 	//キャラクタのモデルの設定
 	character->Model(&mBackGround);

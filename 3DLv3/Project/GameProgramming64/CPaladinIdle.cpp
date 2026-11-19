@@ -24,10 +24,10 @@ CPaladinIdle::CPaladinIdle(CXCharacter* parent)
 void CPaladinIdle::Start()
 {
 	int animation_size =
-		mpParent->Model()->AnimationSet()[msAnimNo]->MaxTime();
+	//	mpParent->Model()->AnimationSet()[msAnimNo]->MaxTime();
 	//アニメーションの変更
-	mpParent->ChangeAnimation(msAnimNo, true, animation_size);
-	mState = EState::EIDLE;//状態の種類を待機にする
+	//mpParent->ChangeAnimation(msAnimNo, true, animation_size);
+	//mState = EState::EIDLE;//状態の種類を待機にする
 	printf("待機状態");
 }
 
