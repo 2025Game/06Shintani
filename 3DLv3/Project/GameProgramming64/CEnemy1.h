@@ -12,7 +12,7 @@
 #include"CGameScene.h"
 #include"CXPlayer.h"
 
-class CEnemy1 :public CXCharacter
+class CEnemy1 :public CCharacter3
 {
 public:
 	CEnemy1(const CVector& pos, const CVector& rot = CVector(), const CVector& scale = CVector(2.5f, 2.5f, 2.5f));

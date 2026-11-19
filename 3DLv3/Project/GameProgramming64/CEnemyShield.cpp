@@ -6,7 +6,7 @@
 //静的メンバ変数の定着
 CModel CEnemyShield::msModel;
 
-CEnemyShield::CEnemyShield(CXCharacter* parent)
+CEnemyShield::CEnemyShield(CCharacter3* parent)
 	:mHp(10)
 {
 	//親のポインタを保存

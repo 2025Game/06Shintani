@@ -102,7 +102,7 @@ void CEnemy2::Update()
 	//GRAVITYの大きさだけ、下方向へ移動させる
 	//mPosition = mPosition - CVector(0.0f, GRAVITY, 0.0f);
 	//親クラスの更新
-	CXCharacter::Update();
+	CTransform::Update();
 	//カプセルコライダの更新
 	mColliderCapsule1.Update();
 	mColliderCapsule2.Update();
@@ -403,16 +403,4 @@ void CEnemy2::Render()
 }
 
 
-const CMatrix& CEnemy2::FrameCombinedMatrix(const char* name)
-{
-	//フレーム名から行列を取得する
-	for (size_t i = 0; i < mpModel->Frames().size(); i++)
-	{
-		if (strcmp(mpModel->Frames()[i]->name(), name) == 0)
-		{
-			return mpModel->Frames()[i]->CombinedMatrix();
-		}
-	}
-	static CMatrix dummy;//ダミーの行列
-	return dummy;
-}
+

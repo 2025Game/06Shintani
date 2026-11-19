@@ -11,7 +11,7 @@ class CEnemyShield :public CCharacter3
 {
 
 public:
-	CEnemyShield(CXCharacter* parent);
+	CEnemyShield(CCharacter3* parent);
 	~CEnemyShield();
 	void Update();
 	//Õ“Ëˆ—

@@ -13,7 +13,7 @@
 #include"CXPlayer.h"
 #include"CEnemyShield.h"
 
-class CEnemy2 :public CXCharacter
+class CEnemy2 :public CCharacter3
 {
 public:
 	CEnemy2(const CVector& pos, const CVector& rot = CVector(), const CVector& scale = CVector(2.5f, 2.5f, 2.5f));
