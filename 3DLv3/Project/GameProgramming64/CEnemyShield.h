@@ -25,6 +25,8 @@ private:
 
 	//モデルのインスタンス
 	static CModel msModel;
+	static CModel msModelYellow;
+	static CModel msModelRed;
 	//CColliderCapsule mColliderCapsule1;//カプセルコライダ
 	CColliderTriangle mCollider[6];
 	int mHp;//HP

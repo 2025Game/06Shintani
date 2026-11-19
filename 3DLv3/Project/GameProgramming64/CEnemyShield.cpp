@@ -2,9 +2,13 @@
 #include"CXCharacter.h"
 
 //モデルデータの指定
-#define MODEL_PATH "res\\Shield\\Shield.obj","res\\Shield\\Shield.mtl"
+#define MODEL_SHIELD "res\\Shield\\Shield.obj","res\\Shield\\Shield.mtl"
+#define MODEL_SHIELDYELLOW "res\\Shield\\ShieldYellow.obj","res\\Shield\\ShieldYellow.mtl"
+#define MODEL_SHIELDRED "res\\Shield\\ShieldRed.obj","res\\Shield\\ShieldRed.mtl"
 //静的メンバ変数の定着
 CModel CEnemyShield::msModel;
+CModel CEnemyShield::msModelYellow;
+CModel CEnemyShield::msModelRed;
 
 CEnemyShield::CEnemyShield(CCharacter3* parent)
 	:mHp(10)
@@ -15,7 +19,17 @@ CEnemyShield::CEnemyShield(CCharacter3* parent)
 	//モデルデータがなければ読み込み
 	if (msModel.Triangles().empty())
 	{
-		msModel.Load(MODEL_PATH);
+		msModel.Load(MODEL_SHIELD);
+		//msModel.Load(MODEL_SHIELDYELLOW);
+	}
+	if (msModelYellow.Triangles().empty())
+	{
+		msModelYellow.Load(MODEL_SHIELDYELLOW);
+		
+	}
+	if (msModelRed.Triangles().empty())
+	{
+		msModelRed.Load(MODEL_SHIELDRED);
 	}
 	//モデルポインタの設定
 	CCharacter3::mpModel = &msModel;
@@ -54,24 +68,26 @@ void CEnemyShield::Update()
 {
 	//親クラスの更新
 	CTransform::Update();
-	if (mHp <= 7 && mHp >= 5)
+	if (mHp <= 7 && mHp >= 4)
 	{
 		//HPが７以下5以上の時はシールドの見た目を黄色にする
 		static bool ShieldHpFlag = false;
 		if (!ShieldHpFlag)
 		{
 			//TODO　モデルを黄色にする
+			mpModel = &msModelYellow;
 			ShieldHpFlag = true;
 		}
 
 	}
-	if (mHp <= 4 && mHp >= 0)
+	if (mHp <= 3 && mHp >= 0)
 	{
 		//HPが4以下0以上の時はシールドの見た目を赤色にする
 		static bool ShieldHpFlag = false;
 		if (!ShieldHpFlag)
 		{
 			//TODO　モデルを赤色にする
+			mpModel = &msModelRed;
 			ShieldHpFlag = true;
 		}
 
