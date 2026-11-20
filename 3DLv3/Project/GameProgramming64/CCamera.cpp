@@ -66,7 +66,7 @@ void CCamera::Update()
 		{
 			//‰ñ“]‚·‚é
 			Rotation(Rotation() - CVector((mY - y) * ROTATION_RATE / 3.0f, 0.0f, 0.0f));
-			printf("%f\n",parent->Rotation().X());
+			//printf("%f\n",parent->Rotation().X());
 		}
 		else if(parent->Rotation().X() >= 70)
 		{

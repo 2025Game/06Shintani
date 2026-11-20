@@ -1,6 +1,6 @@
 #include"CEnemy3.h"
 //#define GRAVITY 0.0625f//重力
-#define VELOCITY 0.01f	//速度
+#define VELOCITY 0.03f	//速度
 #define BULLETTIME 60 //弾のクールタイム
 #define _USE_MATH_DEFINES
 #include<math.h>
@@ -13,9 +13,9 @@ const float RAD_TO_DEG = 180.0f / (float)M_PI;
 CModel CEnemy3::msModel;
 
 CEnemy3::CEnemy3(const CVector& pos, const CVector& rot, const CVector& scale)
-	:mColliderCapsule1(this, &mCombinedMatrix, CVector(0.0f, 2.0f, 5.0f), CVector(0.0f, 3.0f, -8.0f), 2.0f)
+	:mColliderCapsule1(this, &mCombinedMatrix, CVector(0.5f, 1.5f, 3.0f), CVector(0.5f, 1.5f, -3.0f), 3.0f)
 	, mAttackRenge(this, &mCombinedMatrix, CVector(-2.0f, -1.0f, 20.0f), CVector(-4.5f, -2.0f, 0.0f), 30.0f)
-	, mHP(3)
+	, mHP(6)
 {
 	//モデルデータがなければ読み込み
 	if (msModel.Triangles().empty())
@@ -131,7 +131,7 @@ void CEnemy3::Collision(CCollider* m, CCollider* o)
 			{
 				if (o->Tag() == ETag::EBULLET)
 				{
-					//printf("敵1に弾が当たった");
+					printf("敵1に弾が当たった");
 					mHP--;
 
 				}
@@ -146,9 +146,9 @@ void CEnemy3::Collision(CCollider* m, CCollider* o)
 			{
 				//プレイヤーに近すぎるので
 				//機体を後方へ移動する
-				mPosition = mPosition + mMatrixRotate.VectorZ() * -VELOCITY * 5;
+				//mPosition = mPosition + mMatrixRotate.VectorZ() * -VELOCITY * 5;
 				//printf("攻撃しない");
-				return;
+				//return;
 			}
 			//相手のタグがプレイヤーかつ自分のタグが索敵範囲の時
 			if ((o->Tag() == ETag::EPLAYER && m->Tag() == ETag::EATTACKRANGE))
@@ -196,7 +196,7 @@ void CEnemy3::Collision(CCollider* m, CCollider* o)
 				}
 
 				//Z軸のずれが30.0未満の時
-				if (0.0f < dz && dz > 30.0f)
+				if (0.0f < dz && dz > 8.0f)
 				{
 					//機体前方へ移動する
 					mPosition = mPosition + mMatrixRotate.VectorZ() * VELOCITY;
