@@ -3,9 +3,12 @@
 
 #define ROTATION_RATE 0.3f
 
+
+
 void CCamera::Start(double left, double right
 	, double bottom, double top)
 {
+	
 	//モデルビュー行列の退避
 	glPushMatrix();
 	//モデルビュー行列の初期化
@@ -53,7 +56,29 @@ void CCamera::Update()
 	//前回のマウスの位置と今回のマウスの位置の差分を計算して
 	//カメラの回転に反映する
 	Rotation(Rotation() + CVector(0.0f, (mX - x) * ROTATION_RATE, 0.0f));
-	Rotation(Rotation() - CVector((mY - y) * ROTATION_RATE/3.0f,0.0f , 0.0f));
+	
+	CTransform* parent = Parent();
+	//親がいたら
+	if (parent != nullptr)
+	{
+		//親の回転が７０以下かつ-７０以上だったら
+		if (parent->Rotation().X() <= 70 && parent->Rotation().X() >= -70)
+		{
+			//回転する
+			Rotation(Rotation() - CVector((mY - y) * ROTATION_RATE / 3.0f, 0.0f, 0.0f));
+			printf("%f\n",parent->Rotation().X());
+		}
+		else if(parent->Rotation().X() >= 70)
+		{
+			parent->Rotation(CVector(68.0, 0.0f, 0.0f));
+		}
+		else
+		{
+			parent->Rotation(CVector(-68.0, 0.0f, 0.0f));
+		}
+		
+	}
+	
 	//マウスの位置を保存する
 	mX = x;
 	mY = y;

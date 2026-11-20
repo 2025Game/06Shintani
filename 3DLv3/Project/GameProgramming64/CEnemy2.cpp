@@ -276,10 +276,10 @@ void CEnemy2::Collision(CCollider* m, CCollider* o)
 				}
 				CTransform::Update();//行列更新
 				//およそ3秒毎に目標地点を更新
-				int r = rand() % 1;//randは整数の乱数を返す
+				//int r = rand() % 1;//randは整数の乱数を返す
 
-				if (r == 0)
-				{
+				//if (r == 0)
+				//{
 					if (player != nullptr)
 					{
 						mPoint = player->Position();
@@ -288,7 +288,7 @@ void CEnemy2::Collision(CCollider* m, CCollider* o)
 					{
 						mPoint = mPoint * CMatrix().RotateY(45);
 					}
-				}
+				//}
 				//プレイヤーを追いかける
 
 			}

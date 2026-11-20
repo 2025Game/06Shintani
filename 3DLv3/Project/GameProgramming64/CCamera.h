@@ -25,9 +25,9 @@ private:
 	CInput mInput;
 	CMatrix mModelViewMatrix;//モデルビュー行列
 	CMatrix mModelViewInverse;//モデルビュー逆行列
-
 	//マウスの座標
 	double mX, mY;
+	CTransform* mpParent;
 	CCamera()
 	{
 		//マウスの位置を取得する

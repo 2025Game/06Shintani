@@ -214,12 +214,12 @@ void CEnemy3::Collision(CCollider* m, CCollider* o)
 							if (BulletCoolTime <= 0)
 							{
 								//球を発射します
-								CEnemy1Bullet* bullet = new CEnemy1Bullet();
-								bullet->Set(0.1f, 1.5f);
-								bullet->Position(CVector(0.0f, 0.0f, 2.0f) * mMatrix);
-								bullet->Rotation(mRotation);
-								bullet->Update();
-								BulletCoolTime = BULLETTIME;
+								//CEnemy1Bullet* bullet = new CEnemy1Bullet();
+								//bullet->Set(0.1f, 1.5f);
+								//bullet->Position(CVector(0.0f, 0.0f, 2.0f) * mMatrix);
+								//bullet->Rotation(mRotation);
+								//bullet->Update();
+								//BulletCoolTime = BULLETTIME;
 								//printf("弾発射");
 							}
 
@@ -230,10 +230,10 @@ void CEnemy3::Collision(CCollider* m, CCollider* o)
 				}
 				CTransform::Update();//行列更新
 				//およそ3秒毎に目標地点を更新
-				int r = rand() % 1;//randは整数の乱数を返す
+				//int r = rand() % 1;//randは整数の乱数を返す
 
-				if (r == 0)
-				{
+				//if (r == 0)
+				//{
 					if (player != nullptr)
 					{
 						mPoint = player->Position();
@@ -242,7 +242,7 @@ void CEnemy3::Collision(CCollider* m, CCollider* o)
 					{
 						mPoint = mPoint * CMatrix().RotateY(45);
 					}
-				}
+				//}
 				//プレイヤーを追いかける
 
 			}
