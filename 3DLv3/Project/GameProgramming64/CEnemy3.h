@@ -11,6 +11,7 @@
 #include"CEnemy1Bullet.h"
 #include"CGameScene.h"
 #include"CPlayer.h"
+#include "CEffect.h"
 
 class CEnemy3 :public CCharacter3
 {

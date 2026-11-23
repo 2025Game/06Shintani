@@ -131,25 +131,13 @@ void CEnemy3::Collision(CCollider* m, CCollider* o)
 			{
 				if (o->Tag() == ETag::EBULLET)
 				{
-					printf("敵1に弾が当たった");
+					printf("敵3に弾が当たった");
 					mHP--;
 
 				}
 
 			}
 
-
-
-
-			//相手のタグがプレイヤー範囲かつ自分のタグがエネミーの時
-			if (o->Tag() == ETag::EPLAYERRANGE && m->Tag() == ETag::EENEMY)
-			{
-				//プレイヤーに近すぎるので
-				//機体を後方へ移動する
-				//mPosition = mPosition + mMatrixRotate.VectorZ() * -VELOCITY * 5;
-				//printf("攻撃しない");
-				//return;
-			}
 			//相手のタグがプレイヤーかつ自分のタグが索敵範囲の時
 			if ((o->Tag() == ETag::EPLAYER && m->Tag() == ETag::EATTACKRANGE))
 			{
@@ -195,7 +183,7 @@ void CEnemy3::Collision(CCollider* m, CCollider* o)
 					mRotation = mRotation + CVector(1.0f, 0.0f, 0.0f);
 				}
 
-				//Z軸のずれが30.0未満の時
+				//Z軸のずれが8.0未満の時
 				if (0.0f < dz && dz > 8.0f)
 				{
 					//機体前方へ移動する
@@ -208,41 +196,29 @@ void CEnemy3::Collision(CCollider* m, CCollider* o)
 					//Y軸のずれが2.0未満
 					if (-2.0f < dy && dy < 2.0f)
 					{
-						//Z軸のずれが40.0未満
-						if (0.0f < dz && dz < 40.0f)
+						//Z軸のずれが8.0未満
+						if (0.0f < dz && dz < 8.0f)
 						{
-							if (BulletCoolTime <= 0)
-							{
-								//球を発射します
-								//CEnemy1Bullet* bullet = new CEnemy1Bullet();
-								//bullet->Set(0.1f, 1.5f);
-								//bullet->Position(CVector(0.0f, 0.0f, 2.0f) * mMatrix);
-								//bullet->Rotation(mRotation);
-								//bullet->Update();
-								//BulletCoolTime = BULLETTIME;
-								//printf("弾発射");
-							}
-
+							new CEffect(m->Parent()->Position(), 5.0f, 5.0f, "Effect\\exp.tga", 4, 4, 2);
+							mEnabled = false;
 						}
 
 					}
 
 				}
 				CTransform::Update();//行列更新
-				//およそ3秒毎に目標地点を更新
-				//int r = rand() % 1;//randは整数の乱数を返す
 
-				//if (r == 0)
-				//{
+				//プレイヤーが存在しているとき
 					if (player != nullptr)
 					{
+						//プレイヤーの座標を取得する
 						mPoint = player->Position();
 					}
 					else
 					{
 						mPoint = mPoint * CMatrix().RotateY(45);
 					}
-				//}
+				
 				//プレイヤーを追いかける
 
 			}

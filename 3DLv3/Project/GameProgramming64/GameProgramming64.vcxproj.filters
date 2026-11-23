@@ -67,6 +67,9 @@
     <Filter Include="ソース ファイル\BaseSystem\Game\Character\Enemys\Enemy3">
       <UniqueIdentifier>{e44c3853-052a-4282-8660-fa16f27132ba}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\BaseSystem\Object\Effect">
+      <UniqueIdentifier>{64946712-1a79-42bd-81a8-b6f06556fe3c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp">
@@ -106,12 +109,6 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="CMatrix.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="CBillBoard.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="CEffect.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="CGame.cpp">
@@ -246,6 +243,12 @@
     <ClCompile Include="CEnemy3.cpp">
       <Filter>ソース ファイル\BaseSystem\Game\Character\Enemys\Enemy3</Filter>
     </ClCompile>
+    <ClCompile Include="CBillBoard.cpp">
+      <Filter>ソース ファイル\BaseSystem\Object\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="CEffect.cpp">
+      <Filter>ソース ファイル\BaseSystem\Object\Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h">
@@ -288,12 +291,6 @@
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="CMatrix.h">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="CBillBoard.h">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="CEffect.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="CGame.h">
@@ -439,6 +436,12 @@
     </ClInclude>
     <ClInclude Include="CEnemy3.h">
       <Filter>ソース ファイル\BaseSystem\Game\Character\Enemys\Enemy3</Filter>
+    </ClInclude>
+    <ClInclude Include="CBillBoard.h">
+      <Filter>ソース ファイル\BaseSystem\Object\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="CEffect.h">
+      <Filter>ソース ファイル\BaseSystem\Object\Effect</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

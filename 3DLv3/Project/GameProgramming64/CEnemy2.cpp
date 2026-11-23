@@ -177,7 +177,7 @@ void CEnemy2::Collision(CCollider* m, CCollider* o)
 			{
 				if (o->Tag() == ETag::EBULLET)
 				{
-					//printf("敵1に弾が当たった");
+					//printf("敵2に弾が当たった");
 					mHp--;
 
 				}
@@ -275,20 +275,14 @@ void CEnemy2::Collision(CCollider* m, CCollider* o)
 					
 				}
 				CTransform::Update();//行列更新
-				//およそ3秒毎に目標地点を更新
-				//int r = rand() % 1;//randは整数の乱数を返す
-
-				//if (r == 0)
-				//{
+				
+				//プレイヤーが存在しているとき
 					if (player != nullptr)
 					{
+						//プレイヤーの座標を取得する
 						mPoint = player->Position();
 					}
-					else
-					{
-						mPoint = mPoint * CMatrix().RotateY(45);
-					}
-				//}
+				
 				//プレイヤーを追いかける
 
 			}
