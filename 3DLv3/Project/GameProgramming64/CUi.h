@@ -38,7 +38,7 @@ private:
 
 	int mEnemy;	//敵の数
 	int mHp;
-	int mTime;	//経過時間
+	int mTime;	//経過時間(フレーム)
 	int mScore; //スコア
 	CFont mFont;
 	CFont mSfFont;//SFフォント

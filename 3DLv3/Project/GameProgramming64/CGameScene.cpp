@@ -13,7 +13,6 @@
 #include"EnemySpawner.h"
 #include"Warp.h"
 #include"CEnemyShield.h"
-
 //”wŒiƒ‚ƒfƒ‹ƒf[ƒ^‚ÌŽw’è
 #define MODEL_BACKGROUND "res\\Stage\\SpaceStage1.obj", "res\\Stage\\SpaceStage1.mtl"
 //#define MODEL_BACKGROUND "res\\sky.obj", "res\\sky.mtl"
@@ -112,6 +111,13 @@ void CGameScene::Update()
 		CCollisionManager::Instance()->Render();
 	}
 	
+	
+	mTime++;
+	if (mTime >= 60)
+	{
+		spUi->Time(mSecondTime++);
+		mTime = 0;
+	}
 	spUi->Render();	//UI‚Ì•`‰æ
 
 }

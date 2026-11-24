@@ -56,6 +56,11 @@ void CUi::Render()
 	sprintf(buf, "SCORE:%d", mScore);
 	//文字列の描画
 	mFont.Draw(30, 580, 8, 16, buf);
+	//Scoreの表示
+	//文字列の設定
+	sprintf(buf, "TIME:%d", mTime);
+	//文字列の描画
+	mFont.Draw(30, 520, 8, 16, buf);
 	
 	//描画色の設定（緑色の半透明）
 	glColor4f(0.0f, 1.0f, 0.0f, 0.5f);

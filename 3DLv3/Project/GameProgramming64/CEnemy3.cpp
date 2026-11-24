@@ -41,7 +41,7 @@ CEnemy3::CEnemy3(const CVector& pos, const CVector& rot, const CVector& scale)
 
 CEnemy3::~CEnemy3()
 {
-	CGameScene::Ui()->Score(500);
+	
 }
 
 void CEnemy3::Update()
@@ -96,6 +96,7 @@ void CEnemy3::Update()
 
 	if (mHP <= 0)
 	{
+		CGameScene::Ui()->Score(500);
 		new CEffect(mPosition, 5.0f, 5.0f, "Effect\\exp.tga", 4, 4, 2);
 		mEnabled = false;
 	}

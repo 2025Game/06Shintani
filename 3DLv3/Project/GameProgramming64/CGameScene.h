@@ -25,6 +25,8 @@ private:
 	CModelX mPlayer;
 	CColliderMesh mColliderMesh;//メッシュコライダ
 	static CUi* spUi;	//UIクラスのポインタ
+	int mTime; //経過時間(フレーム)
+	int mSecondTime; //経過時間(秒)
 	CInput mInput;
 	
 };
