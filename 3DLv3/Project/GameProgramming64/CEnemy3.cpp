@@ -96,6 +96,7 @@ void CEnemy3::Update()
 
 	if (mHP <= 0)
 	{
+		new CEffect(mPosition, 5.0f, 5.0f, "Effect\\exp.tga", 4, 4, 2);
 		mEnabled = false;
 	}
 
