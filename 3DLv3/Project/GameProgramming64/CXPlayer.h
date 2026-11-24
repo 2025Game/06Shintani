@@ -32,6 +32,7 @@ public:
 
 	void Render() override;
 
+	
 	//プレイヤーのポインタの取得
 	static CXPlayer* Instance();
 private:
@@ -50,6 +51,7 @@ private:
 
 	bool BulletFlag=false;//弾を出したときにフラグを操作する
 	int BulletCoolTime=0;
+	
 	//モデルのインスタンス
 	static CModel msModel;
 	//プレイヤーのインスタンス

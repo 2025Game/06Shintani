@@ -4,15 +4,8 @@
 #define HP_UI "UI\\HPUI.png"
 #define SCORE_UI "UI\\ScoreUI.png"
 #define SKILL_UI "UI\\SkillUI.png"
-void CUi::Enemy(int enemy)
-{
-	mEnemy = enemy;
-}
+#define MAX_HP 5
 
-void CUi::Hp(int hp)
-{
-	mHp = hp;
-}
 
 CUi::CUi()
 	: mTime(0)
@@ -31,7 +24,15 @@ CUi::CUi()
 	mSkillUI.Load(SKILL_UI);//SkillのUI
 
 }
+void CUi::Enemy(int enemy)
+{
+	mEnemy = enemy;
+}
 
+void CUi::Hp(int hp)
+{
+	mHp += hp;
+}
 void CUi::Time(int time)
 {
 	mTime = time;
@@ -47,10 +48,64 @@ void CUi::Render()
 	CCamera::Start(0, 800, 0, 600);	//2D描画開始
 	//文字列編集エリアの作成
 	char buf[64];
+
 	//UIの表示
-	mHpUI.DrawImage(0.0f, 400.0f, 0.0f, 50.0f, 60, 2130, 520, 230);
 	mScoreUI.DrawImage(0.0f, 300.0f, 550.0f, 600.0f, 115, 2100, 520, 190);
 	mSkillUI.DrawImage(500.0f, 800.0f, 0.0f, 50.0f, 210, 1840, 580, 275);
+	mHpUI.DrawImage(0.0f, 400.0f, 0.0f, 50.0f, 60, 2130, 520, 230);
+	// HP割合
+	float rate = (float)mHp / MAX_HP;
+
+	if (rate < 0.0f) rate = 0.0f;
+	if (rate > 1.0f) rate = 1.0f;
+	//TODO シールド用のrateも作る
+	
+
+	// シールドバー描画
+	// 色を青にする
+	glColor4f(0.0f, 1.0f, 1.0f, 1.0f);
+	glBegin(GL_QUADS);
+	float shield_x = 35.0f;
+	float shield_y = 25.0f;
+
+	float shield_width = 340.0f;
+	float shield_height = 15.0f;
+	glVertex2f(shield_x, shield_y);
+	glVertex2f(shield_x + shield_width * rate, shield_y);
+	glVertex2f(shield_x + shield_width * rate, shield_y + shield_height);
+	glVertex2f(shield_x, shield_y + shield_height);
+
+	glEnd();
+	// 色を緑にする
+	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+	// HPによって色変更
+	if (rate > 0.7f)
+	{
+		glColor3f(0.0f, 1.0f, 0.0f); // 緑
+	}
+	else if (rate > 0.3f)
+	{
+		glColor3f(1.0f, 1.0f, 0.0f); // 黄
+	}
+	else
+	{
+		glColor3f(1.0f, 0.0f, 0.0f); // 赤
+	}
+	// HPバー描画
+	glBegin(GL_QUADS);
+	float hp_x = 35.0f;
+	float hp_y = 5.0f;
+
+	float hp_width = 335.0f;
+	float hp_height = 15.0f;
+	glVertex2f(hp_x, hp_y);
+	glVertex2f(hp_x + hp_width * rate, hp_y);
+	glVertex2f(hp_x + hp_width * rate, hp_y + hp_height);
+	glVertex2f(hp_x, hp_y + hp_height);
+
+	glEnd();
+	// 色を元に戻す
+	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 	//Scoreの表示
 	//文字列の設定
 	sprintf(buf, "SCORE:%d", mScore);
@@ -64,7 +119,6 @@ void CUi::Render()
 	
 	//描画色の設定（緑色の半透明）
 	glColor4f(0.0f, 1.0f, 0.0f, 0.5f);
-	
 
 	//Y座標の表示
 	//文字列の設定

@@ -8,6 +8,7 @@ const float RAD_TO_DEG = 180.0f / (float)M_PI;
 
 //モデルデータの指定
 #define MODEL_PATH "res\\Spaceship\\SpaceShip.obj","res\\Spaceship\\SpaceShip.mtl"
+
 //静的メンバ変数の定着
 CModel CXPlayer::msModel;
 
@@ -317,6 +318,8 @@ void CXPlayer::Render()
 {
 	CCharacter3::Render();
 }
+
+
 
 const CMatrix& CXPlayer::FrameCombinedMatrix(const char* name)
 {

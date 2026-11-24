@@ -37,7 +37,7 @@ private:
 	float mPosZ;	//高度　Z回転値
 
 	int mEnemy;	//敵の数
-	int mHp;
+	int mHp;//HP実数
 	int mTime;	//経過時間(フレーム)
 	int mScore; //スコア
 	CFont mFont;

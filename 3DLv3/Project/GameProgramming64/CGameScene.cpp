@@ -35,6 +35,7 @@ void CGameScene::Load()
 	mBackGround.Load(MODEL_BACKGROUND);
 	//Xファイルの読み込み
 	mPlayer.Load(MODEL_FILE);
+	spUi = new CUi();	//UIクラスの生成
 	//キャラのインスタンス作成
 	CCharacter3* character = new CCharacter3();
 	//mPlayerのインスタンス作成
@@ -70,7 +71,7 @@ void CGameScene::Load()
 	CCamera::Instance()->Scale(CVector(0.0f, 1.0f, -12.0f));
 	//スポナーの生成
 	EnemySpawner::Instance();
-	spUi = new CUi();	//UIクラスの生成
+	
 }
 
 void CGameScene::Update()

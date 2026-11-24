@@ -207,6 +207,7 @@ void CEnemy3::Collision(CCollider* m, CCollider* o)
 						//ZŽ²‚Ì‚¸‚ê‚ª8.0–¢–ž
 						if (0.0f < dz && dz < 8.0f)
 						{
+							CGameScene::Ui()->Hp(-1);
 							new CEffect(m->Parent()->Position(), 5.0f, 5.0f, "Effect\\exp.tga", 4, 4, 2);
 							mEnabled = false;
 						}

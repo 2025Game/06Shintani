@@ -31,7 +31,7 @@ public:
 	void Init(CModelX* model);
 
 	void Render() override;
-
+	
 	//プレイヤーのポインタの取得
 	static CPlayer* Instance();
 private:

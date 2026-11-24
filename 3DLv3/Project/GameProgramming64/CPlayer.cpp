@@ -10,7 +10,8 @@ const float RAD_TO_DEG = 180.0f / (float)M_PI;
 #define MODEL_PATH "res\\Spaceship\\SpaceShip.obj","res\\Spaceship\\SpaceShip.mtl"
 //静的メンバ変数の定着
 CModel CPlayer::msModel;
-
+// 最大ＨＰ
+#define MAX_HP 5
 CPlayer* CPlayer::spInstance = nullptr;
 
 CPlayer::CPlayer()
@@ -54,6 +55,7 @@ CPlayer::CPlayer()
 	spInstance = this;
 	//マウスを非表示にする
 	mInput.MouseShowCursor(false);
+	CGameScene::Ui()->Hp(5);
 }
 
 void CPlayer::Update()
@@ -317,6 +319,7 @@ void CPlayer::Render()
 {
 	CCharacter3::Render();
 }
+
 
 
 CPlayer* CPlayer::Instance()
