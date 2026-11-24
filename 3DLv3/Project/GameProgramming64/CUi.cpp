@@ -31,6 +31,7 @@ void CUi::Enemy(int enemy)
 
 void CUi::Hp(int hp)
 {
+	printf("ダメージを食らった");
 	mHp += hp;
 }
 void CUi::Time(int time)
@@ -54,10 +55,10 @@ void CUi::Render()
 	mSkillUI.DrawImage(500.0f, 800.0f, 0.0f, 50.0f, 210, 1840, 580, 275);
 	mHpUI.DrawImage(0.0f, 400.0f, 0.0f, 50.0f, 60, 2130, 520, 230);
 	// HP割合
-	float rate = (float)mHp / MAX_HP;
+	float hp_rate = (float)mHp / MAX_HP;
 
-	if (rate < 0.0f) rate = 0.0f;
-	if (rate > 1.0f) rate = 1.0f;
+	if (hp_rate < 0.0f) hp_rate = 0.0f;
+	if (hp_rate > 1.0f) hp_rate = 1.0f;
 	//TODO シールド用のrateも作る
 	
 
@@ -71,19 +72,19 @@ void CUi::Render()
 	float shield_width = 340.0f;
 	float shield_height = 15.0f;
 	glVertex2f(shield_x, shield_y);
-	glVertex2f(shield_x + shield_width * rate, shield_y);
-	glVertex2f(shield_x + shield_width * rate, shield_y + shield_height);
+	glVertex2f(shield_x + shield_width * hp_rate, shield_y);
+	glVertex2f(shield_x + shield_width * hp_rate, shield_y + shield_height);
 	glVertex2f(shield_x, shield_y + shield_height);
 
 	glEnd();
 	// 色を緑にする
 	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 	// HPによって色変更
-	if (rate > 0.7f)
+	if (hp_rate > 0.7f)
 	{
 		glColor3f(0.0f, 1.0f, 0.0f); // 緑
 	}
-	else if (rate > 0.3f)
+	else if (hp_rate > 0.3f)
 	{
 		glColor3f(1.0f, 1.0f, 0.0f); // 黄
 	}
@@ -99,8 +100,8 @@ void CUi::Render()
 	float hp_width = 335.0f;
 	float hp_height = 15.0f;
 	glVertex2f(hp_x, hp_y);
-	glVertex2f(hp_x + hp_width * rate, hp_y);
-	glVertex2f(hp_x + hp_width * rate, hp_y + hp_height);
+	glVertex2f(hp_x + hp_width * hp_rate, hp_y);
+	glVertex2f(hp_x + hp_width * hp_rate, hp_y + hp_height);
 	glVertex2f(hp_x, hp_y + hp_height);
 
 	glEnd();
