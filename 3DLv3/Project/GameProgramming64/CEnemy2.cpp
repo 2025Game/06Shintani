@@ -55,7 +55,7 @@ CEnemy2::~CEnemy2()
 		//シールドの有効フラグをオフにする
 		mpShield->SetEnable(false);
 	}
-	
+	CGameScene::Ui()->Score(800);
 }
 
 void CEnemy2::RemoveChild(CTransform* child)
@@ -178,6 +178,7 @@ void CEnemy2::Collision(CCollider* m, CCollider* o)
 				if (o->Tag() == ETag::EBULLET)
 				{
 					//printf("敵2に弾が当たった");
+					CGameScene::Ui()->Score(100);
 					mHp--;
 
 				}

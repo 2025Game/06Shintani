@@ -39,6 +39,11 @@ CEnemy3::CEnemy3(const CVector& pos, const CVector& rot, const CVector& scale)
 
 }
 
+CEnemy3::~CEnemy3()
+{
+	CGameScene::Ui()->Score(500);
+}
+
 void CEnemy3::Update()
 {
 	//ó‘Ô‚ÌXV
@@ -132,6 +137,7 @@ void CEnemy3::Collision(CCollider* m, CCollider* o)
 				if (o->Tag() == ETag::EBULLET)
 				{
 					printf("“G3‚É’e‚ª“–‚½‚Á‚½");
+					CGameScene::Ui()->Score(100);
 					mHP--;
 
 				}

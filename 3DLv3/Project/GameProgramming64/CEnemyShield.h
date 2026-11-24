@@ -4,6 +4,7 @@
 #include"CColliderCapsule.h"
 #include"CCollisionManager.h"
 #include"CColliderTriangle.h"
+#include"CGameScene.h"
 
 class CXCaracter;
 

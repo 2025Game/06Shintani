@@ -28,6 +28,8 @@ public:
 	CUi();
 	//Time(時間)
 	void Time(int time);
+	//Score
+	void Score(int score);
 	void Render();
 private:
 	float mPosX;	//高度　X座標
@@ -37,7 +39,9 @@ private:
 	int mEnemy;	//敵の数
 	int mHp;
 	int mTime;	//経過時間
+	int mScore; //スコア
 	CFont mFont;
+	CFont mSfFont;//SFフォント
 	CTexture mHpUI;
 	CTexture mScoreUI;
 	CTexture mSkillUI;

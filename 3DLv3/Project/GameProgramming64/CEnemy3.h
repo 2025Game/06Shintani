@@ -17,6 +17,7 @@ class CEnemy3 :public CCharacter3
 {
 public:
 	CEnemy3(const CVector& pos, const CVector& rot = CVector(), const CVector& scale = CVector(2.5f, 2.5f, 2.5f));
+	~CEnemy3();
 	void Update() override;
 	//衝突処理
 	//Collision(コライダ１,コライダ２)

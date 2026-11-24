@@ -60,6 +60,7 @@ CEnemyShield::~CEnemyShield()
 	{
 		parent->RemoveChild(this);
 	}
+	CGameScene::Ui()->Score(200);
 }
 
 
@@ -153,7 +154,8 @@ void CEnemyShield::Collision(CCollider* m, CCollider* o)
 		{
 			if (o->Tag() == ETag::EBULLET)
 			{
-				printf("“G1‚É’e‚ª“–‚½‚Á‚½");
+				printf("ƒV[ƒ‹ƒh‚É’e‚ª“–‚½‚Á‚½");
+				CGameScene::Ui()->Score(50);
 				mHp--;
 
 			}
