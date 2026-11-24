@@ -81,7 +81,7 @@ void EnemySpawner::Spawn()
 		//warp->Scale(CVector(5.0f, 5.0f, 5.0f));
 		//warp->Position(CVector(rand() % 150 - 150, rand() % 150 - 150, rand() % 150 - 150));
 		//CVector warpPos = warp->Position();
-		/
+		
 		//printf("Enemy4‚ªŒÄ‚Î‚ê‚½:%d\n",r);
 		
 	}

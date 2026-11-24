@@ -1,5 +1,6 @@
 #pragma once
 #include "CFont.h"
+#include"CTexture.h"
 /*
 * CUi
 * ユーザーインタフェースクラス
@@ -37,4 +38,7 @@ private:
 	int mHp;
 	int mTime;	//経過時間
 	CFont mFont;
+	CTexture mHpUI;
+	CTexture mScoreUI;
+	CTexture mSkillUI;
 };

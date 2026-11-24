@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include "CUi.h"
 #include "CCamera.h"
-
+#define HP_UI "UI\\HPUI.png"
+#define SCORE_UI "UI\\ScoreUI.png"
+#define SKILL_UI "UI\\SkillUI.png"
 void CUi::Enemy(int enemy)
 {
 	mEnemy = enemy;
@@ -21,6 +23,11 @@ CUi::CUi()
 
 {	//フォントファイルのロード
 	mFont.Load("FontWhite.png", 1, 64);
+	//UIのロード
+	mHpUI.Load(HP_UI);//HPのUI
+	mScoreUI.Load(SCORE_UI);//ScoreのUI
+	mSkillUI.Load(SKILL_UI);//SkillのUI
+
 }
 
 void CUi::Time(int time)
@@ -31,6 +38,10 @@ void CUi::Time(int time)
 void CUi::Render()
 {
 	CCamera::Start(0, 800, 0, 600);	//2D描画開始
+
+	mHpUI.DrawImage(0.0f, 400.0f, 0.0f, 50.0f, 60, 2130, 520, 230);
+	mScoreUI.DrawImage(0.0f, 300.0f, 550.0f, 600.0f, 115, 2100, 520, 190);
+	mSkillUI.DrawImage(500.0f, 800.0f, 0.0f, 50.0f, 210, 1840, 580, 275);
 	//描画色の設定（緑色の半透明）
 	glColor4f(0.0f, 1.0f, 0.0f, 0.5f);
 	//文字列編集エリアの作成
@@ -40,19 +51,21 @@ void CUi::Render()
 	//文字列の設定
 	sprintf(buf, "X:%7.2f", mPosX);
 	//文字列の描画
-	mFont.Draw(650, 80, 8, 16, buf);
+	mFont.Draw(650, 130, 8, 16, buf);
 
 	//X軸回転値の表示
 	//文字列の設定
 	sprintf(buf, "Y:%7.2f", mPosY);
 	//文字列の描画
-	mFont.Draw(650, 50, 8, 16, buf);
+	mFont.Draw(650, 100, 8, 16, buf);
 
 	//Y軸回転値の表示
 	//文字列の設定
 	sprintf(buf, "Z:%7.2f", mPosZ);
 	//文字列の描画
-	mFont.Draw(650, 20, 8, 16, buf);
+	mFont.Draw(650, 70, 8, 16, buf);
+
+	
 	CCamera::End();	//2D描画終了
 }
 
