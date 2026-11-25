@@ -7,7 +7,7 @@
 class CModelX;//CModelXクラスの宣言
 class CModelXFrame;//CModelXFrameクラスの宣言
 class CMesh;//CMeshクラスの宣言
-
+class CMaterial;//マテリアルの宣言
 #define MODEL_FILE "res\\sample.blend.x"//入力ファイル名\
 
 //領域開放をマクロ化
@@ -29,13 +29,14 @@ public:
 	//単語の取り出し
 	char* GetToken();
 	char* Token();
+	bool EOT();//トークンがなくなったらtrue
 private:
 	char* mpPointer;//読み込み位置
 	char mToken[1024];//取り出した単語の領域
 	//cが区切り文字ならtrueを返す
 	bool IsDelimiter(char c);
 	std::vector<CModelXFrame*> mFrame;//フレームの配列
-
+	
 };
 
 //CModelXFrameクラスの定義
@@ -74,6 +75,10 @@ private:
 	int* mpVertexIndex;//面を構成する頂点インデックス
 	int mNormalNum;//法線数
 	CVector* mpNormal;//法線ベクトル
+	int mMaterialNum;//マテリアル数
+	int mMaterialIndexNum;//マテリアル番号数（面数）
+	int* mpMaterialIndex;//マテリアル番号
+	std::vector<CMaterial*> mMaterial;//マテリアルデータ
 
 };
 #endif // ! CMODELX_H//インクルードガード
