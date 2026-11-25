@@ -41,7 +41,8 @@ CEnemy3::CEnemy3(const CVector& pos, const CVector& rot, const CVector& scale)
 
 CEnemy3::~CEnemy3()
 {
-	
+	//“|‚·‚×‚«“G‚Ì”‚ð‚PŒ¸‚ç‚·
+	CGameScene::Ui()->EnemyCount(1);
 }
 
 void CEnemy3::Update()

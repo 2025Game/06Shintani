@@ -42,6 +42,8 @@ CEnemy1::CEnemy1(const CVector& pos, const CVector& rot, const CVector& scale)
 CEnemy1::~CEnemy1()
 {
 	CGameScene::Ui()->Score(500);
+	//“|‚·‚×‚«“G‚Ì”‚ð‚PŒ¸‚ç‚·
+	CGameScene::Ui()->EnemyCount(1);
 }
 
 void CEnemy1::Update()

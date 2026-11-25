@@ -56,6 +56,8 @@ CEnemy2::~CEnemy2()
 		mpShield->SetEnable(false);
 	}
 	CGameScene::Ui()->Score(800);
+	//“|‚·‚×‚«“G‚Ì”‚ð‚PŒ¸‚ç‚·
+	CGameScene::Ui()->EnemyCount(1);
 }
 
 void CEnemy2::RemoveChild(CTransform* child)

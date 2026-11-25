@@ -7,12 +7,13 @@
 #define TIME_UI "UI\\TimeUI.png"
 #define MAX_HP 5 //プレイヤーのHP
 #define MAX_SHIELD 5 //プレイヤーのシールド耐久値
-
+#define MAX_ENEMYCOUNT 10//何体倒せばボスが出るか
 
 CUi::CUi()
 	: mTime(0)
 	, mHp(MAX_HP)
 	, mShield(MAX_SHIELD)
+	, mEnemy(MAX_ENEMYCOUNT)
 	, mScore(0)
 	, mPosX(0.0f)
 	, mPosY(0.0f)
@@ -28,9 +29,9 @@ CUi::CUi()
 	mTimeUI.Load(TIME_UI);//TimeのUI
 
 }
-void CUi::Enemy(int enemy)
+void CUi::EnemyCount(int enemy)
 {
-	mEnemy = enemy;
+	mEnemy -= enemy;
 }
 
 void CUi::HpDamage(int damage)
@@ -160,12 +161,17 @@ void CUi::Render()
 	sprintf(buf, "SCORE:%d", mScore);
 	//文字列の描画
 	mFont.Draw(30, 580, 8, 16, buf);
-	//Scoreの表示
+	//Timeの表示
 	//文字列の設定
 	sprintf(buf, "%d", mTime);
 	//文字列の描画
 	mFont.Draw(100, 525, 8, 16, buf);
-	
+	//EnemyCountの表示
+	//文字列の設定
+	sprintf(buf, "%d", mEnemy);
+	//文字列の描画
+	mFont.Draw(100,480, 8, 16, buf);
+
 	//描画色の設定（緑色の半透明）
 	glColor4f(0.0f, 1.0f, 0.0f, 0.5f);
 

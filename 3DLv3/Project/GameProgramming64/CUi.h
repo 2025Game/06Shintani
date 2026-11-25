@@ -21,13 +21,13 @@ public:
 	//スタート画面
 	void Start();
 
-	//Enemy(敵の数)
-	void Enemy(int enemy);
-	//プレイヤーのHP
+	//Enemy(倒すべき敵の残り数)
+	void EnemyCount(int enemy);
+	//プレイヤーのHPダメージ処理
 	void HpDamage(int damage);
 	//現在のHPを返す
 	int Hp();
-	//プレイヤーのシールド
+	//プレイヤーのシールドダメージ処理
 	void ShieldDamage(int damage);
 	//現在のシールドを返す
 	int Shield();
