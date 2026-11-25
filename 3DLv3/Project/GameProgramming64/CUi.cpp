@@ -4,12 +4,14 @@
 #define HP_UI "UI\\HPUI.png"
 #define SCORE_UI "UI\\ScoreUI.png"
 #define SKILL_UI "UI\\SkillUI.png"
-#define MAX_HP 5
+#define MAX_HP 5 //プレイヤーのHP
+#define MAX_SHIELD 5 //プレイヤーのシールド耐久値
 
 
 CUi::CUi()
 	: mTime(0)
-	, mHp(0)
+	, mHp(MAX_HP)
+	, mShield(MAX_SHIELD)
 	, mScore(0)
 	, mPosX(0.0f)
 	, mPosY(0.0f)
@@ -19,7 +21,7 @@ CUi::CUi()
 	mFont.Load("FontWhite.png", 1, 64);
 	mSfFont.Load("FontWhite.png", 1, 64);//TODO SFフォントを探して入れる
 	//UIのロード
-	mHpUI.Load(HP_UI);//HPのUI
+	mHpUI.Load(HP_UI);//HP&ShieldのUI
 	mScoreUI.Load(SCORE_UI);//ScoreのUI
 	mSkillUI.Load(SKILL_UI);//SkillのUI
 
@@ -29,10 +31,27 @@ void CUi::Enemy(int enemy)
 	mEnemy = enemy;
 }
 
-void CUi::Hp(int hp)
+void CUi::HpDamage(int damage)
 {
 	printf("ダメージを食らった");
-	mHp += hp;
+	mHp -= damage;
+}
+
+int CUi::Hp()
+{
+	return mHp;
+}
+
+
+
+void CUi::ShieldDamage(int damage)
+{
+	printf("シールドが削られた");
+	mShield -= damage;
+}
+int CUi::Shield()
+{
+	return mShield;
 }
 void CUi::Time(int time)
 {
@@ -60,7 +79,11 @@ void CUi::Render()
 	if (hp_rate < 0.0f) hp_rate = 0.0f;
 	if (hp_rate > 1.0f) hp_rate = 1.0f;
 	//TODO シールド用のrateも作る
-	
+	// シールド割合
+	float shield_rate = (float)mShield / MAX_SHIELD;
+
+	if (shield_rate < 0.0f) shield_rate = 0.0f;
+	if (shield_rate > 1.0f) shield_rate = 1.0f;
 
 	// シールドバー描画
 	// 色を青にする
@@ -72,8 +95,8 @@ void CUi::Render()
 	float shield_width = 340.0f;
 	float shield_height = 15.0f;
 	glVertex2f(shield_x, shield_y);
-	glVertex2f(shield_x + shield_width * hp_rate, shield_y);
-	glVertex2f(shield_x + shield_width * hp_rate, shield_y + shield_height);
+	glVertex2f(shield_x + shield_width * shield_rate, shield_y);
+	glVertex2f(shield_x + shield_width * shield_rate, shield_y + shield_height);
 	glVertex2f(shield_x, shield_y + shield_height);
 
 	glEnd();

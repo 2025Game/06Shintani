@@ -23,8 +23,15 @@ public:
 
 	//Enemy(敵の数)
 	void Enemy(int enemy);
+	//プレイヤーのHP
+	void HpDamage(int damage);
+	//現在のHPを返す
+	int Hp();
+	//プレイヤーのシールド
+	void ShieldDamage(int damage);
+	//現在のシールドを返す
+	int Shield();
 
-	void Hp(int hp);
 	CUi();
 	//Time(時間)
 	void Time(int time);
@@ -38,6 +45,7 @@ private:
 
 	int mEnemy;	//敵の数
 	int mHp;//HP実数
+	int mShield;//シールド
 	int mTime;	//経過時間(フレーム)
 	int mScore; //スコア
 	CFont mFont;

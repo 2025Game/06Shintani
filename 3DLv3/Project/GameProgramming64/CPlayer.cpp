@@ -12,6 +12,7 @@ const float RAD_TO_DEG = 180.0f / (float)M_PI;
 CModel CPlayer::msModel;
 // 最大ＨＰ
 #define MAX_HP 5
+#define MAX_SHIELD 5
 CPlayer* CPlayer::spInstance = nullptr;
 
 CPlayer::CPlayer()
@@ -55,7 +56,8 @@ CPlayer::CPlayer()
 	spInstance = this;
 	//マウスを非表示にする
 	mInput.MouseShowCursor(false);
-	CGameScene::Ui()->Hp(5);
+	//CGameScene::Ui()->Hp(MAX_HP);
+	//CGameScene::Ui()->Shield(MAX_SHIELD);
 }
 
 void CPlayer::Update()
@@ -211,6 +213,17 @@ void CPlayer::Collision(CCollider* m, CCollider* o)
 				if (m->Tag() == ETag::EPLAYER && o->Tag() == ETag::EENEMYBULLET)
 				{
 					//ダメージ処理
+					if (CGameScene::Ui()->Shield() <= 0)
+					{
+						//残っているシールドが０以下だったらHPを減らす
+						CGameScene::Ui()->HpDamage(1);
+					}
+					else
+					{
+						//シールドが残っている場合はシールドを減らす
+						CGameScene::Ui()->ShieldDamage(1);
+					}
+					
 					printf("プレイヤーがダメージを食らった");
 					return;
 				}

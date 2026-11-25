@@ -207,7 +207,18 @@ void CEnemy3::Collision(CCollider* m, CCollider* o)
 						//Z軸のずれが8.0未満
 						if (0.0f < dz && dz < 8.0f)
 						{
-							CGameScene::Ui()->Hp(-1);
+							//ダメージ処理
+							if (CGameScene::Ui()->Shield() <= 0)
+							{
+								//残っているシールドが０以下だったらHPを減らす
+								CGameScene::Ui()->HpDamage(1);
+							}
+							else
+							{
+								//シールドが残っている場合はシールドを減らす
+								CGameScene::Ui()->ShieldDamage(1);
+							}
+							
 							new CEffect(m->Parent()->Position(), 5.0f, 5.0f, "Effect\\exp.tga", 4, 4, 2);
 							mEnabled = false;
 						}
