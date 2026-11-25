@@ -53,4 +53,5 @@ private:
 	CTexture mHpUI;
 	CTexture mScoreUI;
 	CTexture mSkillUI;
+	CTexture mTimeUI;
 };

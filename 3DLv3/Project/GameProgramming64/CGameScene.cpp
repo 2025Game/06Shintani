@@ -112,13 +112,14 @@ void CGameScene::Update()
 		CCollisionManager::Instance()->Render();
 	}
 	
-	
+	//TIME(•b•\Ž¦)
 	mTime++;
 	if (mTime >= 60)
 	{
 		spUi->Time(mSecondTime++);
 		mTime = 0;
 	}
+
 	spUi->Render();	//UI‚Ì•`‰æ
 
 }
