@@ -179,10 +179,14 @@ void CUi::Render()
 	//文字列の描画
 	mFont.Draw(120, 580, 8, 16, buf);
 	//EnemyCountの表示
-	//文字列の設定
-	sprintf(buf, "%d", mEnemy);
+	// //文字列の設定
+	sprintf(buf, "--MISSION--");
 	//文字列の描画
-	mFont.Draw(100,480, 8, 16, buf);
+	mFont.Draw(20, 530, 7, 14, buf);
+	//文字列の設定
+	sprintf(buf," ENEMY %d/%d", mEnemy,MAX_ENEMYCOUNT);
+	//文字列の描画
+	mFont.Draw(20,500, 6, 12, buf);
 
 	//描画色の設定（緑色の半透明）
 	glColor4f(0.0f, 1.0f, 0.0f, 0.5f);
