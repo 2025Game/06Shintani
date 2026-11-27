@@ -15,7 +15,7 @@ CEnemyShield::CEnemyShield(CCharacter3* parent)
 {
 	//親のポインタを保存
 	SetParent(parent);
-
+	
 	//モデルデータがなければ読み込み
 	if (msModel.Triangles().empty())
 	{

@@ -9,16 +9,16 @@ uniform vec3 Specular;
 uniform vec3 Emissive;
 uniform float Pow;
 uniform int TextureFlg;
-uniform sampler2D Sampler;	//ƒeƒNƒXƒ`ƒƒ
-uniform sampler2DShadow DepthTexture;	//ƒfƒvƒXƒeƒNƒXƒ`ƒƒ
+uniform sampler2D Sampler;	//ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½
+uniform sampler2DShadow DepthTexture;	//ï¿½fï¿½vï¿½Xï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½
 
-//’¸“_ƒVƒF[ƒ_[‚©‚çó‚¯æ‚é•Ï”
-in vec3 N;//–@üƒxƒNƒgƒ‹
-in vec2 TexCoord0;	// ’¸“_ƒVƒF[ƒ_‚©‚çó‚¯æ‚éƒeƒNƒXƒ`ƒƒÀ•W
-in vec4 TexCoord1;	// ’¸“_ƒVƒF[ƒ_‚©‚çó‚¯æ‚éƒeƒNƒXƒ`ƒƒÀ•W(DepthTexture—p)
+//ï¿½ï¿½ï¿½_ï¿½Vï¿½Fï¿½[ï¿½_ï¿½[ï¿½ï¿½ï¿½ï¿½ó‚¯ï¿½ï¿½Ïï¿½
+in vec3 N;//ï¿½@ï¿½ï¿½ï¿½xï¿½Nï¿½gï¿½ï¿½
+in vec2 TexCoord0;	// ï¿½ï¿½ï¿½_ï¿½Vï¿½Fï¿½[ï¿½_ï¿½ï¿½ï¿½ï¿½ó‚¯ï¿½ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½W
+in vec4 TexCoord1;	// ï¿½ï¿½ï¿½_ï¿½Vï¿½Fï¿½[ï¿½_ï¿½ï¿½ï¿½ï¿½ó‚¯ï¿½ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½W(DepthTextureï¿½p)
 
-//o—Í
-out vec4 FragColor;             // o—Í‚·‚éƒtƒ‰ƒOƒƒ“ƒg‚ÌF
+//ï¿½oï¿½ï¿½
+out vec4 FragColor;             // ï¿½oï¿½Í‚ï¿½ï¿½ï¿½tï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½gï¿½ÌF
 
 void main() {
 	float NL = dot(N, lightVec); 
@@ -34,14 +34,15 @@ void main() {
 	{
 		texColor = texture(Sampler, TexCoord0);
 	}
-	//ƒfƒvƒXƒeƒNƒXƒ`ƒƒ‚Ì’l‚ğæ“¾
+	//ï¿½fï¿½vï¿½Xï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½Ì’lï¿½ï¿½ï¿½æ“¾
 	float shd = textureProj(DepthTexture, TexCoord1);
-	//’l‚ª0‚Í‰e‚É‚·‚é
+	//ï¿½lï¿½ï¿½0ï¿½Í‰eï¿½É‚ï¿½ï¿½ï¿½
 	if(shd == 0.0)
 	{
-		//texColor = texColor * 0.4; //‰e‚É‚·‚é
+		//texColor = texColor * 0.4; //ï¿½eï¿½É‚ï¿½ï¿½ï¿½
 		texColor.w = 1.0;
 	}
-    // ƒeƒNƒXƒ`ƒƒ‚ğƒTƒ“ƒvƒŠƒ“ƒO
+    // ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½Tï¿½ï¿½ï¿½vï¿½ï¿½ï¿½ï¿½ï¿½O
 	FragColor= texColor * (Diffuse * clamp(NL,0,1.0)* vec4(lightDiffuseColor,1.0)+ Ambient * vec4(lightAmbientColor,1.0) + vec4(specular*Specular + Emissive,1.0));
+	FragColor.a = Diffuse.a;
 }

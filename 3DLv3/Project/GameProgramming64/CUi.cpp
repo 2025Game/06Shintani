@@ -73,7 +73,7 @@ void CUi::Time(int time)
 
 void CUi::Score(int score)
 {
-	mScore = score;
+	mScore += score;
 }
 
 void CUi::Update()
