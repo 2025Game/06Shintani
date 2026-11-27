@@ -16,9 +16,9 @@ CModel CPlayer::msModel;
 CPlayer* CPlayer::spInstance = nullptr;
 
 CPlayer::CPlayer()
-	:mColliderCapsule1(this, &mMatrix, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, -20.0f), 1.1f)
-	, mColliderCapsule2(this, &mMatrix, CVector(2.0f, -1.0f, 20.0f), CVector(4.5f, -2.0f, 0.0f), 0.4f)
-	, mColliderCapsule3(this, &mMatrix, CVector(-2.0f, -1.0f, 20.0f), CVector(-4.5f, -2.0f, 0.0f), 0.4f)
+	:mColliderCapsule1(this, &mMatrix, CVector(0.0f, 0.0f, 20.0f), CVector(0.0f, 0.0f, -20.0f), 1.1f)
+	//, mColliderCapsule2(this, &mMatrix, CVector(2.0f, -1.0f, 20.0f), CVector(4.5f, -2.0f, 0.0f), 0.4f)
+	//, mColliderCapsule3(this, &mMatrix, CVector(-2.0f, -1.0f, 20.0f), CVector(-4.5f, -2.0f, 0.0f), 0.4f)
 	, mPlayerRenge(this, &mMatrix, CVector(-2.0f, -1.0f, 20.0f), CVector(-4.5f, -2.0f, 0.0f), 20.0f)
 {
 	//モデルデータがなければ読み込み
@@ -49,8 +49,8 @@ CPlayer::CPlayer()
 	//タグの設定
 	Tag(ETag::EPLAYER);
 	mColliderCapsule1.Tag(ETag::EPLAYER);
-	mColliderCapsule2.Tag(ETag::EPLAYER);
-	mColliderCapsule3.Tag(ETag::EPLAYER);
+	//mColliderCapsule2.Tag(ETag::EPLAYER);
+	//mColliderCapsule3.Tag(ETag::EPLAYER);
 	mPlayerRenge.Tag(ETag::EPLAYERRANGE);
 	//インスタンスの設定
 	spInstance = this;
@@ -98,8 +98,8 @@ void CPlayer::Update()
 	CCamera::Instance()->Position(CVector(0.0f, 4.0f, 0.0f));
 	//カプセルコライダの更新
 	mColliderCapsule1.Update();
-	mColliderCapsule2.Update();
-	mColliderCapsule3.Update();
+	//mColliderCapsule2.Update();
+	//mColliderCapsule3.Update();
 	mPlayerRenge.Update();
 
 	//左クリックで弾発射
@@ -203,7 +203,7 @@ void CPlayer::Collision(CCollider* m, CCollider* o)
 			//カプセルとカプセルの衝突判定
 			if (CCollider::CollisionCapsuleCapsule(m, o, &adjust))
 			{
-				if (o == &mColliderCapsule1 || o == &mColliderCapsule2 || o == &mColliderCapsule3 || o == &mPlayerRenge)
+				if (o == &mColliderCapsule1 || o == &mPlayerRenge)// o == &mColliderCapsule2 || o == &mColliderCapsule3 ||
 				{
 					//相手がプレイヤーのコライダの時は衝突処理を行わない
 
@@ -310,13 +310,13 @@ void CPlayer::Collision()
 	//衝突処理を実行
 	CCollisionManager::Instance()->Collision(&mColliderCapsule1, COLLISIONRANGE);
 	//コライダの優先度変更
-	mColliderCapsule2.ChangePriority();
+	//mColliderCapsule2.ChangePriority();
 	//衝突処理を実行
-	CCollisionManager::Instance()->Collision(&mColliderCapsule2, COLLISIONRANGE);
+	//CCollisionManager::Instance()->Collision(&mColliderCapsule2, COLLISIONRANGE);
 	//コライダの優先度変更
-	mColliderCapsule3.ChangePriority();
+	//mColliderCapsule3.ChangePriority();
 	//衝突処理を実行
-	CCollisionManager::Instance()->Collision(&mColliderCapsule3, COLLISIONRANGE);
+	//CCollisionManager::Instance()->Collision(&mColliderCapsule3, COLLISIONRANGE);
 	//コライダの優先度変更
 	mPlayerRenge.ChangePriority();
 	//衝突処理を実行

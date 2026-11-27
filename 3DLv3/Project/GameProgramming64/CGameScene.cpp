@@ -52,14 +52,14 @@ void CGameScene::Load()
 	//パラディンのインスタンスを生成
 	//CXCharacter* paladin = new CPaladin(CVector(0.0f,5.0f,-9.0f));
 	//エネミー１のインスタンスを生成
-	CCharacter3* enemy1 = new CEnemy1(CVector(0.0f, 0.0f, 0.0f));
-	enemy1->Position(CVector(0.0f, 10.0f, -30.0f));
+	//CCharacter3* enemy1 = new CEnemy1(CVector(0.0f, 0.0f, 0.0f));
+	//enemy1->Position(CVector(0.0f, 10.0f, -30.0f));
 	//エネミー2のインスタンスを生成
 	//CCharacter3* enemy2 = new CEnemy2(CVector(0.0f, 0.0f, 0.0f));
 	//enemy2->Position(CVector(0.0f, 10.0f, -30.0f));
 	//エネミー3のインスタンスを生成
-	//CCharacter3* enemy3 = new CEnemy3(CVector(0.0f, 0.0f, 0.0f));
-	//enemy3->Position(CVector(0.0f, 10.0f, -30.0f));
+	CCharacter3* enemy3 = new CEnemy3(CVector(0.0f, 0.0f, 0.0f));
+	enemy3->Position(CVector(0.0f, 10.0f, -30.0f));
 	//Warp* warp = new Warp(EEnemyType::ENEMY1);
 	//warp->Scale(CVector(0.1f, 0.1f, 0.1f));
 	//warp->Position(CVector(0.0f, 10.0f, -30.0f));
