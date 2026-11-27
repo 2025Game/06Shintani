@@ -11,6 +11,9 @@
 
 CUi::CUi()
 	: mTime(0)
+	, mMin(0)
+	, mSec1(0)
+	, mSec2(0)
 	, mHp(MAX_HP)
 	, mShield(MAX_SHIELD)
 	, mEnemy(MAX_ENEMYCOUNT)
@@ -63,9 +66,16 @@ void CUi::Time(int time)
 
 void CUi::Score(int score)
 {
-	mScore += score;
+	mScore = score;
 }
 
+void CUi::Update()
+{
+	mSec1 = mTime / 60 % 10;
+	mSec2 = mTime / 60 / 10 %6;
+	mMin = mTime  / 60 / 10 / 6;
+
+}
 void CUi::Render()
 {
 	CCamera::Start(0, 800, 0, 600);	//2D描画開始
@@ -73,10 +83,12 @@ void CUi::Render()
 	char buf[64];
 
 	//UIの表示
-	mScoreUI.DrawImage(0.0f, 300.0f, 550.0f, 600.0f, 115, 2100, 520, 190);
+	//mScoreUI.DrawImage(0.0f, 300.0f, 550.0f, 600.0f, 115, 2100, 520, 190);
+	mScoreUI.DrawImage(300.0f, 600.0f, 550.0f, 605.0f, 115, 2100, 520, 190);
 	mSkillUI.DrawImage(500.0f, 800.0f, 0.0f, 50.0f, 210, 1840, 580, 275);
 	
-	mTimeUI.DrawImage(0.0f, 300.0f, 500.0f, 550.0f, 60, 2130, 560 ,110);
+	//mTimeUI.DrawImage(300.0f, 600.0f, 550.0f, 605.0f, 60, 2130, 560 ,110);
+	mTimeUI.DrawImage(0.0f, 300.0f, 550.0f, 605.0f, 60, 2130, 560, 110);
 
 	// HP割合
 	float hp_rate = (float)mHp / MAX_HP;
@@ -160,12 +172,12 @@ void CUi::Render()
 	//文字列の設定
 	sprintf(buf, "SCORE:%d", mScore);
 	//文字列の描画
-	mFont.Draw(30, 580, 8, 16, buf);
+	mFont.Draw(320, 580, 8, 16, buf); 
 	//Timeの表示
 	//文字列の設定
-	sprintf(buf, "%d", mTime);
+	sprintf(buf, "%d:%d%d",mMin,mSec2,mSec1);
 	//文字列の描画
-	mFont.Draw(100, 525, 8, 16, buf);
+	mFont.Draw(120, 580, 8, 16, buf);
 	//EnemyCountの表示
 	//文字列の設定
 	sprintf(buf, "%d", mEnemy);

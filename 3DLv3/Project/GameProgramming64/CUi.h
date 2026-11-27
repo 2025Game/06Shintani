@@ -20,7 +20,7 @@ public:
 
 	//スタート画面
 	void Start();
-
+	void Update();
 	//Enemy(倒すべき敵の残り数)
 	void EnemyCount(int enemy);
 	//プレイヤーのHPダメージ処理
@@ -47,6 +47,9 @@ private:
 	int mHp;//HP実数
 	int mShield;//シールド
 	int mTime;	//経過時間(フレーム)
+	int mMin;//経過時間(分)
+	int mSec1;//経過時間(秒1桁目)
+	int mSec2;//経過時間(秒2桁目)
 	int mScore; //スコア
 	CFont mFont;
 	CFont mSfFont;//SFフォント
