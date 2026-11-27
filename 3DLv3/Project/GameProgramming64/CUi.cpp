@@ -6,6 +6,7 @@
 #define SKILL_UI "UI\\SkillUI.png"
 #define TIME_UI "UI\\TimeUI.png"
 #define MAX_HP 5 //プレイヤーのHP
+#define HP_UI_SPPED 0.02f//ダメージを食らった時のHPUIの減少スピード
 #define MAX_SHIELD 5 //プレイヤーのシールド耐久値
 #define MAX_ENEMYCOUNT 10//何体倒せばボスが出るか
 
@@ -15,7 +16,9 @@ CUi::CUi()
 	, mSec1(0)
 	, mSec2(0)
 	, mHp(MAX_HP)
+	, mViewHp(MAX_HP)
 	, mShield(MAX_SHIELD)
+	, mViewShield(MAX_SHIELD)
 	, mEnemy(MAX_ENEMYCOUNT)
 	, mScore(0)
 	, mPosX(0.0f)
@@ -41,6 +44,10 @@ void CUi::HpDamage(int damage)
 {
 	printf("ダメージを食らった");
 	mHp -= damage;
+	if (mHp < 0)
+	{
+		mHp = 0;
+	}
 }
 
 int CUi::Hp()
@@ -71,10 +78,32 @@ void CUi::Score(int score)
 
 void CUi::Update()
 {
+	//時間UI
 	mSec1 = mTime / 60 % 10;
 	mSec2 = mTime / 60 / 10 %6;
 	mMin = mTime  / 60 / 10 / 6;
 
+	//HP、シールドがゆっくり減っていくように見せる
+	//HP
+	if (mViewHp > mHp)
+	{
+		mViewHp -=HP_UI_SPPED;
+
+		if (mViewHp < mHp)
+		{
+			mViewHp = (float)mHp;
+		}
+	}
+	//シールド
+	if (mViewShield > mShield)
+	{
+		mViewShield -= HP_UI_SPPED;
+
+		if (mViewShield < mShield)
+		{
+			mViewShield = (float)mShield;
+		}
+	}
 }
 void CUi::Render()
 {
@@ -83,11 +112,8 @@ void CUi::Render()
 	char buf[64];
 
 	//UIの表示
-	//mScoreUI.DrawImage(0.0f, 300.0f, 550.0f, 600.0f, 115, 2100, 520, 190);
 	mScoreUI.DrawImage(300.0f, 600.0f, 550.0f, 605.0f, 115, 2100, 520, 190);
 	mSkillUI.DrawImage(500.0f, 800.0f, 0.0f, 50.0f, 210, 1840, 580, 275);
-	
-	//mTimeUI.DrawImage(300.0f, 600.0f, 550.0f, 605.0f, 60, 2130, 560 ,110);
 	mTimeUI.DrawImage(0.0f, 300.0f, 550.0f, 605.0f, 60, 2130, 560, 110);
 
 	// HP割合
@@ -125,6 +151,34 @@ void CUi::Render()
 	glVertex2f(hp_x, hp_y);
 	glVertex2f(hp_x + hp_width, hp_y);
 	glVertex2f(hp_x + hp_width, hp_y + hp_height);
+	glVertex2f(hp_x, hp_y + hp_height);
+
+	glEnd();
+	//シールドの耐久値減少用UI
+	float view_shield_rate = mViewShield / MAX_SHIELD;
+
+	// 色をオレンジ色にする
+	glColor4f(1.0f, 0.5f, 0.0f, 1.0f);
+
+	glBegin(GL_QUADS);
+
+	glVertex2f(shield_x, shield_y);
+	glVertex2f(shield_x + shield_width * view_shield_rate, shield_y);
+	glVertex2f(shield_x + shield_width * view_shield_rate, shield_y + shield_height);
+	glVertex2f(shield_x, shield_y + shield_height);
+
+	glEnd();
+	//HPの減少用UI
+	float view_hp_rate = mViewHp / MAX_HP;
+
+	// 色をオレンジ色にする
+	glColor4f(1.0f, 0.5f, 0.0f, 1.0f);
+
+	glBegin(GL_QUADS);
+
+	glVertex2f(hp_x, hp_y);
+	glVertex2f(hp_x + hp_width * view_hp_rate, hp_y);
+	glVertex2f(hp_x + hp_width * view_hp_rate, hp_y + hp_height);
 	glVertex2f(hp_x, hp_y + hp_height);
 
 	glEnd();

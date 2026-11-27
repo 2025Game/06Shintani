@@ -45,7 +45,9 @@ private:
 
 	int mEnemy;	//敵の数
 	int mHp;//HP実数
+	float mViewHp;//UI用のHP
 	int mShield;//シールド
+	float mViewShield;//UI用のシールド
 	int mTime;	//経過時間(フレーム)
 	int mMin;//経過時間(分)
 	int mSec1;//経過時間(秒1桁目)
